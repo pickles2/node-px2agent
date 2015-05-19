@@ -1,4 +1,4 @@
-node-px2-agent
+px2agent
 ==============
 
 ## Usage
