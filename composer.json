@@ -1,5 +1,5 @@
 {
-    "name": "tomk79/node-px2-agent",
+    "name": "tomk79/px2agent",
     "description": "Pickles 2 と NodeJS の間を仲介するライブラリです。",
     "keywords": ["pickles"],
     "license": "MIT",
