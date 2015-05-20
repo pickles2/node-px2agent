@@ -9,24 +9,58 @@ module.exports = function(php_self, path_homedir){
 	var phpjs = require('phpjs');
 
 	/**
-	 * バージョン番号を取得する
+	 * Pickles2 にクエリを投げて、結果を受け取る
 	 */
-	this.get_version = function(cb){
+	this.query = function(path, opt){
+		opt = opt||{};
+		opt.output = opt.output||opt.o||undefined;
+		opt.userAgent = opt.userAgent||opt.u||undefined;
+		opt.success = opt.success||function(){};
+		opt.complete = opt.complete||function(){};
+
+		var cloptions = [];
+		cloptions.push( this.php_self );
+		if( opt.output ){
+			cloptions.push( '-o' );
+			cloptions.push( opt.output );
+		}
+		if( opt.userAgent ){
+			cloptions.push( '-u' );
+			cloptions.push( opt.userAgent );
+		}
+		cloptions.push( path );
+
 		var data_memo = '';
 		var rtn = spawn(
-			'php',
-			[this.php_self, '/?PX=api.get.version'],
+			'php' ,
+			cloptions ,
 			{
 				success: function( data ){
+					opt.success(''+data);
 					data_memo += data;
 				} ,
 				'complete': function( code ){
-					var fin = JSON.parse(data_memo);
-					cb(fin);
+					opt.complete(data_memo, code);
 				}
 			}
 		);
 		return rtn;
+	}
+
+	/**
+	 * バージョン番号を取得する
+	 */
+	this.get_version = function(cb){
+		cb = cb||function(){};
+		return this.query(
+			'/?PX=api.get.version' ,
+			{
+				"complete": function(data, code){
+					data = JSON.parse(data);
+					cb( data );
+				}
+			}
+		);
 	}
 
 
@@ -34,42 +68,32 @@ module.exports = function(php_self, path_homedir){
 	 * configデータを取得する
 	 */
 	this.get_config = function(cb){
-		var data_memo = '';
-		var rtn = spawn(
-			'php',
-			[this.php_self, '/?PX=api.get.config'],
+		cb = cb||function(){};
+		return this.query(
+			'/?PX=api.get.config' ,
 			{
-				success: function( data ){
-					data_memo += data;
-				} ,
-				'complete': function( code ){
-					var fin = JSON.parse(data_memo);
-					cb(fin);
+				"complete": function(data, code){
+					data = JSON.parse(data);
+					cb( data );
 				}
 			}
 		);
-		return rtn;
 	}
 
 	/**
 	 * サイトマップデータを取得する
 	 */
 	this.get_sitemap = function(cb){
-		var data_memo = '';
-		var rtn = spawn(
-			'php',
-			[this.php_self, '/?PX=api.get.sitemap'],
+		cb = cb||function(){};
+		return this.query(
+			'/?PX=api.get.sitemap' ,
 			{
-				success: function( data ){
-					data_memo += data;
-				} ,
-				'complete': function( code ){
-					var fin = JSON.parse(data_memo);
-					cb(fin);
+				"complete": function(data, code){
+					data = JSON.parse(data);
+					cb( data );
 				}
 			}
 		);
-		return rtn;
 	}
 
 	/**
@@ -77,27 +101,14 @@ module.exports = function(php_self, path_homedir){
 	 */
 	this.publish = function(opt){
 		opt = opt||{};
-		opt.success = opt.success||function(){};
-		opt.complete = opt.complete||function(){};
 		if( !opt.path_region ){
 			opt.path_region = '';
 		}
 
-		var data_memo = '';
-		var rtn = spawn(
-			'php',
-			[this.php_self, '/?PX=publish.run&path_region='+phpjs.urlencode(opt.path_region)],
-			{
-				success: function( data ){
-					opt.success(''+data);
-					data_memo += data;
-				} ,
-				'complete': function( code ){
-					opt.complete(data_memo);
-				}
-			}
+		return this.query(
+			'/?PX=publish.run&path_region='+phpjs.urlencode(opt.path_region) ,
+			opt
 		);
-		return rtn;
 	}
 
 	/**
@@ -105,24 +116,11 @@ module.exports = function(php_self, path_homedir){
 	 */
 	this.clearcache = function(opt){
 		opt = opt||{};
-		opt.success = opt.success||function(){};
-		opt.complete = opt.complete||function(){};
 
-		var data_memo = '';
-		var rtn = spawn(
-			'php',
-			[this.php_self, '/?PX=clearcache'],
-			{
-				success: function( data ){
-					opt.success(''+data);
-					data_memo += data;
-				} ,
-				'complete': function( code ){
-					opt.complete(data_memo);
-				}
-			}
+		return this.query(
+			'/?PX=clearcache' ,
+			opt
 		);
-		return rtn;
 	}
 
 

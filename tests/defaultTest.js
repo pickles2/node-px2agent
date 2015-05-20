@@ -58,6 +58,47 @@ describe('Pickles2 API から値を取得するテスト', function() {
 	});
 });
 
+
+describe('Pickles2 からHTMLページを取得するテスト', function() {
+	var pj = new px(
+		path.resolve(__dirname,'./testData/htdocs1/.px_execute.php'),
+		path.resolve(__dirname,'./testData/htdocs1/px-files/')
+	);
+
+	it("Mozilla/5.0 としてトップページを取得する", function(done) {
+		pj.query(
+			'/' ,
+			{
+				"userAgent": "Mozilla/5.0",
+				"complete": function(html, code){
+					// console.log(html);
+					// var matched = version.match(new RegExp('^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta)[0-9]+)?(\\-nb)?$'));
+					assert.equal(typeof(html), typeof(''));
+					done();
+				}
+			}
+		);
+	});
+
+	it("Mozilla/5.0 としてトップページをJSON形式で取得する", function(done) {
+		pj.query(
+			'/' ,
+			{
+				"userAgent": "Mozilla/5.0",
+				"output": "json" ,
+				"complete": function(data, code){
+					data = JSON.parse(data);
+					// console.log(data);
+					assert.equal(data.status, 200);
+					assert.equal(data.message, 'OK');
+					done();
+				}
+			}
+		);
+	});
+
+});
+
 describe('パブリッシュするテスト', function() {
 	var pj = new px(
 		path.resolve(__dirname,'./testData/htdocs1/.px_execute.php'),
