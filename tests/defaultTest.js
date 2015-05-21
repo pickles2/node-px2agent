@@ -99,6 +99,237 @@ describe('Pickles2 からHTMLページを取得するテスト', function() {
 
 });
 
+
+
+describe('ページ情報を取得するテスト', function() {
+	var pj = new px(
+		path.resolve(__dirname,'./testData/htdocs1/.px_execute.php'),
+		path.resolve(__dirname,'./testData/htdocs1/px-files/')
+	);
+
+	it("path / のページ情報を取得する。", function(done) {
+		pj.get_page_info( '/', function( page_info ){
+			// console.log(page_info);
+			assert.equal( typeof(page_info), typeof({}) );
+			done();
+		} );
+	});
+
+});
+
+
+
+
+	// /**
+	//  * PX=api.get.parent
+	//  */
+	// this.get_parent = function(path, cb){
+	// 	return apiGet('api.get.parent', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.children
+	//  */
+	// this.get_children = function(path, cb){
+	// 	return apiGet('api.get.children', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.bros
+	//  */
+	// this.get_bros = function(path, cb){
+	// 	return apiGet('api.get.bros', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.bros_next
+	//  */
+	// this.get_bros_next = function(path, cb){
+	// 	return apiGet('api.get.bros_next', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.bros_prev
+	//  */
+	// this.get_bros_prev = function(path, cb){
+	// 	return apiGet('api.get.bros_prev', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.next
+	//  */
+	// this.get_next = function(path, cb){
+	// 	return apiGet('api.get.next', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.prev
+	//  */
+	// this.get_prev = function(path, cb){
+	// 	return apiGet('api.get.prev', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.breadcrumb_array
+	//  */
+	// this.get_breadcrumb_array = function(path, cb){
+	// 	return apiGet('api.get.breadcrumb_array', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.dynamic_path_info&path={$path}
+	//  */
+	// this.get_dynamic_path_info = function(path, cb){
+	// 	return apiGet('api.get.dynamic_path_info', '/', {
+	// 		"path":path
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.path_homedir
+	//  */
+	// this.get_path_homedir = function(cb){
+	// 	return apiGet('api.get.path_homedir', '/', {}, cb);
+	// }
+
+	// /**
+	//  * 	<dt>PX=api.get.path_controot</dt>
+	//  */
+	// this.get_path_controot = function(cb){
+	// 	return apiGet('api.get.path_controot', '/', {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.path_docroot
+	//  */
+	// this.get_path_docroot = function(cb){
+	// 	return apiGet('api.get.path_docroot', '/', {}, cb);
+	// }
+
+	// /**
+	//  * 	<dt>PX=api.get.path_content</dt>
+	//  */
+	// this.get_path_content = function(cb){
+	// 	return apiGet('api.get.path_content', '/', {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.path_files&path_content={$path}
+	//  */
+	// this.path_files = function(path, path_resource, cb){
+	// 	path_resource = path_resource||'';
+	// 	return apiGet('api.get.path_content', path, {
+	// 		"path_resource":path_resource
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.realpath_files&path_content={$path}
+	//  */
+	// this.realpath_files = function(path, path_resource, cb){
+	// 	path_resource = path_resource||'';
+	// 	return apiGet('api.get.realpath_files', path, {
+	// 		"path_resource":path_resource
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.path_files_cache&path_content={$path}
+	//  */
+	// this.path_files_cache = function(path, path_resource, cb){
+	// 	path_resource = path_resource||'';
+	// 	return apiGet('api.get.path_files_cache', path, {
+	// 		"path_resource":path_resource
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.realpath_files_cache&path_content={$path}
+	//  */
+	// this.realpath_files_cache = function(path, path_resource, cb){
+	// 	path_resource = path_resource||'';
+	// 	return apiGet('api.get.realpath_files_cache', path, {
+	// 		"path_resource":path_resource
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.realpath_files_private_cache&path_content={$path}
+	//  */
+	// this.realpath_files_private_cache = function(path, path_resource, cb){
+	// 	path_resource = path_resource||'';
+	// 	return apiGet('api.get.realpath_files_private_cache', path, {
+	// 		"path_resource":path_resource
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.domain
+	//  */
+	// this.get_domain = function(cb){
+	// 	return apiGet('api.get.domain', '/', {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.directory_index
+	//  */
+	// this.get_directory_index = function(cb){
+	// 	return apiGet('api.get.directory_index', '/', {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.directory_index_primary
+	//  */
+	// this.get_directory_index_primary = function(cb){
+	// 	return apiGet('api.get.directory_index_primary', '/', {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.path_proc_type
+	//  */
+	// this.get_path_proc_type = function(path, cb){
+	// 	return apiGet('api.get.path_proc_type', path, {}, cb);
+	// }
+
+	// /**
+	//  * PX=api.get.href&linkto={$path_linkto}
+	//  */
+	// this.href = function(path, path_linkto, cb){
+	// 	return apiGet('api.get.href', path, {
+	// 		"linkto":path_linkto
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.is.match_dynamic_path&path={$path}
+	//  */
+	// this.is_match_dynamic_path = function(path, cb){
+	// 	return apiGet('api.is.match_dynamic_path', '/', {
+	// 		"path":path
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.is.page_in_breadcrumb&path={$path}
+	//  */
+	// this.is_page_in_breadcrumb = function(path, path_in, cb){
+	// 	return apiGet('api.is.page_in_breadcrumb', path, {
+	// 		"path":path_in
+	// 	}, cb);
+	// }
+
+	// /**
+	//  * PX=api.is.ignore_path&path={$path}
+	//  */
+	// this.is_ignore_path = function(path, cb){
+	// 	return apiGet('api.is.ignore_path', '/', {
+	// 		"path":path
+	// 	}, cb);
+	// }
+
+
+
+
 describe('パブリッシュするテスト', function() {
 	var pj = new px(
 		path.resolve(__dirname,'./testData/htdocs1/.px_execute.php'),
@@ -172,14 +403,5 @@ describe('キャッシュを削除するテスト', function() {
 	});
 
 });
-
-
-
-// describe('テストする準備', function() {
-// 	it("だけどまだ準備が整っていない。", function() {
-// 		assert.equal(3, 3, 'string');
-// 		expect(3).to.eql("Sample Test BDD");
-// 	});
-// });
 
 

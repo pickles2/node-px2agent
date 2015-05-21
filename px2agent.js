@@ -2,6 +2,7 @@
  * px2agent.js
  */
 module.exports = function(php_self, path_homedir){
+	var _this = this;
 	this.php_self = php_self;
 	this.path_homedir = path_homedir;
 	// console.log(php_self, path_homedir);
@@ -46,14 +47,22 @@ module.exports = function(php_self, path_homedir){
 		);
 		return rtn;
 	}
-
 	/**
-	 * バージョン番号を取得する
+	 * PX=api.*を投げる
 	 */
-	this.get_version = function(cb){
+	function apiGet(cmd, path, param, cb){
+		path = path||'/';
+		param = param||{};
+		param = (function(param){
+			var aryParam = [];
+			for( var idx in param ){
+				aryParam.push( phpjs.urlencode(idx)+'='+phpjs.urlencode(param[idx]) )
+			}
+			return '&'+aryParam.join('&');
+		})(param);
 		cb = cb||function(){};
-		return this.query(
-			'/?PX=api.get.version' ,
+		return _this.query(
+			path+'?PX='+cmd+param ,
 			{
 				"complete": function(data, code){
 					data = JSON.parse(data);
@@ -61,6 +70,13 @@ module.exports = function(php_self, path_homedir){
 				}
 			}
 		);
+	}
+
+	/**
+	 * バージョン番号を取得する
+	 */
+	this.get_version = function(cb){
+		return apiGet('api.get.version', '/', {}, cb);
 	}
 
 
@@ -68,33 +84,232 @@ module.exports = function(php_self, path_homedir){
 	 * configデータを取得する
 	 */
 	this.get_config = function(cb){
-		cb = cb||function(){};
-		return this.query(
-			'/?PX=api.get.config' ,
-			{
-				"complete": function(data, code){
-					data = JSON.parse(data);
-					cb( data );
-				}
-			}
-		);
+		return apiGet('api.get.config', '/', {}, cb);
 	}
 
 	/**
 	 * サイトマップデータを取得する
 	 */
 	this.get_sitemap = function(cb){
-		cb = cb||function(){};
-		return this.query(
-			'/?PX=api.get.sitemap' ,
-			{
-				"complete": function(data, code){
-					data = JSON.parse(data);
-					cb( data );
-				}
-			}
-		);
+		return apiGet('api.get.sitemap', '/', {}, cb);
 	}
+
+	/**
+	 * pathまたはidからページ情報を得る
+	 */
+	this.get_page_info = function(path, cb){
+		return apiGet('api.get.page_info', '/', {
+			"path":path
+		}, cb);
+	}
+
+	/**
+	 * PX=api.get.parent
+	 */
+	this.get_parent = function(path, cb){
+		return apiGet('api.get.parent', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.children
+	 */
+	this.get_children = function(path, cb){
+		return apiGet('api.get.children', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.bros
+	 */
+	this.get_bros = function(path, cb){
+		return apiGet('api.get.bros', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.bros_next
+	 */
+	this.get_bros_next = function(path, cb){
+		return apiGet('api.get.bros_next', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.bros_prev
+	 */
+	this.get_bros_prev = function(path, cb){
+		return apiGet('api.get.bros_prev', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.next
+	 */
+	this.get_next = function(path, cb){
+		return apiGet('api.get.next', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.prev
+	 */
+	this.get_prev = function(path, cb){
+		return apiGet('api.get.prev', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.breadcrumb_array
+	 */
+	this.get_breadcrumb_array = function(path, cb){
+		return apiGet('api.get.breadcrumb_array', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.dynamic_path_info&path={$path}
+	 */
+	this.get_dynamic_path_info = function(path, cb){
+		return apiGet('api.get.dynamic_path_info', '/', {
+			"path":path
+		}, cb);
+	}
+
+	/**
+	 * PX=api.get.path_homedir
+	 */
+	this.get_path_homedir = function(cb){
+		return apiGet('api.get.path_homedir', '/', {}, cb);
+	}
+
+	/**
+	 * 	<dt>PX=api.get.path_controot</dt>
+	 */
+	this.get_path_controot = function(cb){
+		return apiGet('api.get.path_controot', '/', {}, cb);
+	}
+
+	/**
+	 * PX=api.get.path_docroot
+	 */
+	this.get_path_docroot = function(cb){
+		return apiGet('api.get.path_docroot', '/', {}, cb);
+	}
+
+	/**
+	 * 	<dt>PX=api.get.path_content</dt>
+	 */
+	this.get_path_content = function(cb){
+		return apiGet('api.get.path_content', '/', {}, cb);
+	}
+
+	/**
+	 * PX=api.get.path_files&path_content={$path}
+	 */
+	this.path_files = function(path, path_resource, cb){
+		path_resource = path_resource||'';
+		return apiGet('api.get.path_content', path, {
+			"path_resource":path_resource
+		}, cb);
+	}
+
+	/**
+	 * PX=api.get.realpath_files&path_content={$path}
+	 */
+	this.realpath_files = function(path, path_resource, cb){
+		path_resource = path_resource||'';
+		return apiGet('api.get.realpath_files', path, {
+			"path_resource":path_resource
+		}, cb);
+	}
+
+	/**
+	 * PX=api.get.path_files_cache&path_content={$path}
+	 */
+	this.path_files_cache = function(path, path_resource, cb){
+		path_resource = path_resource||'';
+		return apiGet('api.get.path_files_cache', path, {
+			"path_resource":path_resource
+		}, cb);
+	}
+
+	/**
+	 * PX=api.get.realpath_files_cache&path_content={$path}
+	 */
+	this.realpath_files_cache = function(path, path_resource, cb){
+		path_resource = path_resource||'';
+		return apiGet('api.get.realpath_files_cache', path, {
+			"path_resource":path_resource
+		}, cb);
+	}
+
+	/**
+	 * PX=api.get.realpath_files_private_cache&path_content={$path}
+	 */
+	this.realpath_files_private_cache = function(path, path_resource, cb){
+		path_resource = path_resource||'';
+		return apiGet('api.get.realpath_files_private_cache', path, {
+			"path_resource":path_resource
+		}, cb);
+	}
+
+	/**
+	 * PX=api.get.domain
+	 */
+	this.get_domain = function(cb){
+		return apiGet('api.get.domain', '/', {}, cb);
+	}
+
+	/**
+	 * PX=api.get.directory_index
+	 */
+	this.get_directory_index = function(cb){
+		return apiGet('api.get.directory_index', '/', {}, cb);
+	}
+
+	/**
+	 * PX=api.get.directory_index_primary
+	 */
+	this.get_directory_index_primary = function(cb){
+		return apiGet('api.get.directory_index_primary', '/', {}, cb);
+	}
+
+	/**
+	 * PX=api.get.path_proc_type
+	 */
+	this.get_path_proc_type = function(path, cb){
+		return apiGet('api.get.path_proc_type', path, {}, cb);
+	}
+
+	/**
+	 * PX=api.get.href&linkto={$path_linkto}
+	 */
+	this.href = function(path, path_linkto, cb){
+		return apiGet('api.get.href', path, {
+			"linkto":path_linkto
+		}, cb);
+	}
+
+	/**
+	 * PX=api.is.match_dynamic_path&path={$path}
+	 */
+	this.is_match_dynamic_path = function(path, cb){
+		return apiGet('api.is.match_dynamic_path', '/', {
+			"path":path
+		}, cb);
+	}
+
+	/**
+	 * PX=api.is.page_in_breadcrumb&path={$path}
+	 */
+	this.is_page_in_breadcrumb = function(path, path_in, cb){
+		return apiGet('api.is.page_in_breadcrumb', path, {
+			"path":path_in
+		}, cb);
+	}
+
+	/**
+	 * PX=api.is.ignore_path&path={$path}
+	 */
+	this.is_ignore_path = function(path, cb){
+		return apiGet('api.is.ignore_path', '/', {
+			"path":path
+		}, cb);
+	}
+
 
 	/**
 	 * パブリッシュする
@@ -122,6 +337,8 @@ module.exports = function(php_self, path_homedir){
 			opt
 		);
 	}
+
+
 
 
 	/**
