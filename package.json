@@ -7,13 +7,11 @@
     "url": "https://github.com/tomk79/px2agent.git"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha  --ui tdd ./tests/"
+    "test": "./node_modules/mocha/bin/mocha --ui tdd ./tests/"
   },
   "author": "Tomoya Koyanagi",
   "license": "MIT",
   "dependencies": {
-    "express":"*",
-    "socket.io": "*",
     "phpjs": "*",
     "glob": "*",
     "mkdirp": "0.*",

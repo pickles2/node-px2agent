@@ -1,5 +1,5 @@
 "* path","* content","* id","* title","* title_breadcrumb","* title_h1","* title_label","* title_full","* logical_path","* list_flg","* layout","* orderby","* keywords","* description","* category_top_flg","* **delete_flg"
-"/index.html",,,"ホーム",,,,,,"1","top",,,,,
+"/index.html",,,"HOME",,,,,,"1","top",,,,,
 "/sample_pages/index.html",,,"サンプルページ1",,,,,,"1",,,"sample, サンプル","このページはPxFWのサンプルコードとして予め用意されたものです。サンプルが不要であれば、sample_pagesディレクトリとともに削除してください。","1",
 "/sample_pages/fess/index.html",,,"FESSスタイルガイド",,,,,"/sample_pages/index.html","1",,,,,,
 "/sample_pages/fess/units/index.html",,,"ユニットモジュール",,,,,"/sample_pages/index.html>/sample_pages/fess/index.html","1",,,,,,

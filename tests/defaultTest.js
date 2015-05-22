@@ -4,19 +4,6 @@ var path = require('path');
 var fs = require('fs');
 var phpjs = require('phpjs');
 
-// suite('px2を実行してみるテスト', function() {
-// 	it("通常のトップページの出力を得るテスト", function(done {
-
-// 		var pj = new px('./htdocs1/.px_execute.php', './htdocs1/px-files/');
-// 		pj.get_config(function(conf){
-// 			console.log(conf);
-// 			test('1 + 1は2になること', function() {
-// 				assert.equal(1 + 1, 2);
-// 			});
-// 		});
-
-// 	});
-// });
 
 describe('Pickles2 API から値を取得するテスト', function() {
 	var pj = new px(
@@ -107,10 +94,24 @@ describe('ページ情報を取得するテスト', function() {
 		path.resolve(__dirname,'./testData/htdocs1/px-files/')
 	);
 
-	it("path / のページ情報を取得する。", function(done) {
+	it("path '/' のページ情報を取得する。", function(done) {
 		pj.get_page_info( '/', function( page_info ){
 			// console.log(page_info);
 			assert.equal( typeof(page_info), typeof({}) );
+			assert.equal( page_info.id, '' );
+			assert.equal( page_info.title, 'HOME' );
+			assert.equal( page_info.path, '/index.html' );
+			done();
+		} );
+	});
+
+	it("id '' のページ情報を取得する。", function(done) {
+		pj.get_page_info( '', function( page_info ){
+			// console.log(page_info);
+			assert.equal( typeof(page_info), typeof({}) );
+			assert.equal( page_info.id, '' );
+			assert.equal( page_info.title, 'HOME' );
+			assert.equal( page_info.path, '/index.html' );
 			done();
 		} );
 	});
@@ -118,14 +119,30 @@ describe('ページ情報を取得するテスト', function() {
 });
 
 
+describe('親ページのページIDを取得する', function() {
+	var pj = new px(
+		path.resolve(__dirname,'./testData/htdocs1/.px_execute.php'),
+		path.resolve(__dirname,'./testData/htdocs1/px-files/')
+	);
+
+	it("path '/sample_pages/' のページ情報を取得する。", function(done) {
+		pj.get_parent( '/sample_pages/', function( parent ){
+			// console.log(parent);
+			assert.equal( parent, '' );
+			done();
+		} );
+	});
+
+	it("path '/' の親ページを取得する。", function(done) {
+		pj.get_parent( '/', function( parent ){
+			assert.equal( parent, false );
+			done();
+		} );
+	});
+
+});
 
 
-	// /**
-	//  * PX=api.get.parent
-	//  */
-	// this.get_parent = function(path, cb){
-	// 	return apiGet('api.get.parent', path, {}, cb);
-	// }
 
 	// /**
 	//  * PX=api.get.children
