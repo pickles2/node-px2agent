@@ -3,7 +3,9 @@ px2agent
 
 ## Usage
 
-coming soon.
+```
+var px2proj = require('px2agent').createProject('./px_execute.php');
+```
 
 
 ## for developers
@@ -11,6 +13,7 @@ coming soon.
 ### setting up for development
 
 ```
+$ cd {$project_root}
 $ composer install
 $ npm install
 ```

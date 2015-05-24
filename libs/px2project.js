@@ -1,11 +1,10 @@
 /**
  * px2agent.js
  */
-module.exports = function(php_self, path_homedir){
+module.exports = function(px2agent, php_self){
 	var _this = this;
 	this.php_self = php_self;
-	this.path_homedir = path_homedir;
-	// console.log(php_self, path_homedir);
+	// console.log(php_self);
 
 	var phpjs = require('phpjs');
 
@@ -277,8 +276,8 @@ module.exports = function(php_self, path_homedir){
 	/**
 	 * PX=api.get.href&linkto={$path_linkto}
 	 */
-	this.href = function(path, path_linkto, cb){
-		return apiGet('api.get.href', path, {
+	this.href = function(path_linkto, cb){
+		return apiGet('api.get.href', '/', {
 			"linkto":path_linkto
 		}, cb);
 	}
