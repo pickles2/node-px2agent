@@ -191,8 +191,8 @@ module.exports = function(px2agent, php_self){
 	/**
 	 * 	<dt>PX=api.get.path_content</dt>
 	 */
-	this.get_path_content = function(cb){
-		return apiGet('api.get.path_content', '/', {}, cb);
+	this.get_path_content = function(path, cb){
+		return apiGet('api.get.path_content', path, {}, cb);
 	}
 
 	/**
@@ -200,7 +200,7 @@ module.exports = function(px2agent, php_self){
 	 */
 	this.path_files = function(path, path_resource, cb){
 		path_resource = path_resource||'';
-		return apiGet('api.get.path_content', path, {
+		return apiGet('api.get.path_files', path, {
 			"path_resource":path_resource
 		}, cb);
 	}

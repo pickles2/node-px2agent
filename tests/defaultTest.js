@@ -218,12 +218,23 @@ describe('兄弟ページのページID一覧を取得する', function() {
 	// 	return apiGet('api.get.prev', path, {}, cb);
 	// }
 
-	// /**
-	//  * PX=api.get.breadcrumb_array
-	//  */
-	// this.get_breadcrumb_array = function(path, cb){
-	// 	return apiGet('api.get.breadcrumb_array', path, {}, cb);
-	// }
+describe('パンくず上のページ一覧を取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/sample_pages/page1/2.html' の兄弟ページ一覧を取得する", function(done) {
+		pj.get_breadcrumb_array( '/sample_pages/page1/2.html', function( breadcrumb ){
+			// ※このAPIが返す値には、自分自身は含まれない。
+			// console.log(breadcrumb);
+			assert.equal( typeof(breadcrumb), typeof([]) );
+			assert.equal( breadcrumb[0], '' );
+			assert.equal( breadcrumb[1], ':auto_page_id.3' );
+			assert.equal( breadcrumb.length, 2 );
+			done();
+		} );
+	});
+
+});
+
 
 	// /**
 	//  * PX=api.get.dynamic_path_info&path={$path}
@@ -234,53 +245,122 @@ describe('兄弟ページのページID一覧を取得する', function() {
 	// 	}, cb);
 	// }
 
-	// /**
-	//  * PX=api.get.path_homedir
-	//  */
-	// this.get_path_homedir = function(cb){
-	// 	return apiGet('api.get.path_homedir', '/', {}, cb);
-	// }
 
-	// /**
-	//  * 	<dt>PX=api.get.path_controot</dt>
-	//  */
-	// this.get_path_controot = function(cb){
-	// 	return apiGet('api.get.path_controot', '/', {}, cb);
-	// }
+describe('ホームディレクトリのパスを取得する', function() {
+	var pj = getProject('htdocs1');
 
-	// /**
-	//  * PX=api.get.path_docroot
-	//  */
-	// this.get_path_docroot = function(cb){
-	// 	return apiGet('api.get.path_docroot', '/', {}, cb);
-	// }
+	it("ホームディレクトリのパスを取得する", function(done) {
+		pj.get_path_homedir( function( path_home_dir ){
+			// console.log(path_home_dir);
+			assert.equal( typeof(path_home_dir), typeof('') );
+			assert.equal( fs.realpathSync(path_home_dir), fs.realpathSync(__dirname+'/testData/htdocs1/px-files/') );
+			done();
+		} );
+	});
+});
 
-	// /**
-	//  * 	<dt>PX=api.get.path_content</dt>
-	//  */
-	// this.get_path_content = function(cb){
-	// 	return apiGet('api.get.path_content', '/', {}, cb);
-	// }
 
-	// /**
-	//  * PX=api.get.path_files&path_content={$path}
-	//  */
-	// this.path_files = function(path, path_resource, cb){
-	// 	path_resource = path_resource||'';
-	// 	return apiGet('api.get.path_content', path, {
-	// 		"path_resource":path_resource
-	// 	}, cb);
-	// }
+describe('コンテンツルートディレクトリのパスを取得する', function() {
+	var pj = getProject('htdocs1');
 
-	// /**
-	//  * PX=api.get.realpath_files&path_content={$path}
-	//  */
-	// this.realpath_files = function(path, path_resource, cb){
-	// 	path_resource = path_resource||'';
-	// 	return apiGet('api.get.realpath_files', path, {
-	// 		"path_resource":path_resource
-	// 	}, cb);
-	// }
+	it("コンテンツルートディレクトリのパスを取得する", function(done) {
+		pj.get_path_controot( function( path_controot ){
+			// console.log(path_controot);
+			assert.equal( typeof(path_controot), typeof('') );
+			assert.equal( path_controot, '/' );
+			done();
+		} );
+	});
+});
+
+describe('ドキュメントルートディレクトリのパスを取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("ドキュメントルートディレクトリのパスを取得する", function(done) {
+		pj.get_path_docroot( function( path_docroot ){
+			// console.log(path_docroot);
+			assert.equal( typeof(path_docroot), typeof('') );
+			assert.equal( fs.realpathSync(path_docroot), fs.realpathSync(__dirname+'/testData/htdocs1/') );
+			done();
+		} );
+	});
+});
+
+describe('コンテンツのパスを取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/' のコンテンツのパスを取得する", function(done) {
+		pj.get_path_content( '/', function( path_content ){
+			// console.log(path_docroot);
+			assert.equal( path_content, '/index.html' );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/page1/3.html' のコンテンツのパスを取得する", function(done) {
+		pj.get_path_content( '/sample_pages/page1/3.html', function( path_content ){
+			// console.log(path_content);
+			assert.equal( path_content, '/sample_pages/page1/3.html.md' );
+			done();
+		} );
+	});
+});
+
+describe('コンテンツのリソースディレクトリのパスを取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/' のコンテンツのリソースディレクトリのパスを取得する", function(done) {
+		pj.path_files( '/', '/images/test.png', function( path_content ){
+			// console.log(path_docroot);
+			assert.equal( path_content, '/index_files/images/test.png' );
+			done();
+		} );
+	});
+
+	it("path '/' のコンテンツのリソースディレクトリのパスを取得する(第二引数をnullで指定)", function(done) {
+		pj.path_files( '/', null, function( path_content ){
+			// console.log(path_docroot);
+			assert.equal( path_content, '/index_files/' );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/page1/3.html' のコンテンツのリソースディレクトリのパスを取得する", function(done) {
+		pj.path_files( '/sample_pages/page1/3.html', '', function( path_content ){
+			// console.log(path_content);
+			assert.equal( path_content, '/sample_pages/page1/3_files/' );
+			done();
+		} );
+	});
+});
+
+describe('コンテンツのリソースディレクトリの絶対パスを取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/' のコンテンツのリソースディレクトリの絶対パスを取得する", function(done) {
+		pj.realpath_files( '/', '/images/test.png', function( path_content ){
+			// console.log(path_docroot);
+			assert.equal( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/index_files/images/test.png') );
+			done();
+		} );
+	});
+
+	it("path '/' のコンテンツのリソースディレクトリの絶対パスを取得する(第二引数をnullで指定)", function(done) {
+		pj.realpath_files( '/', null, function( path_content ){
+			// console.log(path_docroot);
+			assert.equal( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/index_files/') );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/page1/3.html' のコンテンツのリソースディレクトリの絶対パスを取得する", function(done) {
+		pj.realpath_files( '/sample_pages/page1/3.html', '', function( path_content ){
+			// console.log(path_content);
+			assert.equal( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/sample_pages/page1/3_files/') );
+			done();
+		} );
+	});
+});
 
 
 
