@@ -6,9 +6,18 @@ node_js:
   - "0.10"
   - "iojs"
 
-before_script:
-  - npm install
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install python-software-properties -qq
+  - sudo add-apt-repository ppa:ondrej/php5-5.6 -y
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq php5
   - php -v
+  - php -r "readfile('https://getcomposer.org/installer');" | php
+
+before_script:
+  - composer install
+  - npm install
 
 script:
   - npm test
