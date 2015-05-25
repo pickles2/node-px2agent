@@ -236,14 +236,41 @@ describe('パンくず上のページ一覧を取得する', function() {
 });
 
 
-	// /**
-	//  * PX=api.get.dynamic_path_info&path={$path}
-	//  */
-	// this.get_dynamic_path_info = function(path, cb){
-	// 	return apiGet('api.get.dynamic_path_info', '/', {
-	// 		"path":path
-	// 	}, cb);
-	// }
+describe('ダイナミックパス情報を取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/sample_pages/page1/2.html' のダイナミックパス情報を取得する", function(done) {
+		pj.get_dynamic_path_info( '/sample_pages/page1/2.html', function( value ){
+			// console.log(value);
+			assert.equal( value, false );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/page1/4/{*}' のダイナミックパス情報を取得する", function(done) {
+		pj.get_dynamic_path_info( '/sample_pages/page1/4/{*}', function( value ){
+			// console.log(value);
+			assert.equal( typeof(value), typeof({}) );
+			assert.equal( value.path, '/sample_pages/page1/4/' );
+			assert.equal( value.path_original, '/sample_pages/page1/4/{*}' );
+			assert.equal( value.id, ':auto_page_id.13' );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/page1/4/param/value/index.html' のダイナミックパス情報を取得する", function(done) {
+		pj.get_dynamic_path_info( '/sample_pages/page1/4/param/value/index.html', function( value ){
+			// console.log(value);
+			assert.equal( typeof(value), typeof({}) );
+			assert.equal( value.path, '/sample_pages/page1/4/' );
+			assert.equal( value.path_original, '/sample_pages/page1/4/{*}' );
+			assert.equal( value.id, ':auto_page_id.13' );
+			done();
+		} );
+	});
+
+});
+
 
 
 describe('ホームディレクトリのパスを取得する', function() {
