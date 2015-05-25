@@ -36,10 +36,14 @@ describe('Pickles2 API から値を取得するテスト', function() {
 	it("サイトマップを取得するテスト", function(done) {
 		pj.get_sitemap(function(sitemap){
 			// console.log(sitemap);
-			// assert.equal(conf.name, 'px2agent test htdocs1');
-			// assert.equal(conf.allow_pxcommands, 1);
-			// assert.equal(typeof(conf.funcs), typeof({}));
-			// assert.equal(typeof(conf.funcs.processor.html), typeof({}));
+			assert.equal(typeof(sitemap), typeof({}));
+			assert.equal(typeof(sitemap['/index.html']), typeof({}));
+			assert.equal(sitemap['/index.html'].path, '/index.html');
+			assert.equal(sitemap['/index.html'].id, '');
+			assert.equal(sitemap['/index.html'].title, 'HOME');
+			assert.equal(sitemap['/sample_pages/page1/4/{*}'].path, '/sample_pages/page1/4/{*}');
+			assert.equal(sitemap['/sample_pages/page1/4/{*}'].id, ':auto_page_id.13');
+			assert.equal(sitemap['/sample_pages/page1/4/{*}'].title, 'ダイナミックパス');
 			done();
 		});
 	});
@@ -190,33 +194,105 @@ describe('兄弟ページのページID一覧を取得する', function() {
 
 });
 
-	// /**
-	//  * PX=api.get.bros_next
-	//  */
-	// this.get_bros_next = function(path, cb){
-	// 	return apiGet('api.get.bros_next', path, {}, cb);
-	// }
+describe('次の兄弟ページを取得する', function() {
+	var pj = getProject('htdocs1');
 
-	// /**
-	//  * PX=api.get.bros_prev
-	//  */
-	// this.get_bros_prev = function(path, cb){
-	// 	return apiGet('api.get.bros_prev', path, {}, cb);
-	// }
+	it("path '/sample_pages/page2/1.htm' の次の兄弟ページIDを取得する", function(done) {
+		pj.get_bros_next( '/sample_pages/page2/1.htm', function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, ':auto_page_id.17' );
+			done();
+		} );
+	});
 
-	// /**
-	//  * PX=api.get.next
-	//  */
-	// this.get_next = function(path, cb){
-	// 	return apiGet('api.get.next', path, {}, cb);
-	// }
+	it("path '/sample_pages/page2/2.html' の次の兄弟ページIDを取得する", function(done) {
+		pj.get_bros_next( '/sample_pages/page2/2.html', function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, false );
+			done();
+		} );
+	});
 
-	// /**
-	//  * PX=api.get.prev
-	//  */
-	// this.get_prev = function(path, cb){
-	// 	return apiGet('api.get.prev', path, {}, cb);
-	// }
+});
+
+describe('前の兄弟ページを取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/sample_pages/page2/index.html' の前の兄弟ページIDを取得する", function(done) {
+		pj.get_bros_prev( '/sample_pages/page2/index.html', function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, ':auto_page_id.3' );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/' の前の兄弟ページIDを取得する", function(done) {
+		pj.get_bros_prev( '/sample_pages/', function( pageId ){
+			// console.log(pageId);
+			assert.strictEqual( pageId, false );
+			done();
+		} );
+	});
+
+});
+
+describe('次のページを取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/sample_pages/page2/1.htm' の次のページIDを取得する", function(done) {
+		pj.get_next( '/sample_pages/page2/1.htm', function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, ':auto_page_id.17' );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/page2/2.html' の次のページIDを取得する", function(done) {
+		pj.get_next( '/sample_pages/page2/2.html', function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, ':auto_page_id.18' );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/help/' の次のページIDを取得する", function(done) {
+		pj.get_next( '/sample_pages/help/', function( pageId ){
+			// console.log(pageId);
+			assert.strictEqual( pageId, false );
+			done();
+		} );
+	});
+
+});
+
+describe('前のページを取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/sample_pages/page2/index.html' の前のページIDを取得する", function(done) {
+		pj.get_prev( '/sample_pages/page2/index.html', function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, ':auto_page_id.13' );
+			done();
+		} );
+	});
+
+	it("path '/sample_pages/' の前のページIDを取得する", function(done) {
+		pj.get_prev( '/sample_pages/', function( pageId ){
+			// console.log(pageId);
+			assert.strictEqual( pageId, '' );
+			done();
+		} );
+	});
+
+	it("path '/' の前のページIDを取得する", function(done) {
+		pj.get_prev( '/', function( pageId ){
+			// console.log(pageId);
+			assert.strictEqual( pageId, false );
+			done();
+		} );
+	});
+
+});
 
 describe('パンくず上のページ一覧を取得する', function() {
 	var pj = getProject('htdocs1');
