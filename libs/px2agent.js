@@ -7,9 +7,9 @@ module.exports = new (function(){
 	/**
 	 * プロジェクトを作成する
 	 */
-	this.createProject = function(php_self){
+	this.createProject = function(php_self, options){
 		var px2project = require(__dirname+'/px2project');
-		return new px2project(this, php_self);
+		return new px2project(this, php_self, options);
 	}
 
 })();

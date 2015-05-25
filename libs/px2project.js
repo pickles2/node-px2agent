@@ -1,9 +1,12 @@
 /**
  * px2agent.js
  */
-module.exports = function(px2agent, php_self){
+module.exports = function(px2agent, php_self, options){
 	var _this = this;
 	this.php_self = php_self;
+	options = options||{};
+	options.bin = options.bin||'php';
+	this.options = options;
 	// console.log(php_self);
 
 	var phpjs = require('phpjs');
@@ -32,7 +35,7 @@ module.exports = function(px2agent, php_self){
 
 		var data_memo = '';
 		var rtn = spawn(
-			'php' ,
+			this.options.bin ,
 			cloptions ,
 			{
 				success: function( data ){
