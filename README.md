@@ -1,5 +1,7 @@
-px2agent
+px2agent [![Build Status - master](https://secure.travis-ci.org/tomk79/px2agent.png?branch=master)](https://travis-ci.org/tomk79/px2agent)
 ==============
+
+[![NPM](https://nodei.co/npm/px2agent.png)](https://nodei.co/npm/px2agent/)
 
 ## Usage
 
@@ -269,8 +271,6 @@ var px2proj = require('px2agent').createProject(
 
 
 ## for developers
-
-[![Build Status - master](https://secure.travis-ci.org/tomk79/px2agent.png?branch=master)](https://travis-ci.org/tomk79/px2agent)
 
 ### Setting up development environment
 
