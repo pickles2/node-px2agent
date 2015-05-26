@@ -178,7 +178,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * 	<dt>PX=api.get.path_controot</dt>
+	 * PX=api.get.path_controot
 	 */
 	this.get_path_controot = function(cb){
 		return apiGet('api.get.path_controot', '/', {}, cb);
@@ -192,7 +192,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * 	<dt>PX=api.get.path_content</dt>
+	 * PX=api.get.path_content
 	 */
 	this.get_path_content = function(path, cb){
 		return apiGet('api.get.path_content', path, {}, cb);

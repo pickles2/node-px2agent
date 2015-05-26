@@ -1,11 +1,10 @@
-px2agent [![Build Status - master](https://secure.travis-ci.org/tomk79/px2agent.png?branch=master)](https://travis-ci.org/tomk79/px2agent)
-==============
+# px2agent [![Build Status - master](https://secure.travis-ci.org/tomk79/px2agent.png?branch=master)](https://travis-ci.org/tomk79/px2agent)
 
 [![NPM](https://nodei.co/npm/px2agent.png)](https://nodei.co/npm/px2agent/)
 
 ## Usage
 
-```
+```js
 var px2proj = require('px2agent').createProject('./px_execute.php');
 
 
@@ -18,8 +17,8 @@ px2proj.query('/?PX=phpinfo', {
 	"success": function(data){
 		console.log(data);
 	},
-	"complete": function(data_memo, code){
-		console.log(data_memo, code);
+	"complete": function(data, code){
+		console.log(data, code);
 	}
 });
 
@@ -123,7 +122,7 @@ px2proj.get_path_homedir(function(value){
 })
 
 /**
- * 	<dt>PX=api.get.path_controot</dt>
+ * PX=api.get.path_controot
  */
 px2proj.get_path_controot(function(value){
 	console.log(value);
@@ -137,7 +136,7 @@ px2proj.get_path_docroot(function(value){
 });
 
 /**
- * 	<dt>PX=api.get.path_content</dt>
+ * PX=api.get.path_content
  */
 px2proj.get_path_content('/', function(value){
 	console.log(value);
@@ -262,7 +261,7 @@ px2proj.clearcache({
 
 ### Specifying path to the PHP binary
 
-```
+```js
 var px2proj = require('px2agent').createProject(
   './px_execute.php',
   {'bin': '/path/to/php'}
@@ -274,7 +273,7 @@ var px2proj = require('px2agent').createProject(
 
 ### Setting up development environment
 
-```
+```bash
 $ cd {$project_root}
 $ composer install
 $ npm install
@@ -282,6 +281,6 @@ $ npm install
 
 ### Test
 
-```
+```bash
 $ npm test
 ```
