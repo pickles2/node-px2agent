@@ -330,6 +330,12 @@ $ npm install
 $ npm test
 ```
 
+### ドキュメント出力 - JSDoc
+
+```bash
+$ npm run documentation
+```
+
 
 
 ## ライセンス - License
