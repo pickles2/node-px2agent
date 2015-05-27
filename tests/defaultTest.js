@@ -159,8 +159,30 @@ describe('子ページのページID一覧を取得する', function() {
 			// console.log(children);
 			assert.equal( typeof(children), typeof([]) );
 			assert.equal( children[0], ':auto_page_id.3' );
-			assert.equal( children[3], ':auto_page_id.21' );
-			assert.equal( children.length, 4 );
+			assert.equal( children[4], 'help' );
+			assert.equal( children.length, 5 );
+			done();
+		} );
+	});
+
+	it("path '/bros3/' の子ページ一覧を取得する", function(done) {
+		pj.get_children( '/bros3/', function( children ){
+			// console.log(children);
+			assert.equal( typeof(children), typeof([]) );
+			assert.equal( children[0], 'Bros3-2' );
+			assert.equal( children[2], 'Bros3-6' );
+			assert.equal( children.length, 3 );
+			done();
+		} );
+	});
+
+	it("path '/bros3/' の子ページ一覧を、filterを無効にして取得する", function(done) {
+		pj.get_children( '/bros3/', {"filter": false}, function( children ){
+			// console.log(children);
+			assert.equal( typeof(children), typeof([]) );
+			assert.equal( children[0], 'Bros3-2' );
+			assert.equal( children[4], 'Bros3-6' );
+			assert.equal( children.length, 5 );
 			done();
 		} );
 	});
@@ -176,8 +198,8 @@ describe('兄弟ページのページID一覧を取得する', function() {
 			// console.log(bros);
 			assert.equal( typeof(bros), typeof([]) );
 			assert.equal( bros[0], ':auto_page_id.3' );
-			assert.equal( bros[3], ':auto_page_id.21' );
-			assert.equal( bros.length, 4 );
+			assert.equal( bros[4], 'help' );
+			assert.equal( bros.length, 5 );
 			done();
 		} );
 	});
@@ -188,6 +210,17 @@ describe('兄弟ページのページID一覧を取得する', function() {
 			assert.equal( typeof(bros), typeof([]) );
 			assert.equal( bros[0], '' );
 			assert.equal( bros.length, 1 );
+			done();
+		} );
+	});
+
+	it("path '/bros3/3.html' の兄弟ページ一覧を、filterを無効にして取得する", function(done) {
+		pj.get_bros( '/bros3/3.html', {"filter": false}, function( bros ){
+			// console.log(bros);
+			assert.equal( typeof(bros), typeof([]) );
+			assert.equal( bros[0], 'Bros3-2' );
+			assert.equal( bros[4], 'Bros3-6' );
+			assert.equal( bros.length, 5 );
 			done();
 		} );
 	});
@@ -213,6 +246,14 @@ describe('次の兄弟ページを取得する', function() {
 		} );
 	});
 
+	it("path '/bros3/4.html' の次の兄弟ページIDを、filterを無効にして取得する", function(done) {
+		pj.get_bros_next( '/bros3/4.html', {"filter": false}, function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, 'Bros3-5' );
+			done();
+		} );
+	});
+
 });
 
 describe('前の兄弟ページを取得する', function() {
@@ -234,6 +275,14 @@ describe('前の兄弟ページを取得する', function() {
 		} );
 	});
 
+	it("path '/bros3/4.html' の前の兄弟ページIDを、filterを無効にして取得する", function(done) {
+		pj.get_bros_prev( '/bros3/4.html', {"filter": false}, function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, 'Bros3-3' );
+			done();
+		} );
+	});
+
 });
 
 describe('次のページを取得する', function() {
@@ -251,6 +300,14 @@ describe('次のページを取得する', function() {
 		pj.get_next( '/sample_pages/page2/2.html', function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, ':auto_page_id.18' );
+			done();
+		} );
+	});
+
+	it("path '/bros3/4.html' の次のページIDを、filterを無効にして取得する", function(done) {
+		pj.get_next( '/bros3/4.html', {"filter": false}, function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, 'Bros3-5' );
 			done();
 		} );
 	});
@@ -280,6 +337,14 @@ describe('前のページを取得する', function() {
 		pj.get_prev( '/sample_pages/', function( pageId ){
 			// console.log(pageId);
 			assert.strictEqual( pageId, '' );
+			done();
+		} );
+	});
+
+	it("path '/bros3/4.html' の前のページIDを、filterを無効にして取得する", function(done) {
+		pj.get_prev( '/bros3/4.html', {"filter": false}, function( pageId ){
+			// console.log(pageId);
+			assert.equal( pageId, 'Bros3-3' );
 			done();
 		} );
 	});

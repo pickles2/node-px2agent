@@ -113,45 +113,75 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.children
+	 * 子階層のページの一覧を取得する
 	 */
 	this.get_children = function(path, cb){
-		return apiGet('api.get.children', path, {}, cb);
+		var options = {};
+		if(arguments.length >= 3){
+			options = sitemap_children_params(arguments[1]);
+			cb = arguments[2];
+		}
+		return apiGet('api.get.children', path, options, cb);
 	}
 
 	/**
-	 * PX=api.get.bros
+	 * 兄弟ページの一覧を取得する
 	 */
 	this.get_bros = function(path, cb){
-		return apiGet('api.get.bros', path, {}, cb);
+		var options = {};
+		if(arguments.length >= 3){
+			options = sitemap_children_params(arguments[1]);
+			cb = arguments[2];
+		}
+		return apiGet('api.get.bros', path, options, cb);
 	}
 
 	/**
-	 * PX=api.get.bros_next
+	 * 次の兄弟ページを取得する
 	 */
 	this.get_bros_next = function(path, cb){
-		return apiGet('api.get.bros_next', path, {}, cb);
+		var options = {};
+		if(arguments.length >= 3){
+			options = sitemap_children_params(arguments[1]);
+			cb = arguments[2];
+		}
+		return apiGet('api.get.bros_next', path, options, cb);
 	}
 
 	/**
-	 * PX=api.get.bros_prev
+	 * 前の兄弟ページを取得する
 	 */
 	this.get_bros_prev = function(path, cb){
-		return apiGet('api.get.bros_prev', path, {}, cb);
+		var options = {};
+		if(arguments.length >= 3){
+			options = sitemap_children_params(arguments[1]);
+			cb = arguments[2];
+		}
+		return apiGet('api.get.bros_prev', path, options, cb);
 	}
 
 	/**
-	 * PX=api.get.next
+	 * 次のページを取得する
 	 */
 	this.get_next = function(path, cb){
-		return apiGet('api.get.next', path, {}, cb);
+		var options = {};
+		if(arguments.length >= 3){
+			options = sitemap_children_params(arguments[1]);
+			cb = arguments[2];
+		}
+		return apiGet('api.get.next', path, options, cb);
 	}
 
 	/**
-	 * PX=api.get.prev
+	 * 前のページを取得する
 	 */
 	this.get_prev = function(path, cb){
-		return apiGet('api.get.prev', path, {}, cb);
+		var options = {};
+		if(arguments.length >= 3){
+			options = sitemap_children_params(arguments[1]);
+			cb = arguments[2];
+		}
+		return apiGet('api.get.prev', path, options, cb);
 	}
 
 	/**
@@ -366,5 +396,34 @@ module.exports = function(px2agent, php_self, options){
 
 		return proc;
 	}
+
+	/**
+	 * get_children() へ渡されるオプションを調整する
+	 * この形式のオプションは、get_bros(), get_bros_next(), get_bros_prev(), get_next(), get_prev() でも共通です。
+	 */
+	function sitemap_children_params(options){
+		function boolize(val){
+			if(typeof(val) === typeof(null) || val === undefined){
+				val = null;
+			}else if(typeof(val) === typeof('string')){
+				switch( val ){
+					case 'true':
+					case '1':
+						val = 'true'; break;
+					case 'false':
+					case '0':
+						val = 'false'; break;
+				}
+			}else{
+				val = (val?'true':'false')
+			}
+			return val;
+		}
+		options = options||{};
+		var rtn = {};
+		rtn['filter'] = boolize(options['filter']);
+		return rtn;
+	}
+
 
 }

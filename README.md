@@ -2,10 +2,14 @@
 
 [![NPM](https://nodei.co/npm/px2agent.png)](https://nodei.co/npm/px2agent/)
 
-## Usage
+__px2agent__ は、[Pickles 2](http://pickles2.pxt.jp/) と NodeJS スクリプトを仲介するAPIを提供します。
+
+
+
+## 使い方 - Usage
 
 ```js
-var px2proj = require('px2agent').createProject('./px_execute.php');
+var px2proj = require('px2agent').createProject('./.px_execute.php');
 
 
 /**
@@ -52,182 +56,223 @@ px2proj.get_page_info('/', function(value){
 });
 
 /**
- * PX=api.get.parent
+ * 親ページのIDを取得する
  */
 px2proj.get_parent('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.children
+ * 子階層のページの一覧を取得する
  */
 px2proj.get_children('/', function(value){
 	console.log(value);
 });
+/**
+ * 子階層のページの一覧を、filterを無効にして取得する
+ */
+px2proj.get_children('/', {filter: false}, function(value){
+	console.log(value);
+});
 
 /**
- * PX=api.get.bros
+ * 同じ階層のページの一覧を取得する
  */
 px2proj.get_bros('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.bros_next
+ * 同じ階層のページの一覧を、filterを無効にして取得する
+ */
+px2proj.get_bros('/sample_pages/', {filter: false}, function(value){
+	console.log(value);
+});
+
+/**
+ * 同じ階層の次のページのIDを取得する
  */
 px2proj.get_bros_next('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.bros_prev
+ * 同じ階層の次のページのIDを、filterを無効にして取得する
+ */
+px2proj.get_bros_next('/sample_pages/', {filter: false}, function(value){
+	console.log(value);
+});
+
+/**
+ * 同じ階層の前のページのIDを取得する
  */
 px2proj.get_bros_prev('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.next
+ * 同じ階層の前のページのIDを、filterを無効にして取得する
+ */
+px2proj.get_bros_prev('/sample_pages/', {filter: false}, function(value){
+	console.log(value);
+});
+
+/**
+ * 次のページのIDを取得する
  */
 px2proj.get_next('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.prev
+ * 次のページのIDを、filterを無効にして取得する
+ */
+px2proj.get_next('/sample_pages/', {filter: false}, function(value){
+	console.log(value);
+});
+
+/**
+ * 前のページのIDを取得する
  */
 px2proj.get_prev('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.breadcrumb_array
+ * 前のページのIDを、filterを無効にして取得する
+ */
+px2proj.get_prev('/sample_pages/', {filter: false}, function(value){
+	console.log(value);
+});
+
+/**
+ * パンくず配列を取得する
  */
 px2proj.get_breadcrumb_array('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.dynamic_path_info&path={$path}
+ * ダイナミックパス情報を得る
  */
 px2proj.get_dynamic_path_info('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.path_homedir
+ * get home directory path
  */
 px2proj.get_path_homedir(function(value){
 	console.log(value);
 })
 
 /**
- * PX=api.get.path_controot
+ * コンテンツルートディレクトリのパス(=install path) を取得する
  */
 px2proj.get_path_controot(function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.path_docroot
+ * DOCUMENT_ROOT のパスを取得する
  */
 px2proj.get_path_docroot(function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.path_content
+ * get content path
  */
 px2proj.get_path_content('/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.path_files&path_content={$path}
+ * ローカルリソースディレクトリのパスを得る
  */
 px2proj.path_files('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.realpath_files&path_content={$path}
+ * ローカルリソースディレクトリのサーバー内部パスを得る
  */
 px2proj.realpath_files('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.path_files_cache&path_content={$path}
+ * ローカルリソースのキャッシュディレクトリのパスを得る
  */
 px2proj.path_files_cache('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.realpath_files_cache&path_content={$path}
+ * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
  */
 px2proj.realpath_files_cache('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.realpath_files_private_cache&path_content={$path}
+ * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
  */
 px2proj.realpath_files_private_cache('/', '/images/sample.png', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.domain
+ * domain を取得する
  */
 px2proj.get_domain(function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.directory_index
+ * directory_index(省略できるファイル名) の一覧を得る
  */
 px2proj.get_directory_index(function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.directory_index_primary
+ * 最も優先されるインデックスファイル名を得る
  */
 px2proj.get_directory_index_primary(function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.path_proc_type
+ * ファイルの処理方法を調べる
  */
 px2proj.get_path_proc_type('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.get.href&linkto={$path_linkto}
+ * リンク先のパスを生成する
  */
 px2proj.href('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.is.match_dynamic_path&path={$path}
+ * パスがダイナミックパスにマッチするか調べる
  */
 px2proj.is_match_dynamic_path('/sample_pages/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.is.page_in_breadcrumb&path={$path}
+ * ページが、パンくず内に存在しているか調べる
  */
 px2proj.is_page_in_breadcrumb('/sample_pages/', '/', function(value){
 	console.log(value);
 });
 
 /**
- * PX=api.is.ignore_path&path={$path}
+ * 除外ファイルか調べる
  */
 px2proj.is_ignore_path('/sample_pages/', function(value){
 	console.log(value);
@@ -259,7 +304,7 @@ px2proj.clearcache({
 });
 ```
 
-### Specifying path to the PHP binary
+### PHPバイナリのパスを指定する場合 - Specifying path to the PHP binary
 
 ```js
 var px2proj = require('px2agent').createProject(
@@ -269,9 +314,9 @@ var px2proj = require('px2agent').createProject(
 ```
 
 
-## for developers
+## 開発者向け情報 - for developers
 
-### Setting up development environment
+### 開発環境セットアップ - Setting up development environment
 
 ```bash
 $ cd {$project_root}
@@ -279,8 +324,22 @@ $ composer install
 $ npm install
 ```
 
-### Test
+### テスト - Test
 
 ```bash
 $ npm test
 ```
+
+
+
+## ライセンス - License
+
+MIT License
+
+
+## 作者 - Author
+
+- (C)Tomoya Koyanagi <tomk79@gmail.com>
+- website: <http://www.pxt.jp/>
+- Twitter: @tomk79 <http://twitter.com/tomk79/>
+
