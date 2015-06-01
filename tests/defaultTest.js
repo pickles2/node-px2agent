@@ -413,6 +413,28 @@ describe('ダイナミックパス情報を取得する', function() {
 });
 
 
+describe('ダイナミックパス情報に値をバインドする', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/dynamicPath/{*}' に値をバインドする", function(done) {
+		pj.bind_dynamic_path_param( '/dynamicPath/{*}', {'':'abc.html'}, function( value ){
+			// console.log(value);
+			assert.equal( value, '/dynamicPath/abc.html' );
+			done();
+		} );
+	});
+
+	it("path '/dynamicPath/id_{$id}/name_{$name}/{*}' に値をバインドする", function(done) {
+		pj.bind_dynamic_path_param( '/dynamicPath/id_{$id}/name_{$name}/{*}', {'':'abc.html', 'id':'hoge', 'name':'fuga'}, function( value ){
+			// console.log(value);
+			assert.equal( value, '/dynamicPath/id_hoge/name_fuga/abc.html' );
+			done();
+		} );
+	});
+
+});
+
+
 
 describe('ホームディレクトリのパスを取得する', function() {
 	var pj = getProject('htdocs1');

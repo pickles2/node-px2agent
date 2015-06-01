@@ -160,6 +160,13 @@ px2proj.get_dynamic_path_info('/sample_pages/', function(value){
 });
 
 /**
+ * ダイナミックパスに値をバインドする
+ */
+px2proj.bind_dynamic_path_param('/dynamicPath/{*}', {'':'abc.html'}, function(value){
+	console.log(value);
+});
+
+/**
  * get home directory path
  */
 px2proj.get_path_homedir(function(value){

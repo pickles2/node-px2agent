@@ -106,7 +106,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.parent
+	 * 親ページのIDを取得する
 	 */
 	this.get_parent = function(path, cb){
 		return apiGet('api.get.parent', path, {}, cb);
@@ -185,14 +185,14 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.breadcrumb_array
+	 * パンくず配列を取得する
 	 */
 	this.get_breadcrumb_array = function(path, cb){
 		return apiGet('api.get.breadcrumb_array', path, {}, cb);
 	}
 
 	/**
-	 * PX=api.get.dynamic_path_info&path={$path}
+	 * ダイナミックパス情報を得る
 	 */
 	this.get_dynamic_path_info = function(path, cb){
 		return apiGet('api.get.dynamic_path_info', '/', {
@@ -201,35 +201,45 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.path_homedir
+	 * ダイナミックパスに値をバインドする
+	 */
+	this.bind_dynamic_path_param = function(path, param, cb){
+		return apiGet('api.get.bind_dynamic_path_param', '/', {
+			"path":path,
+			"param":JSON.stringify(param)
+		}, cb);
+	}
+
+	/**
+	 * get home directory path
 	 */
 	this.get_path_homedir = function(cb){
 		return apiGet('api.get.path_homedir', '/', {}, cb);
 	}
 
 	/**
-	 * PX=api.get.path_controot
+	 * コンテンツルートディレクトリのパス(=install path) を取得する
 	 */
 	this.get_path_controot = function(cb){
 		return apiGet('api.get.path_controot', '/', {}, cb);
 	}
 
 	/**
-	 * PX=api.get.path_docroot
+	 * DOCUMENT_ROOT のパスを取得する
 	 */
 	this.get_path_docroot = function(cb){
 		return apiGet('api.get.path_docroot', '/', {}, cb);
 	}
 
 	/**
-	 * PX=api.get.path_content
+	 * get content path
 	 */
 	this.get_path_content = function(path, cb){
 		return apiGet('api.get.path_content', path, {}, cb);
 	}
 
 	/**
-	 * PX=api.get.path_files&path_content={$path}
+	 * ローカルリソースディレクトリのパスを得る
 	 */
 	this.path_files = function(path, path_resource, cb){
 		path_resource = path_resource||'';
@@ -239,7 +249,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.realpath_files&path_content={$path}
+	 * ローカルリソースディレクトリのサーバー内部パスを得る
 	 */
 	this.realpath_files = function(path, path_resource, cb){
 		path_resource = path_resource||'';
@@ -249,7 +259,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.path_files_cache&path_content={$path}
+	 * ローカルリソースのキャッシュディレクトリのパスを得る
 	 */
 	this.path_files_cache = function(path, path_resource, cb){
 		path_resource = path_resource||'';
@@ -259,7 +269,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.realpath_files_cache&path_content={$path}
+	 * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
 	 */
 	this.realpath_files_cache = function(path, path_resource, cb){
 		path_resource = path_resource||'';
@@ -269,7 +279,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.realpath_files_private_cache&path_content={$path}
+	 * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
 	 */
 	this.realpath_files_private_cache = function(path, path_resource, cb){
 		path_resource = path_resource||'';
@@ -279,35 +289,35 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.get.domain
+	 * domain を取得する
 	 */
 	this.get_domain = function(cb){
 		return apiGet('api.get.domain', '/', {}, cb);
 	}
 
 	/**
-	 * PX=api.get.directory_index
+	 * directory_index(省略できるファイル名) の一覧を得る
 	 */
 	this.get_directory_index = function(cb){
 		return apiGet('api.get.directory_index', '/', {}, cb);
 	}
 
 	/**
-	 * PX=api.get.directory_index_primary
+	 * 最も優先されるインデックスファイル名を得る
 	 */
 	this.get_directory_index_primary = function(cb){
 		return apiGet('api.get.directory_index_primary', '/', {}, cb);
 	}
 
 	/**
-	 * PX=api.get.path_proc_type
+	 * ファイルの処理方法を調べる
 	 */
 	this.get_path_proc_type = function(path, cb){
 		return apiGet('api.get.path_proc_type', path, {}, cb);
 	}
 
 	/**
-	 * PX=api.get.href&linkto={$path_linkto}
+	 * リンク先のパスを生成する
 	 */
 	this.href = function(path_linkto, cb){
 		return apiGet('api.get.href', '/', {
@@ -316,7 +326,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.is.match_dynamic_path&path={$path}
+	 * パスがダイナミックパスにマッチするか調べる
 	 */
 	this.is_match_dynamic_path = function(path, cb){
 		return apiGet('api.is.match_dynamic_path', '/', {
@@ -325,7 +335,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.is.page_in_breadcrumb&path={$path}
+	 * ページが、パンくず内に存在しているか調べる
 	 */
 	this.is_page_in_breadcrumb = function(path, path_in, cb){
 		return apiGet('api.is.page_in_breadcrumb', path, {
@@ -334,7 +344,7 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * PX=api.is.ignore_path&path={$path}
+	 * 除外ファイルか調べる
 	 */
 	this.is_ignore_path = function(path, cb){
 		return apiGet('api.is.ignore_path', '/', {
