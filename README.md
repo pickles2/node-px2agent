@@ -1,4 +1,34 @@
-# px2agent [![Build Status - master](https://secure.travis-ci.org/tomk79/px2agent.png?branch=master)](https://travis-ci.org/tomk79/px2agent)
+# px2agent
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Linux</th>
+      <th>Windows</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>master</th>
+      <td align="center">
+        <a href="https://travis-ci.org/tomk79/px2agent"><img src="https://secure.travis-ci.org/tomk79/px2agent.svg?branch=master"></a>
+      </td>
+      <td align="center">
+        <a href="https://ci.appveyor.com/project/tomk79/px2agent"><img src="https://ci.appveyor.com/api/projects/status/58wpe4gm5v671cc7/branch/master?svg=true"></a>
+      </td>
+    </tr>
+    <tr>
+      <th>develop</th>
+      <td align="center">
+        <a href="https://travis-ci.org/tomk79/px2agent"><img src="https://secure.travis-ci.org/tomk79/px2agent.svg?branch=develop"></a>
+      </td>
+      <td align="center">
+        <a href="https://ci.appveyor.com/project/tomk79/px2agent"><img src="https://ci.appveyor.com/api/projects/status/58wpe4gm5v671cc7/branch/develop?svg=true"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 [![NPM](https://nodei.co/npm/px2agent.png)](https://nodei.co/npm/px2agent/)
 
