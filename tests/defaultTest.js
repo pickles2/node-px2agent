@@ -790,7 +790,7 @@ describe('パブリッシュするテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("パブリッシュする", function(done) {
-		this.timeout(20*1000);
+		this.timeout(2*60*1000);
 		pj.publish({
 			"success": function(output){
 				// console.log(output);
@@ -810,7 +810,7 @@ describe('パブリッシュするテスト', function() {
 	});
 
 	it("/common/ ディレクトリのみパブリッシュする", function(done) {
-		this.timeout(20*1000);
+		this.timeout(2*60*1000);
 		pj.publish({
 			"path_region": "/common/",
 			"success": function(output){
