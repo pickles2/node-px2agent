@@ -5,11 +5,13 @@ module.exports = function(px2agent, php_self, options){
 	var _this = this;
 	this.php_self = php_self;
 	options = options||{};
-	options.bin = options.bin||'php';
+	options.bin = options.bin||null;
+	options.ini = options.ini||null;
 	this.options = options;
 	// console.log(php_self);
 
 	var phpjs = require('phpjs');
+	var nodePhpBin = require('node-php-bin').get(options);
 
 	/**
 	 * Pickles2 にクエリを投げて、結果を受け取る
@@ -19,6 +21,7 @@ module.exports = function(px2agent, php_self, options){
 		opt.output = opt.output||opt.o||undefined;
 		opt.userAgent = opt.userAgent||opt.u||undefined;
 		opt.success = opt.success||function(){};
+		opt.error = opt.error||function(){};
 		opt.complete = opt.complete||function(){};
 
 		var cloptions = [];
@@ -34,19 +37,22 @@ module.exports = function(px2agent, php_self, options){
 		cloptions.push( path );
 
 		var data_memo = '';
-		var rtn = spawn(
-			this.options.bin ,
-			cloptions ,
-			{
-				success: function( data ){
-					opt.success(''+data);
-					data_memo += data;
-				} ,
-				'complete': function( code ){
-					opt.complete(data_memo, code);
-				}
-			}
+		var rtn = nodePhpBin.spawn(
+			cloptions,
+			{}
 		);
+		if( opt.success ){ rtn.stdout.on('data', function( data ){
+			opt.success(''+data);
+			data_memo += data;
+		}); }
+		if( opt.error ){ rtn.stderr.on('data', function( data ){
+			opt.error(''+data);
+			data_memo += data;
+		}); }
+		if( opt.complete ){ rtn.on('close', function( code ){
+			opt.complete(data_memo, code);
+		}); }
+
 		return rtn;
 	}
 	/**
@@ -60,6 +66,7 @@ module.exports = function(px2agent, php_self, options){
 			for( var idx in param ){
 				aryParam.push( phpjs.urlencode(idx)+'='+phpjs.urlencode(param[idx]) )
 			}
+			if(!aryParam.length){return '';}
 			return '&'+aryParam.join('&');
 		})(param);
 		cb = cb||function(){};
@@ -380,32 +387,6 @@ module.exports = function(px2agent, php_self, options){
 		);
 	}
 
-
-
-
-	/**
-	 * システムコマンドを実行する(spawn)
-	 */
-	function spawn(cmd, cliOpts, opts){
-		opts = opts||{};
-		if( opts.cd ){
-			process.chdir( opts.cd );
-		}
-		// console.log( opts.cd );
-		// console.log( process.cwd() );
-
-		var proc = require('child_process').spawn(cmd, cliOpts);
-		if( opts.success ){ proc.stdout.on('data', opts.success); }
-		if( opts.error ){ proc.stderr.on('data', opts.error); }
-		if( opts.complete ){ proc.on('close', opts.complete); }
-
-		if( opts.cd ){
-			process.chdir( _pathCurrentDir );
-		}
-		// console.log( process.cwd() );
-
-		return proc;
-	}
 
 	/**
 	 * get_children() へ渡されるオプションを調整する

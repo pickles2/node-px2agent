@@ -341,12 +341,15 @@ px2proj.clearcache({
 });
 ```
 
-### PHPバイナリのパスを指定する場合 - Specifying path to the PHP binary
+### PHPバイナリのパスを指定する場合 - Specifying path to PHP binary
 
 ```js
 var px2proj = require('px2agent').createProject(
   './px_execute.php',
-  {'bin': '/path/to/php'}
+  {
+    'bin': '/path/to/php',
+    'ini': '/path/to/php.ini',
+  }
 );
 ```
 
@@ -385,4 +388,3 @@ MIT License
 - (C)Tomoya Koyanagi <tomk79@gmail.com>
 - website: <http://www.pxt.jp/>
 - Twitter: @tomk79 <http://twitter.com/tomk79/>
-

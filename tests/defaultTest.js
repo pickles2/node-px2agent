@@ -13,10 +13,7 @@ describe('Pickles2 API から値を取得するテスト', function() {
 
 	it("バージョン番号を取得するテスト", function(done) {
 		pj.get_version(function(version){
-			// version = '2.0.111-beta299-nb';
-			// console.log(typeof(version));
-			// console.log(version);
-			var matched = version.match(new RegExp('^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta)[0-9]+)?(\\-nb)?$'));
+			var matched = version.match(new RegExp('^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta|rc)(?:\.[0-9]+)?)?(\\+nb)?$'));
 			assert.notEqual(matched, null);
 			done();
 		});
@@ -31,6 +28,26 @@ describe('Pickles2 API から値を取得するテスト', function() {
 			assert.equal(typeof(conf.funcs.processor.html), typeof({}));
 			done();
 		});
+	});
+
+	it("phpinfo() を取得する", function(done) {
+		pj.query(
+			'/?PX=phpinfo' ,
+			{
+				"complete": function(html, code){
+					// console.log(html);
+					assert.equal(typeof(html), typeof(''));
+
+					var matched = html.match(new RegExp('phpinfo\(\)'));
+					assert.notEqual(matched, null);
+
+					var matched = html.match(new RegExp('PHP Version \=\> 5\.6\.[78]'));
+					assert.notEqual(matched, null);
+
+					done();
+				}
+			}
+		);
 	});
 
 	it("サイトマップを取得するテスト", function(done) {
@@ -60,7 +77,6 @@ describe('Pickles2 からHTMLページを取得するテスト', function() {
 				"userAgent": "Mozilla/5.0",
 				"complete": function(html, code){
 					// console.log(html);
-					// var matched = version.match(new RegExp('^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta)[0-9]+)?(\\-nb)?$'));
 					assert.equal(typeof(html), typeof(''));
 					done();
 				}
@@ -855,5 +871,3 @@ describe('キャッシュを削除するテスト', function() {
 	});
 
 });
-
-
