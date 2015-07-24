@@ -26,14 +26,23 @@ module.exports = function(px2agent, php_self, options){
 
 		var cloptions = [];
 		cloptions.push( this.php_self );
+
+		// 出力形式
 		if( opt.output ){
 			cloptions.push( '-o' );
 			cloptions.push( opt.output );
 		}
+
+		// USER_AGENT
 		if( opt.userAgent ){
 			cloptions.push( '-u' );
 			cloptions.push( opt.userAgent );
 		}
+
+		// PHPのパス
+		cloptions.push( '--command-php' );
+		cloptions.push( nodePhpBin.getPath() );
+
 		cloptions.push( path );
 
 		var data_memo = '';

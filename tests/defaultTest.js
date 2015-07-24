@@ -820,6 +820,12 @@ describe('パブリッシュするテスト', function() {
 				assert.equal( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), true );
 				assert.equal( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), true );
 
+				var html = fs.readFileSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html');
+				html = html.toString();
+				// console.log(html);
+				var matched = html.match(new RegExp('PHP Version \=\> 5\.6\.[78]'));
+				assert.notEqual(matched, null);
+
 				done();
 			}
 		});
