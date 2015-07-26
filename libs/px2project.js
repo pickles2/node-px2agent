@@ -42,6 +42,12 @@ module.exports = function(px2agent, php_self, options){
 		// PHPのパス
 		cloptions.push( '--command-php' );
 		cloptions.push( nodePhpBin.getPath() );
+		cloptions.push( '-c' );
+		cloptions.push( nodePhpBin.getIniPath() );
+		if( process.platform == 'win32' ){
+			cloptions.push( '-d' );
+			cloptions.push( 'extension_dir='+nodePhpBin.getExtensionDir() );
+		}
 
 		cloptions.push( path );
 
