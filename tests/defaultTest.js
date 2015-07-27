@@ -41,7 +41,11 @@ describe('Pickles2 API から値を取得するテスト', function() {
 					var matched = html.match(new RegExp('phpinfo\(\)'));
 					assert.notEqual(matched, null);
 
-					var matched = html.match(new RegExp('PHP Version \=\> 5\.6\.[78]'));
+					var versionRegExp = '5\.6\.[78]';
+					if( process.platform != 'darwin' && process.platform != 'win32' ){
+						versionRegExp = '[0-9]+\.[0-9]+\.[0-9]+'
+					}
+					var matched = html.match(new RegExp('PHP Version \=\> '+versionRegExp));
 					assert.notEqual(matched, null);
 
 					done();
@@ -823,7 +827,11 @@ describe('パブリッシュするテスト', function() {
 				var html = fs.readFileSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html');
 				html = html.toString();
 				// console.log(html);
-				var matched = html.match(new RegExp('PHP Version \=\> 5\.6\.[78]'));
+				var versionRegExp = '5\.6\.[78]';
+				if( process.platform != 'darwin' && process.platform != 'win32' ){
+					versionRegExp = '[0-9]+\.[0-9]+\.[0-9]+'
+				}
+				var matched = html.match(new RegExp('PHP Version \=\> '+versionRegExp));
 				assert.notEqual(matched, null);
 
 				done();
