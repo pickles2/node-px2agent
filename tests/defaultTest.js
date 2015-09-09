@@ -22,6 +22,7 @@ describe('Pickles2 API から値を取得するテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("バージョン番号を取得するテスト", function(done) {
+		this.timeout(60*1000);
 		pj.get_version(function(version){
 			var matched = version.match(new RegExp('^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta|rc)(?:\.[0-9]+)?)?(\\+nb)?$'));
 			assert.notEqual(matched, null);
@@ -30,6 +31,7 @@ describe('Pickles2 API から値を取得するテスト', function() {
 	});
 
 	it("configを取得するテスト", function(done) {
+		this.timeout(60*1000);
 		pj.get_config(function(conf){
 			// console.log(conf);
 			assert.equal(conf.name, 'px2agent test htdocs1');
@@ -41,6 +43,7 @@ describe('Pickles2 API から値を取得するテスト', function() {
 	});
 
 	it("phpinfo() を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.query(
 			'/?PX=phpinfo' ,
 			{
@@ -65,6 +68,7 @@ describe('Pickles2 API から値を取得するテスト', function() {
 	});
 
 	it("サイトマップを取得するテスト", function(done) {
+		this.timeout(60*1000);
 		pj.get_sitemap(function(sitemap){
 			// console.log(sitemap);
 			assert.equal(typeof(sitemap), typeof({}));
@@ -85,6 +89,7 @@ describe('Pickles2 からHTMLページを取得するテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("Mozilla/5.0 としてトップページを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.query(
 			'/' ,
 			{
@@ -99,6 +104,7 @@ describe('Pickles2 からHTMLページを取得するテスト', function() {
 	});
 
 	it("Mozilla/5.0 としてトップページをJSON形式で取得する", function(done) {
+		this.timeout(60*1000);
 		pj.query(
 			'/' ,
 			{
@@ -123,6 +129,7 @@ describe('ページ情報を取得するテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/' のページ情報を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_page_info( '/', function( page_info ){
 			// console.log(page_info);
 			assert.equal( typeof(page_info), typeof({}) );
@@ -134,6 +141,7 @@ describe('ページ情報を取得するテスト', function() {
 	});
 
 	it("id '' のページ情報を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_page_info( '', function( page_info ){
 			// console.log(page_info);
 			assert.equal( typeof(page_info), typeof({}) );
@@ -151,6 +159,7 @@ describe('親ページのページIDを取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/' のページ情報を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_parent( '/sample_pages/', function( parent ){
 			// console.log(parent);
 			assert.equal( parent, '' );
@@ -159,6 +168,7 @@ describe('親ページのページIDを取得する', function() {
 	});
 
 	it("path '/' の親ページを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_parent( '/', function( parent ){
 			assert.equal( parent, false );
 			done();
@@ -174,6 +184,7 @@ describe('子ページのページID一覧を取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/' の子ページ一覧を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_children( '/sample_pages/', function( children ){
 			// console.log(children);
 			assert.equal( typeof(children), typeof([]) );
@@ -185,6 +196,7 @@ describe('子ページのページID一覧を取得する', function() {
 	});
 
 	it("path '/' の子ページ一覧を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_children( '/', function( children ){
 			// console.log(children);
 			assert.equal( typeof(children), typeof([]) );
@@ -196,6 +208,7 @@ describe('子ページのページID一覧を取得する', function() {
 	});
 
 	it("path '/bros3/' の子ページ一覧を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_children( '/bros3/', function( children ){
 			// console.log(children);
 			assert.equal( typeof(children), typeof([]) );
@@ -207,6 +220,7 @@ describe('子ページのページID一覧を取得する', function() {
 	});
 
 	it("path '/bros3/' の子ページ一覧を、filterを無効にして取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_children( '/bros3/', {"filter": false}, function( children ){
 			// console.log(children);
 			assert.equal( typeof(children), typeof([]) );
@@ -224,6 +238,7 @@ describe('兄弟ページのページID一覧を取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/' の兄弟ページ一覧を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros( '/sample_pages/', function( bros ){
 			// console.log(bros);
 			assert.equal( typeof(bros), typeof([]) );
@@ -235,6 +250,7 @@ describe('兄弟ページのページID一覧を取得する', function() {
 	});
 
 	it("path '/' の兄弟ページ一覧を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros( '/', function( bros ){
 			// console.log(bros);
 			assert.equal( typeof(bros), typeof([]) );
@@ -245,6 +261,7 @@ describe('兄弟ページのページID一覧を取得する', function() {
 	});
 
 	it("path '/bros3/3.html' の兄弟ページ一覧を、filterを無効にして取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros( '/bros3/3.html', {"filter": false}, function( bros ){
 			// console.log(bros);
 			assert.equal( typeof(bros), typeof([]) );
@@ -261,6 +278,7 @@ describe('次の兄弟ページを取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/page2/1.htm' の次の兄弟ページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros_next( '/sample_pages/page2/1.htm', function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, ':auto_page_id.17' );
@@ -269,6 +287,7 @@ describe('次の兄弟ページを取得する', function() {
 	});
 
 	it("path '/sample_pages/page2/2.html' の次の兄弟ページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros_next( '/sample_pages/page2/2.html', function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, false );
@@ -277,6 +296,7 @@ describe('次の兄弟ページを取得する', function() {
 	});
 
 	it("path '/bros3/4.html' の次の兄弟ページIDを、filterを無効にして取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros_next( '/bros3/4.html', {"filter": false}, function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, 'Bros3-5' );
@@ -290,6 +310,7 @@ describe('前の兄弟ページを取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/page2/index.html' の前の兄弟ページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros_prev( '/sample_pages/page2/index.html', function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, ':auto_page_id.3' );
@@ -298,6 +319,7 @@ describe('前の兄弟ページを取得する', function() {
 	});
 
 	it("path '/sample_pages/' の前の兄弟ページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros_prev( '/sample_pages/', function( pageId ){
 			// console.log(pageId);
 			assert.strictEqual( pageId, false );
@@ -306,6 +328,7 @@ describe('前の兄弟ページを取得する', function() {
 	});
 
 	it("path '/bros3/4.html' の前の兄弟ページIDを、filterを無効にして取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_bros_prev( '/bros3/4.html', {"filter": false}, function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, 'Bros3-3' );
@@ -319,6 +342,7 @@ describe('次のページを取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/page2/1.htm' の次のページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_next( '/sample_pages/page2/1.htm', function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, ':auto_page_id.17' );
@@ -327,6 +351,7 @@ describe('次のページを取得する', function() {
 	});
 
 	it("path '/sample_pages/page2/2.html' の次のページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_next( '/sample_pages/page2/2.html', function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, ':auto_page_id.18' );
@@ -335,6 +360,7 @@ describe('次のページを取得する', function() {
 	});
 
 	it("path '/bros3/4.html' の次のページIDを、filterを無効にして取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_next( '/bros3/4.html', {"filter": false}, function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, 'Bros3-5' );
@@ -343,6 +369,7 @@ describe('次のページを取得する', function() {
 	});
 
 	it("path '/sample_pages/help/' の次のページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_next( '/sample_pages/help/', function( pageId ){
 			// console.log(pageId);
 			assert.strictEqual( pageId, false );
@@ -356,6 +383,7 @@ describe('前のページを取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/page2/index.html' の前のページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_prev( '/sample_pages/page2/index.html', function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, ':auto_page_id.13' );
@@ -364,6 +392,7 @@ describe('前のページを取得する', function() {
 	});
 
 	it("path '/sample_pages/' の前のページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_prev( '/sample_pages/', function( pageId ){
 			// console.log(pageId);
 			assert.strictEqual( pageId, '' );
@@ -372,6 +401,7 @@ describe('前のページを取得する', function() {
 	});
 
 	it("path '/bros3/4.html' の前のページIDを、filterを無効にして取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_prev( '/bros3/4.html', {"filter": false}, function( pageId ){
 			// console.log(pageId);
 			assert.equal( pageId, 'Bros3-3' );
@@ -380,6 +410,7 @@ describe('前のページを取得する', function() {
 	});
 
 	it("path '/' の前のページIDを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_prev( '/', function( pageId ){
 			// console.log(pageId);
 			assert.strictEqual( pageId, false );
@@ -393,6 +424,7 @@ describe('パンくず上のページ一覧を取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/page1/2.html' の兄弟ページ一覧を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_breadcrumb_array( '/sample_pages/page1/2.html', function( breadcrumb ){
 			// ※このAPIが返す値には、自分自身は含まれない。
 			// console.log(breadcrumb);
@@ -411,6 +443,7 @@ describe('ダイナミックパス情報を取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/page1/2.html' のダイナミックパス情報を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_dynamic_path_info( '/sample_pages/page1/2.html', function( value ){
 			// console.log(value);
 			assert.equal( value, false );
@@ -419,6 +452,7 @@ describe('ダイナミックパス情報を取得する', function() {
 	});
 
 	it("path '/sample_pages/page1/4/{*}' のダイナミックパス情報を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_dynamic_path_info( '/sample_pages/page1/4/{*}', function( value ){
 			// console.log(value);
 			assert.equal( typeof(value), typeof({}) );
@@ -430,6 +464,7 @@ describe('ダイナミックパス情報を取得する', function() {
 	});
 
 	it("path '/sample_pages/page1/4/param/value/index.html' のダイナミックパス情報を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_dynamic_path_info( '/sample_pages/page1/4/param/value/index.html', function( value ){
 			// console.log(value);
 			assert.equal( typeof(value), typeof({}) );
@@ -447,6 +482,7 @@ describe('ダイナミックパス情報に値をバインドする', function()
 	var pj = getProject('htdocs1');
 
 	it("path '/dynamicPath/{*}' に値をバインドする", function(done) {
+		this.timeout(60*1000);
 		pj.bind_dynamic_path_param( '/dynamicPath/{*}', {'':'abc.html'}, function( value ){
 			// console.log(value);
 			assert.equal( value, '/dynamicPath/abc.html' );
@@ -455,6 +491,7 @@ describe('ダイナミックパス情報に値をバインドする', function()
 	});
 
 	it("path '/dynamicPath/id_{$id}/name_{$name}/{*}' に値をバインドする", function(done) {
+		this.timeout(60*1000);
 		pj.bind_dynamic_path_param( '/dynamicPath/id_{$id}/name_{$name}/{*}', {'':'abc.html', 'id':'hoge', 'name':'fuga'}, function( value ){
 			// console.log(value);
 			assert.equal( value, '/dynamicPath/id_hoge/name_fuga/abc.html' );
@@ -470,6 +507,7 @@ describe('ホームディレクトリのパスを取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("ホームディレクトリのパスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_homedir( function( path_home_dir ){
 			// console.log(path_home_dir);
 			assert.equal( typeof(path_home_dir), typeof('') );
@@ -484,6 +522,7 @@ describe('コンテンツルートディレクトリのパスを取得する', f
 	var pj = getProject('htdocs1');
 
 	it("コンテンツルートディレクトリのパスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_controot( function( path_controot ){
 			// console.log(path_controot);
 			assert.equal( typeof(path_controot), typeof('') );
@@ -497,6 +536,7 @@ describe('ドキュメントルートディレクトリのパスを取得する'
 	var pj = getProject('htdocs1');
 
 	it("ドキュメントルートディレクトリのパスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_docroot( function( path_docroot ){
 			// console.log(path_docroot);
 			assert.equal( typeof(path_docroot), typeof('') );
@@ -510,6 +550,7 @@ describe('コンテンツのパスを取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/' のコンテンツのパスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_content( '/', function( path_content ){
 			// console.log(path_docroot);
 			assert.equal( path_content, '/index.html' );
@@ -518,6 +559,7 @@ describe('コンテンツのパスを取得する', function() {
 	});
 
 	it("path '/sample_pages/page1/3.html' のコンテンツのパスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_content( '/sample_pages/page1/3.html', function( path_content ){
 			// console.log(path_content);
 			assert.equal( path_content, '/sample_pages/page1/3.html.md' );
@@ -530,6 +572,7 @@ describe('コンテンツのリソースディレクトリのパスを取得す�
 	var pj = getProject('htdocs1');
 
 	it("path '/' のコンテンツのリソースディレクトリのパスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.path_files( '/', '/images/test.png', function( path_content ){
 			// console.log(path_docroot);
 			assert.equal( path_content, '/index_files/images/test.png' );
@@ -538,6 +581,7 @@ describe('コンテンツのリソースディレクトリのパスを取得す�
 	});
 
 	it("path '/' のコンテンツのリソースディレクトリのパスを取得する(第二引数をnullで指定)", function(done) {
+		this.timeout(60*1000);
 		pj.path_files( '/', null, function( path_content ){
 			// console.log(path_docroot);
 			assert.equal( path_content, '/index_files/' );
@@ -546,6 +590,7 @@ describe('コンテンツのリソースディレクトリのパスを取得す�
 	});
 
 	it("path '/sample_pages/page1/3.html' のコンテンツのリソースディレクトリのパスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.path_files( '/sample_pages/page1/3.html', '', function( path_content ){
 			// console.log(path_content);
 			assert.equal( path_content, '/sample_pages/page1/3_files/' );
@@ -558,6 +603,7 @@ describe('コンテンツのリソースディレクトリの絶対パスを取�
 	var pj = getProject('htdocs1');
 
 	it("path '/' のコンテンツのリソースディレクトリの絶対パスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.realpath_files( '/', '/images/test.png', function( path_content ){
 			// console.log(path_docroot);
 			assert.equal( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/index_files/images/test.png') );
@@ -566,6 +612,7 @@ describe('コンテンツのリソースディレクトリの絶対パスを取�
 	});
 
 	it("path '/' のコンテンツのリソースディレクトリの絶対パスを取得する(第二引数をnullで指定)", function(done) {
+		this.timeout(60*1000);
 		pj.realpath_files( '/', null, function( path_content ){
 			// console.log(path_docroot);
 			assert.equal( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/index_files/') );
@@ -574,6 +621,7 @@ describe('コンテンツのリソースディレクトリの絶対パスを取�
 	});
 
 	it("path '/sample_pages/page1/3.html' のコンテンツのリソースディレクトリの絶対パスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.realpath_files( '/sample_pages/page1/3.html', '', function( path_content ){
 			// console.log(path_content);
 			assert.equal( path.resolve(path_content), path.resolve(__dirname+'/testData/htdocs1/'+'/sample_pages/page1/3_files/') );
@@ -588,6 +636,7 @@ describe('コンテンツの cache directory のパスを調べる', function() 
 	var pj = getProject('htdocs1');
 
 	it("path '/' の cache directory のパス", function(done) {
+		this.timeout(60*1000);
 		pj.path_files_cache( '/', '/sample.png', function( result ){
 			// console.log(result);
 			assert.equal( result, '/caches/c/index_files/sample.png' );
@@ -602,6 +651,7 @@ describe('コンテンツの cache directory の絶対パスを調べる', funct
 	var pj = getProject('htdocs1');
 
 	it("path '/' の cache directory の絶対パス", function(done) {
+		this.timeout(60*1000);
 		pj.realpath_files_cache( '/', '/sample.png', function( realpath ){
 			// console.log(realpath);
 			assert.equal( path.resolve( realpath ), path.resolve( __dirname+'/testData/htdocs1/caches/c/index_files/sample.png' ) );
@@ -616,6 +666,7 @@ describe('コンテンツの private cache directory の絶対パスを調べる
 	var pj = getProject('htdocs1');
 
 	it("path '/' の private cache directory の絶対パス", function(done) {
+		this.timeout(60*1000);
 		pj.realpath_files_private_cache( '/', '/sample.png', function( realpath ){
 			// console.log(realpath);
 			assert.equal( path.resolve( realpath ), path.resolve( __dirname+'/testData/htdocs1/px-files/_sys/ram/caches/c/index_files/sample.png' ) );
@@ -631,6 +682,7 @@ describe('ドメイン名を取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("ドメイン名を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_domain( function( domain ){
 			// console.log(domain);
 			assert.equal( domain, 'pickles2.pxt.jp' );
@@ -644,6 +696,7 @@ describe('ディレクトリインデックスのテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("ディレクトリインデックスの一覧を取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_directory_index( function( directory_index ){
 			// console.log(directory_index);
 			assert.equal( typeof(directory_index), typeof([]) );
@@ -654,6 +707,7 @@ describe('ディレクトリインデックスのテスト', function() {
 	});
 
 	it("最も優先されるディレクトリインデックスを取得する", function(done) {
+		this.timeout(60*1000);
 		pj.get_directory_index_primary( function( directory_index ){
 			// console.log(directory_index);
 			assert.equal( directory_index, 'index.html' );
@@ -669,6 +723,7 @@ describe('proc_typeを取得する', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/index.html' のproc_typeを取得", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_proc_type( '/sample_pages/index.html', function( proc_type ){
 			// console.log(proc_type);
 			assert.equal( proc_type, 'html' );
@@ -677,6 +732,7 @@ describe('proc_typeを取得する', function() {
 	});
 
 	it("path '/common/styles/common.css' のproc_typeを取得", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_proc_type( '/common/styles/common.css', function( proc_type ){
 			// console.log(proc_type);
 			assert.equal( proc_type, 'css' );
@@ -685,6 +741,7 @@ describe('proc_typeを取得する', function() {
 	});
 
 	it("path '/common/images/logo.png' のproc_typeを取得", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_proc_type( '/common/images/logo.png', function( proc_type ){
 			// console.log(proc_type);
 			assert.equal( proc_type, 'direct' );
@@ -693,6 +750,7 @@ describe('proc_typeを取得する', function() {
 	});
 
 	it("path '/vendor/autoload.php' のproc_typeを取得", function(done) {
+		this.timeout(60*1000);
 		pj.get_path_proc_type( '/vendor/autoload.php', function( proc_type ){
 			// console.log(proc_type);
 			assert.equal( proc_type, 'ignore' );
@@ -710,6 +768,7 @@ describe('リンク先を解決するテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/index.html' へのリンク", function(done) {
+		this.timeout(60*1000);
 		pj.href( '/sample_pages/index.html', function( href ){
 			// console.log(href);
 			assert.equal( typeof(href), typeof('') );
@@ -726,6 +785,7 @@ describe('ダイナミックパスの一覧に含まれるかどうか調べる'
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/page1/4/{*}' がダイナミックパスかチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_match_dynamic_path( '/sample_pages/page1/4/{*}', function( result ){
 			// console.log(result);
 			assert.equal( result, true );
@@ -734,6 +794,7 @@ describe('ダイナミックパスの一覧に含まれるかどうか調べる'
 	});
 
 	it("path '/sample_pages/page1/4/' がダイナミックパスかチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_match_dynamic_path( '/sample_pages/page1/4/', function( result ){
 			// console.log(result);
 			assert.equal( result, true );
@@ -742,6 +803,7 @@ describe('ダイナミックパスの一覧に含まれるかどうか調べる'
 	});
 
 	it("path '/sample_pages/page1/4/param1/param2.html' がダイナミックパスかチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_match_dynamic_path( '/sample_pages/page1/4/param1/param2.html', function( result ){
 			// console.log(result);
 			assert.equal( result, true );
@@ -750,6 +812,7 @@ describe('ダイナミックパスの一覧に含まれるかどうか調べる'
 	});
 
 	it("path '/sample_pages/' がダイナミックパスかチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_match_dynamic_path( '/sample_pages/', function( result ){
 			// console.log(result);
 			assert.equal( result, false );
@@ -764,6 +827,7 @@ describe('パンくずに含まれるかどうか調べる', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/' が path '/sample_pages/page1/2.html' のパンくずに含まれるかチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_page_in_breadcrumb( '/sample_pages/page1/2.html', '/sample_pages/', function( result ){
 			// console.log(result);
 			assert.equal( result, true );
@@ -779,6 +843,7 @@ describe('ignore_pathかどうか調べる', function() {
 	var pj = getProject('htdocs1');
 
 	it("path '/sample_pages/index.html' をチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_ignore_path( '/sample_pages/index.html', function( is_ignore ){
 			// console.log(is_ignore);
 			assert.equal( is_ignore, false );
@@ -787,6 +852,7 @@ describe('ignore_pathかどうか調べる', function() {
 	});
 
 	it("path '/common/styles/common.css' をチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_ignore_path( '/common/styles/common.css', function( is_ignore ){
 			// console.log(is_ignore);
 			assert.equal( is_ignore, false );
@@ -795,6 +861,7 @@ describe('ignore_pathかどうか調べる', function() {
 	});
 
 	it("path '/common/images/logo.png' をチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_ignore_path( '/common/images/logo.png', function( is_ignore ){
 			// console.log(is_ignore);
 			assert.equal( is_ignore, false );
@@ -803,6 +870,7 @@ describe('ignore_pathかどうか調べる', function() {
 	});
 
 	it("path '/vendor/autoload.php' をチェック", function(done) {
+		this.timeout(60*1000);
 		pj.is_ignore_path( '/vendor/autoload.php', function( is_ignore ){
 			// console.log(is_ignore);
 			assert.equal( is_ignore, true );
@@ -878,6 +946,7 @@ describe('キャッシュを削除するテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("キャッシュを削除する", function(done) {
+		this.timeout(60*1000);
 		pj.clearcache({
 			"success": function(output){
 				// console.log(output);
