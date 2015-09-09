@@ -349,6 +349,7 @@ var px2proj = require('px2agent').createProject(
   {
     'bin': '/path/to/php',
     'ini': '/path/to/php.ini',
+    'extension_dir': '/path/to/ext/'
   }
 );
 ```

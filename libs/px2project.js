@@ -5,13 +5,14 @@ module.exports = function(px2agent, php_self, options){
 	var _this = this;
 	this.php_self = php_self;
 	options = options||{};
-	options.bin = options.bin||null;
+	options.bin = options.bin||'php';
 	options.ini = options.ini||null;
+	options.extension_dir = options.extension_dir||null;
 	this.options = options;
 	// console.log(php_self);
 
+	var childProcess = require('child_process');
 	var phpjs = require('phpjs');
-	var nodePhpBin = require('node-php-bin').get(options);
 
 	/**
 	 * Pickles2 にクエリを投げて、結果を受け取る
@@ -41,18 +42,29 @@ module.exports = function(px2agent, php_self, options){
 
 		// PHPのパス
 		cloptions.push( '--command-php' );
-		cloptions.push( nodePhpBin.getPath() );
-		cloptions.push( '-c' );
-		cloptions.push( nodePhpBin.getIniPath() );
-		if( process.platform == 'win32' ){
+		cloptions.push( options.bin );
+		if( options.ini ){
+			cloptions.push( '-c' );
+			cloptions.push( options.ini );
+		}
+		if( options.extension_dir ){
 			cloptions.push( '-d' );
-			cloptions.push( 'extension_dir='+nodePhpBin.getExtensionDir() );
+			cloptions.push( 'extension_dir='+options.extension_dir );
 		}
 
 		cloptions.push( path );
 
 		var data_memo = '';
-		var rtn = nodePhpBin.spawn(
+		var rtn = (function(cliParams, opts){
+			cliParams = cliParams || [];
+			opts = opts || {};
+			var child = childProcess.spawn(
+				options.bin,
+				cliParams,
+				opts
+			);
+			return child;
+		})(
 			cloptions,
 			{}
 		);

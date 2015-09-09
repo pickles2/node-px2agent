@@ -3,9 +3,17 @@ var px2agent = require('../libs/px2agent');
 var path = require('path');
 var fs = require('fs');
 var phpjs = require('phpjs');
+var nodePhpBin = require('node-php-bin').get();
 
 function getProject( testDataName ){
-	return require('../libs/px2agent').createProject( path.resolve(__dirname,'./testData/'+testDataName+'/.px_execute.php') );
+	return require('../libs/px2agent').createProject(
+		path.resolve(__dirname,'./testData/'+testDataName+'/.px_execute.php'),
+		{
+			"bin": nodePhpBin.getPath() ,
+			"ini": nodePhpBin.getIniPath() ,
+			"extension_dir": nodePhpBin.getExtensionDir()
+		}
+	);
 }
 
 describe('Pickles2 API から値を取得するテスト', function() {
