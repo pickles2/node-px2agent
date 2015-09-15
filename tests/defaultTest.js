@@ -4,6 +4,7 @@ var path = require('path');
 var fs = require('fs');
 var phpjs = require('phpjs');
 var nodePhpBin = require('node-php-bin').get();
+var Promise = require("es6-promise").Promise;
 
 function getProject( testDataName ){
 	var options = {
@@ -937,9 +938,351 @@ describe('パブリッシュするテスト', function() {
 			}
 		});
 	});
-// path_region
+
 });
 
+
+describe('PHPを異常終了させるテスト', function() {
+	var pj = getProject('htdocs2');
+	var childProcRtnCode = 255;
+
+	it("APIをコールするとPHPが異常終了するテスト", function(done) {
+		this.timeout(5*1000);
+
+		new Promise(function(rlv, rjc){
+				pj.query('/?PX=phpinfo', {
+					"output": "json",
+					"userAgent": "Mozilla/5.0",
+					"complete": function(data, code){
+						// console.log(data);
+						rlv();
+					}
+				});
+			})
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_version(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					// console.log(code);
+					// console.log(err);
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_config(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_sitemap(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_page_info('/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_parent('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_children('/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_children('/', {filter: false}, function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_bros('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_bros('/sample_pages/', {filter: false}, function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_bros_next('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_bros_next('/sample_pages/', {filter: false}, function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_bros_prev('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_bros_prev('/sample_pages/', {filter: false}, function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_next('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_next('/sample_pages/', {filter: false}, function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_prev('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_prev('/sample_pages/', {filter: false}, function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_breadcrumb_array('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_dynamic_path_info('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.bind_dynamic_path_param('/dynamicPath/{*}', {'':'abc.html'}, function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_path_homedir(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				})
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_path_controot(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_path_docroot(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_path_content('/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.path_files('/', '/images/sample.png', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.realpath_files('/', '/images/sample.png', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.path_files_cache('/', '/images/sample.png', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.realpath_files_cache('/', '/images/sample.png', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.realpath_files_private_cache('/', '/images/sample.png', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_domain(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_directory_index(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_directory_index_primary(function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.get_path_proc_type('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.href('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.is_match_dynamic_path('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.is_page_in_breadcrumb('/sample_pages/', '/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.is_ignore_path('/sample_pages/', function(value, code, err){
+					assert.strictEqual( value, false );
+					assert.equal( childProcRtnCode, code );
+					assert.equal( typeof(''), typeof(err) );
+					rlv();
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.publish({
+					"success": function(output){
+					},
+					"complete":function(output){
+						rlv();
+					}
+				});
+			}); })
+			.then(function(){ return new Promise(function(rlv, rjc){
+				pj.clearcache({
+					"success": function(output){
+					},
+					"complete":function(output){
+						rlv();
+					}
+				});
+			}); })
+			.then(function(){
+				done();
+			})
+		;
+
+	});
+
+});
 
 
 describe('キャッシュを削除するテスト', function() {

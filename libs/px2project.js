@@ -112,12 +112,24 @@ module.exports = function(px2agent, php_self, options){
 			return '&'+aryParam.join('&');
 		})(param);
 		cb = cb||function(){};
+		var errorMsg = null;
 		return _this.query(
 			path+'?PX='+cmd+param ,
 			{
+				"error": function(data){
+					if( errorMsg === null ){ errorMsg = ''; }
+					errorMsg += data;
+				},
 				"complete": function(data, code){
-					data = JSON.parse(data);
-					cb( data );
+					// console.log(code);
+					try {
+						data = JSON.parse(data);
+					} catch (e) {
+						if( errorMsg === null ){ errorMsg = ''; }
+						errorMsg += 'JSON Parse ERROR: "'+data+'";'
+						data = false;
+					}
+					cb( data, code, errorMsg );
 				}
 			}
 		);
