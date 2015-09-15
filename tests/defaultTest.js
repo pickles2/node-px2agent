@@ -955,6 +955,7 @@ describe('PHPを異常終了させるテスト', function() {
 					"userAgent": "Mozilla/5.0",
 					"complete": function(data, code){
 						// console.log(data);
+						assert.equal( childProcRtnCode, code );
 						rlv();
 					}
 				});
@@ -1261,7 +1262,8 @@ describe('PHPを異常終了させるテスト', function() {
 				pj.publish({
 					"success": function(output){
 					},
-					"complete":function(output){
+					"complete":function(output, code){
+						assert.equal( childProcRtnCode, code );
 						rlv();
 					}
 				});
@@ -1270,7 +1272,8 @@ describe('PHPを異常終了させるテスト', function() {
 				pj.clearcache({
 					"success": function(output){
 					},
-					"complete":function(output){
+					"complete":function(output, code){
+						assert.equal( childProcRtnCode, code );
 						rlv();
 					}
 				});

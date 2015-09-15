@@ -66,6 +66,12 @@ module.exports = function(px2agent, php_self, options){
 			cloptions.push( '-d' );
 			cloptions.push( 'extension_dir='+options.extension_dir );
 		}
+			// memo:
+			// 	Windows上では、 -c と -d オプションは、this.php_self の前に指定しないと
+			// 	PHPの設定に対して有効にならない。
+			// 	かつ、this.php_self の後に指定しないと、PHPスクリプトがオプションとして取得できない。
+			// 	(ので、パブリッシュのテストが通らなくなる)
+			// 	よって、前後にそれぞれ1回ずつ、計2つ指定しなければいけない。
 
 		cloptions.push( path );
 
