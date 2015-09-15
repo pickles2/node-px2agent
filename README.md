@@ -1,5 +1,7 @@
 # px2agent
 
+__px2agent__ は、[Pickles 2](http://pickles2.pxt.jp/) と NodeJS スクリプトを仲介するAPIを提供します。
+
 <table>
   <thead>
     <tr>
@@ -31,8 +33,6 @@
 </table>
 
 [![NPM](https://nodei.co/npm/px2agent.png)](https://nodei.co/npm/px2agent/)
-
-__px2agent__ は、[Pickles 2](http://pickles2.pxt.jp/) と NodeJS スクリプトを仲介するAPIを提供します。
 
 
 
