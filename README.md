@@ -197,6 +197,20 @@ px2proj.bind_dynamic_path_param('/dynamicPath/{*}', {'':'abc.html'}, function(va
 });
 
 /**
+ * role を取得する
+ */
+px2proj.get_role('/sample_pages/actor1.html', function(role){
+	console.log(role);
+});
+
+/**
+ * Actor のページID一覧を取得する
+ */
+px2proj.get_actors('/sample_pages/role.html', function(actors){
+	console.log(actors);
+});
+
+/**
  * get home directory path
  */
 px2proj.get_path_homedir(function(value){

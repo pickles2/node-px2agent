@@ -278,6 +278,20 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
+	 * role を取得する
+	 */
+	this.get_role = function(path, cb){
+		return apiGet('api.get.role', path, {}, cb);
+	}
+
+	/**
+	 * Actor のページID一覧を取得する
+	 */
+	this.get_actors = function(path, cb){
+		return apiGet('api.get.actors', path, {}, cb);
+	}
+
+	/**
 	 * get home directory path
 	 */
 	this.get_path_homedir = function(cb){

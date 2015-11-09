@@ -153,6 +153,29 @@ describe('ページ情報を取得するテスト', function() {
 		} );
 	});
 
+	it("path '/actors/role.html' のページ情報を取得する", function(done) {
+		this.timeout(60*1000);
+		pj.get_page_info( '/actors/role.html', function( page_info ){
+			// console.log(page_info);
+			assert.equal( typeof(page_info), typeof({}) );
+			assert.equal( page_info.id, 'role-page' );
+			assert.equal( page_info.path, '/actors/role.html' );
+			done();
+		} );
+	});
+
+	it("path '/actors/actor-1.html' のページ情報を取得する", function(done) {
+		this.timeout(60*1000);
+		pj.get_page_info( '/actors/actor-1.html', function( page_info ){
+			// console.log(page_info);
+			assert.equal( typeof(page_info), typeof({}) );
+			assert.equal( page_info.id, 'actor-1' );
+			assert.equal( page_info.path, '/actors/actor-1.html' );
+			assert.equal( page_info.role, 'role-page' );
+			done();
+		} );
+	});
+
 });
 
 
@@ -203,7 +226,7 @@ describe('子ページのページID一覧を取得する', function() {
 			assert.equal( typeof(children), typeof([]) );
 			assert.equal( children[0], ':auto_page_id.3' );
 			assert.equal( children[4], 'help' );
-			assert.equal( children.length, 5 );
+			assert.equal( children.length, 6 );
 			done();
 		} );
 	});
@@ -245,7 +268,7 @@ describe('兄弟ページのページID一覧を取得する', function() {
 			assert.equal( typeof(bros), typeof([]) );
 			assert.equal( bros[0], ':auto_page_id.3' );
 			assert.equal( bros[4], 'help' );
-			assert.equal( bros.length, 5 );
+			assert.equal( bros.length, 6 );
 			done();
 		} );
 	});
@@ -369,9 +392,9 @@ describe('次のページを取得する', function() {
 		} );
 	});
 
-	it("path '/sample_pages/help/' の次のページIDを取得する", function(done) {
+	it("path '/actors/role.html' の次のページIDを取得する", function(done) {
 		this.timeout(60*1000);
-		pj.get_next( '/sample_pages/help/', function( pageId ){
+		pj.get_next( '/actors/role.html', function( pageId ){
 			// console.log(pageId);
 			assert.strictEqual( pageId, false );
 			done();
@@ -502,6 +525,29 @@ describe('ダイナミックパス情報に値をバインドする', function()
 
 });
 
+
+describe('アクター情報を取得する', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/actors/actor-1.html' のroleを取得する", function(done) {
+		this.timeout(60*1000);
+		pj.get_role( '/actors/actor-1.html', function( value ){
+			// console.log(value);
+			assert.equal( value, 'role-page' );
+			done();
+		} );
+	});
+
+	it("path '/actors/role.html' のactorの一覧を取得する", function(done) {
+		this.timeout(60*1000);
+		pj.get_actors( '/actors/role.html', function( value ){
+			// console.log(value);
+			assert.deepEqual( value, ['actor-1','actor-2'] );
+			done();
+		} );
+	});
+
+});
 
 
 describe('ホームディレクトリのパスを取得する', function() {
