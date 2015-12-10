@@ -4,7 +4,7 @@
   "description": "Pickles 2 と NodeJS スクリプトを仲介するAPIを提供します。",
   "main": "libs/px2agent.js",
   "repository": {
-    "url": "https://github.com/tomk79/px2agent.git"
+    "url": "https://github.com/pickles2/node-px2agent.git"
   },
   "scripts": {
     "test": "mocha --ui tdd ./tests/",
