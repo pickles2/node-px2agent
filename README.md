@@ -14,19 +14,19 @@ __px2agent__ は、[Pickles 2](http://pickles2.pxt.jp/) と NodeJS スクリプ�
     <tr>
       <th>master</th>
       <td align="center">
-        <a href="https://travis-ci.org/tomk79/px2agent"><img src="https://secure.travis-ci.org/tomk79/px2agent.svg?branch=master"></a>
+        <a href="https://travis-ci.org/pickles2/node-px2agent"><img src="https://secure.travis-ci.org/pickles2/node-px2agent.svg?branch=master"></a>
       </td>
       <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/px2agent"><img src="https://ci.appveyor.com/api/projects/status/58wpe4gm5v671cc7/branch/master?svg=true"></a>
+        <a href="https://ci.appveyor.com/project/tomk79/node-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/master?svg=true"></a>
       </td>
     </tr>
     <tr>
       <th>develop</th>
       <td align="center">
-        <a href="https://travis-ci.org/tomk79/px2agent"><img src="https://secure.travis-ci.org/tomk79/px2agent.svg?branch=develop"></a>
+        <a href="https://travis-ci.org/pickles2/node-px2agent"><img src="https://secure.travis-ci.org/pickles2/node-px2agent.svg?branch=develop"></a>
       </td>
       <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/px2agent"><img src="https://ci.appveyor.com/api/projects/status/58wpe4gm5v671cc7/branch/develop?svg=true"></a>
+        <a href="https://ci.appveyor.com/project/tomk79/node-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/develop?svg=true"></a>
       </td>
     </tr>
   </tbody>
