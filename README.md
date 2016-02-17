@@ -4,31 +4,31 @@ __px2agent__ は、[Pickles 2](http://pickles2.pxt.jp/) と NodeJS スクリプ�
 
 <table>
   <thead>
-    <tr>
-      <th></th>
-      <th>Linux</th>
-      <th>Windows</th>
-    </tr>
+	<tr>
+	  <th></th>
+	  <th>Linux</th>
+	  <th>Windows</th>
+	</tr>
   </thead>
   <tbody>
-    <tr>
-      <th>master</th>
-      <td align="center">
-        <a href="https://travis-ci.org/pickles2/node-px2agent"><img src="https://secure.travis-ci.org/pickles2/node-px2agent.svg?branch=master"></a>
-      </td>
-      <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/node-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/master?svg=true"></a>
-      </td>
-    </tr>
-    <tr>
-      <th>develop</th>
-      <td align="center">
-        <a href="https://travis-ci.org/pickles2/node-px2agent"><img src="https://secure.travis-ci.org/pickles2/node-px2agent.svg?branch=develop"></a>
-      </td>
-      <td align="center">
-        <a href="https://ci.appveyor.com/project/tomk79/node-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/develop?svg=true"></a>
-      </td>
-    </tr>
+	<tr>
+	  <th>master</th>
+	  <td align="center">
+		<a href="https://travis-ci.org/pickles2/node-px2agent"><img src="https://secure.travis-ci.org/pickles2/node-px2agent.svg?branch=master"></a>
+	  </td>
+	  <td align="center">
+		<a href="https://ci.appveyor.com/project/tomk79/node-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/master?svg=true"></a>
+	  </td>
+	</tr>
+	<tr>
+	  <th>develop</th>
+	  <td align="center">
+		<a href="https://travis-ci.org/pickles2/node-px2agent"><img src="https://secure.travis-ci.org/pickles2/node-px2agent.svg?branch=develop"></a>
+	  </td>
+	  <td align="center">
+		<a href="https://ci.appveyor.com/project/tomk79/node-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/develop?svg=true"></a>
+	  </td>
+	</tr>
   </tbody>
 </table>
 
@@ -334,6 +334,7 @@ px2proj.is_ignore_path('/sample_pages/', function(value){
  * パブリッシュする
  */
 px2proj.publish({
+	"path_region": "/path/region/",
 	"success": function(output){
 		// console.log(output);
 	},
@@ -361,9 +362,9 @@ px2proj.clearcache({
 var px2proj = require('px2agent').createProject(
   './px_execute.php',
   {
-    'bin': '/path/to/php',
-    'ini': '/path/to/php.ini',
-    'extension_dir': '/path/to/ext/'
+	'bin': '/path/to/php',
+	'ini': '/path/to/php.ini',
+	'extension_dir': '/path/to/ext/'
   }
 );
 ```
