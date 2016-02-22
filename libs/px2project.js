@@ -442,9 +442,18 @@ module.exports = function(px2agent, php_self, options){
 		if( !opt.path_region ){
 			opt.path_region = '';
 		}
+		var str_paths_ignore = '';
+		if( typeof(opt.paths_ignore) == typeof('') ){
+			opt.paths_ignore = [opt.paths_ignore];
+		}
+		if( typeof(opt.paths_ignore) == typeof([]) ){
+			for( var i in opt.paths_ignore ){
+				str_paths_ignore += '&paths_ignore[]='+phpjs.urlencode(opt.paths_ignore[i]);
+			}
+		}
 
 		return this.query(
-			'/?PX=publish.run&path_region='+phpjs.urlencode(opt.path_region) ,
+			'/?PX=publish.run&path_region='+phpjs.urlencode(opt.path_region)+str_paths_ignore ,
 			opt
 		);
 	}

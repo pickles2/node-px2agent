@@ -985,6 +985,28 @@ describe('パブリッシュするテスト', function() {
 		});
 	});
 
+	it("/common/ ディレクトリのみパブリッシュしない", function(done) {
+		this.timeout(2*60*1000);
+		pj.publish({
+			"path_region": "/",
+			"paths_ignore": ["/common/"],
+			"success": function(output){
+				// console.log(output);
+			},
+			"complete": function(output){
+				// console.log(output);
+				assert.equal( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'), false );
+				assert.equal( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'), true );
+				assert.equal( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'), true );
+				assert.equal( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'), true );
+				assert.equal( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'), false );
+				assert.equal( fs.existsSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'), true );
+
+				done();
+			}
+		});
+	});
+
 });
 
 

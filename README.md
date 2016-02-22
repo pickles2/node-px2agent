@@ -335,6 +335,10 @@ px2proj.is_ignore_path('/sample_pages/', function(value){
  */
 px2proj.publish({
 	"path_region": "/path/region/",
+	"paths_ignore": [
+		"/path/region/ignored/1/",
+		"/path/region/ignored/2/"
+	],
 	"success": function(output){
 		// console.log(output);
 	},
