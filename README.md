@@ -335,10 +335,15 @@ px2proj.is_ignore_path('/sample_pages/', function(value){
  */
 px2proj.publish({
 	"path_region": "/path/region/",
+	"paths_region": [
+		"/path/region1/",
+		"/path/region2/"
+	],
 	"paths_ignore": [
 		"/path/region/ignored/1/",
 		"/path/region/ignored/2/"
 	],
+	"keep_cache": 1,
 	"success": function(output){
 		// console.log(output);
 	},
@@ -402,7 +407,9 @@ $ npm run documentation
 
 ### px2agent 2.0.5 (2016年??月??日)
 
-- ??????????????????????????????????
+- pickles2/px-fw-2.x@2.0.23 対応
+- `pj.publish()` に `keep_cache` オプションを追加。
+- `pj.publish()` に `paths_region` オプションを追加。
 
 ### px2agent 2.0.4 (2016年2月22日)
 
