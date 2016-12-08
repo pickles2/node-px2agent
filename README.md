@@ -335,10 +335,15 @@ px2proj.is_ignore_path('/sample_pages/', function(value){
  */
 px2proj.publish({
 	"path_region": "/path/region/",
+	"paths_region": [
+		"/path/region1/",
+		"/path/region2/"
+	],
 	"paths_ignore": [
 		"/path/region/ignored/1/",
 		"/path/region/ignored/2/"
 	],
+	"keep_cache": 1,
 	"success": function(output){
 		// console.log(output);
 	},
@@ -396,6 +401,38 @@ $ npm test
 $ npm run documentation
 ```
 
+
+
+## 更新履歴 - Change log
+
+### px2agent 2.0.5 (2016年??月??日)
+
+- pickles2/px-fw-2.x@2.0.23 対応
+- `pj.publish()` に `keep_cache` オプションを追加。
+- `pj.publish()` に `paths_region` オプションを追加。
+
+### px2agent 2.0.4 (2016年2月22日)
+
+- pickles2/px-fw-2.x@2.0.17 対応
+- `pj.publish()` に `paths_ignore` オプションを追加。
+
+### px2agent 2.0.3 (2015年11月9日)
+
+- pickles2/px-fw-2.x@2.0.15 対応
+- アクター機能 `pj.get_role()`, `pj.get_actors()` を追加。
+
+###  px2agent 2.0.2 (2015年9月15日)
+
+- PHPが異常終了した場合の例外をキャッチし、 `false` を返すようになった。
+
+### px2agent 2.0.1 (2015年9月10日)
+
+- PHPのパスを指定した場合の引数 `-c` と `-d` に関する不具合を修正。
+- オプション `extension_dir` を追加。
+
+### px2agent 2.0.0 (2015年6月28日)
+
+- Initial Release.
 
 
 ## ライセンス - License

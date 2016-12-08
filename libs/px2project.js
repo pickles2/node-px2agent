@@ -439,9 +439,24 @@ module.exports = function(px2agent, php_self, options){
 	 */
 	this.publish = function(opt){
 		opt = opt||{};
+
+		// path_region
 		if( !opt.path_region ){
 			opt.path_region = '';
 		}
+
+		// paths_region
+		var str_paths_region = '';
+		if( typeof(opt.paths_region) == typeof('') ){
+			opt.paths_region = [opt.paths_region];
+		}
+		if( typeof(opt.paths_region) == typeof([]) ){
+			for( var i in opt.paths_region ){
+				str_paths_region += '&paths_region[]='+phpjs.urlencode(opt.paths_region[i]);
+			}
+		}
+
+		// paths_ignore
 		var str_paths_ignore = '';
 		if( typeof(opt.paths_ignore) == typeof('') ){
 			opt.paths_ignore = [opt.paths_ignore];
@@ -452,8 +467,14 @@ module.exports = function(px2agent, php_self, options){
 			}
 		}
 
+		// keep_cache
+		var str_keep_cache = '';
+		if( opt.keep_cache ){
+			str_keep_cache = '&keep_cache=1';
+		}
+
 		return this.query(
-			'/?PX=publish.run&path_region='+phpjs.urlencode(opt.path_region)+str_paths_ignore ,
+			'/?PX=publish.run&path_region=' + phpjs.urlencode(opt.path_region) + str_paths_ignore + str_paths_region + str_keep_cache,
 			opt
 		);
 	}
