@@ -213,7 +213,7 @@ px2proj.get_actors('/sample_pages/role.html', function(actors){
 /**
  * get home directory path
  */
-px2proj.get_path_homedir(function(value){
+px2proj.get_realpath_homedir(function(value){
 	console.log(value);
 })
 
@@ -227,7 +227,7 @@ px2proj.get_path_controot(function(value){
 /**
  * DOCUMENT_ROOT のパスを取得する
  */
-px2proj.get_path_docroot(function(value){
+px2proj.get_realpath_docroot(function(value){
 	console.log(value);
 });
 
@@ -407,9 +407,11 @@ $ npm run documentation
 
 ### px2agent 2.0.5 (2016年??月??日)
 
-- pickles2/px-fw-2.x@2.0.23 対応
+- pickles2/px-fw-2.x@2.0.29 対応
 - `pj.publish()` に `keep_cache` オプションを追加。
 - `pj.publish()` に `paths_region` オプションを追加。
+- `pj.get_path_homedir()` を `pj.get_realpath_homedir()` に改名。(古いメソッド名の実装は残されているが非推奨)
+- `pj.get_path_docroot()` を `pj.get_realpath_docroot()` に改名。(古いメソッド名の実装は残されているが非推奨)
 
 ### px2agent 2.0.4 (2016年2月22日)
 
