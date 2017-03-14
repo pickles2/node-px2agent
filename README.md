@@ -405,7 +405,7 @@ $ npm run documentation
 
 ## 更新履歴 - Change log
 
-### px2agent 2.0.5 (2016年??月??日)
+### px2agent 2.0.5 (2017年3月14日)
 
 - pickles2/px-fw-2.x@2.0.29 対応
 - `pj.publish()` に `keep_cache` オプションを追加。
