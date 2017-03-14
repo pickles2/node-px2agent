@@ -555,7 +555,7 @@ describe('ホームディレクトリのパスを取得する', function() {
 
 	it("ホームディレクトリのパスを取得する", function(done) {
 		this.timeout(60*1000);
-		pj.get_path_homedir( function( path_home_dir ){
+		pj.get_realpath_homedir( function( path_home_dir ){
 			// console.log(path_home_dir);
 			assert.equal( typeof(path_home_dir), typeof('') );
 			assert.equal( fs.realpathSync(path_home_dir), fs.realpathSync(__dirname+'/testData/htdocs1/px-files/') );
@@ -584,7 +584,7 @@ describe('ドキュメントルートディレクトリのパスを取得する'
 
 	it("ドキュメントルートディレクトリのパスを取得する", function(done) {
 		this.timeout(60*1000);
-		pj.get_path_docroot( function( path_docroot ){
+		pj.get_realpath_docroot( function( path_docroot ){
 			// console.log(path_docroot);
 			assert.equal( typeof(path_docroot), typeof('') );
 			assert.equal( fs.realpathSync(path_docroot), fs.realpathSync(__dirname+'/testData/htdocs1/') );
@@ -1191,7 +1191,7 @@ describe('PHPを異常終了させるテスト', function() {
 				});
 			}); })
 			.then(function(){ return new Promise(function(rlv, rjc){
-				pj.get_path_homedir(function(value, code, err){
+				pj.get_realpath_homedir(function(value, code, err){
 					assert.strictEqual( value, false );
 					assert.equal( childProcRtnCode, code );
 					assert.equal( typeof(''), typeof(err) );
@@ -1207,7 +1207,7 @@ describe('PHPを異常終了させるテスト', function() {
 				});
 			}); })
 			.then(function(){ return new Promise(function(rlv, rjc){
-				pj.get_path_docroot(function(value, code, err){
+				pj.get_realpath_docroot(function(value, code, err){
 					assert.strictEqual( value, false );
 					assert.equal( childProcRtnCode, code );
 					assert.equal( typeof(''), typeof(err) );

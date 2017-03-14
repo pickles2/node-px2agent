@@ -292,9 +292,18 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * get home directory path
+	 * get home directory path (deprecated)
+	 *
+	 * `get_path_homedir()` は 非推奨のメソッドです。
+	 * 代わりに、 `get_realpath_homedir()` を使用してください。
 	 */
 	this.get_path_homedir = function(cb){
+		return apiGet('api.get.path_homedir', '/', {}, cb);
+	}
+	/**
+	 * get home directory path
+	 */
+	this.get_realpath_homedir = function(cb){
 		return apiGet('api.get.path_homedir', '/', {}, cb);
 	}
 
@@ -306,9 +315,19 @@ module.exports = function(px2agent, php_self, options){
 	}
 
 	/**
-	 * DOCUMENT_ROOT のパスを取得する
+	 * DOCUMENT_ROOT のパスを取得する (deprecated)
+	 *
+	 * `get_path_docroot()` は 非推奨のメソッドです。
+	 * 代わりに、 `get_realpath_docroot()` を使用してください。
 	 */
 	this.get_path_docroot = function(cb){
+		return apiGet('api.get.path_docroot', '/', {}, cb);
+	}
+
+	/**
+	 * DOCUMENT_ROOT のパスを取得する
+	 */
+	this.get_realpath_docroot = function(cb){
 		return apiGet('api.get.path_docroot', '/', {}, cb);
 	}
 
