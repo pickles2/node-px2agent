@@ -15,7 +15,7 @@ module.exports = function(px2agent, php_self, options){
 	var phpjs = require('phpjs');
 
 	/**
-	 * Pickles2 にクエリを投げて、結果を受け取る
+	 * Pickles2 にクエリを投げて、結果を受け取る (汎用)
 	 */
 	this.query = function(path, opt){
 		opt = opt||{};
@@ -139,6 +139,13 @@ module.exports = function(px2agent, php_self, options){
 				}
 			}
 		);
+	}
+
+	/**
+	 * PXコマンドを実行する
+	 */
+	this.px_command = function(cmd, path, param, cb){
+		return apiGet(cmd, path, param, cb);
 	}
 
 	/**

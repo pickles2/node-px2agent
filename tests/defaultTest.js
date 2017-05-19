@@ -86,6 +86,7 @@ describe('Pickles2 API から値を取得するテスト', function() {
 });
 
 
+
 describe('Pickles2 からHTMLページを取得するテスト', function() {
 	var pj = getProject('htdocs1');
 
@@ -124,6 +125,31 @@ describe('Pickles2 からHTMLページを取得するテスト', function() {
 
 });
 
+
+
+describe('PXコマンドを発行するテスト', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/' のページ情報を取得する", function(done) {
+		this.timeout(60*1000);
+		pj.px_command(
+			'api.get.page_info',
+			'/' ,
+			{
+				path: '/index.html'
+			},
+			function(page_info){
+				// console.log(page_info);
+				assert.equal( typeof(page_info), typeof({}) );
+				assert.equal( page_info.id, '' );
+				assert.equal( page_info.title, 'HOME' );
+				assert.equal( page_info.path, '/index.html' );
+				done();
+			}
+		);
+	});
+
+});
 
 
 describe('ページ情報を取得するテスト', function() {
