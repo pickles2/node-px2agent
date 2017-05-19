@@ -43,7 +43,7 @@ var px2proj = require('px2agent').createProject('./.px_execute.php');
 
 
 /**
- * Pickles2 にクエリを投げて、結果を受け取る (汎用)
+ * Pickles 2 にクエリを投げて、結果を受け取る (汎用)
  */
 px2proj.query('/?PX=phpinfo', {
 	"output": "json",

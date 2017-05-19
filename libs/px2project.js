@@ -12,10 +12,9 @@ module.exports = function(px2agent, php_self, options){
 	// console.log(php_self);
 
 	var childProcess = require('child_process');
-	var phpjs = require('phpjs');
 
 	/**
-	 * Pickles2 にクエリを投げて、結果を受け取る (汎用)
+	 * Pickles 2 にクエリを投げて、結果を受け取る (汎用)
 	 */
 	this.query = function(path, opt){
 		opt = opt||{};
@@ -112,7 +111,7 @@ module.exports = function(px2agent, php_self, options){
 		param = (function(param){
 			var aryParam = [];
 			for( var idx in param ){
-				aryParam.push( phpjs.urlencode(idx)+'='+phpjs.urlencode(param[idx]) )
+				aryParam.push( encodeURIComponent(idx)+'='+encodeURIComponent(param[idx]) )
 			}
 			if(!aryParam.length){return '';}
 			return '&'+aryParam.join('&');
@@ -478,7 +477,7 @@ module.exports = function(px2agent, php_self, options){
 		}
 		if( typeof(opt.paths_region) == typeof([]) ){
 			for( var i in opt.paths_region ){
-				str_paths_region += '&paths_region[]='+phpjs.urlencode(opt.paths_region[i]);
+				str_paths_region += '&paths_region[]='+encodeURIComponent(opt.paths_region[i]);
 			}
 		}
 
@@ -489,7 +488,7 @@ module.exports = function(px2agent, php_self, options){
 		}
 		if( typeof(opt.paths_ignore) == typeof([]) ){
 			for( var i in opt.paths_ignore ){
-				str_paths_ignore += '&paths_ignore[]='+phpjs.urlencode(opt.paths_ignore[i]);
+				str_paths_ignore += '&paths_ignore[]='+encodeURIComponent(opt.paths_ignore[i]);
 			}
 		}
 
@@ -500,7 +499,7 @@ module.exports = function(px2agent, php_self, options){
 		}
 
 		return this.query(
-			'/?PX=publish.run&path_region=' + phpjs.urlencode(opt.path_region) + str_paths_ignore + str_paths_region + str_keep_cache,
+			'/?PX=publish.run&path_region=' + encodeURIComponent(opt.path_region) + str_paths_ignore + str_paths_region + str_keep_cache,
 			opt
 		);
 	}
