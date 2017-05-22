@@ -2,7 +2,6 @@ var assert = require('assert');
 var px2agent = require('../libs/px2agent');
 var path = require('path');
 var fs = require('fs');
-var phpjs = require('phpjs');
 var nodePhpBin = require('node-php-bin').get();
 var Promise = require("es6-promise").Promise;
 
@@ -19,7 +18,7 @@ function getProject( testDataName ){
 	);
 }
 
-describe('Pickles2 API から値を取得するテスト', function() {
+describe('Pickles 2 API から値を取得するテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("バージョン番号を取得するテスト", function(done) {
@@ -86,7 +85,8 @@ describe('Pickles2 API から値を取得するテスト', function() {
 });
 
 
-describe('Pickles2 からHTMLページを取得するテスト', function() {
+
+describe('Pickles 2 からHTMLページを取得するテスト', function() {
 	var pj = getProject('htdocs1');
 
 	it("Mozilla/5.0 としてトップページを取得する", function(done) {
@@ -124,6 +124,31 @@ describe('Pickles2 からHTMLページを取得するテスト', function() {
 
 });
 
+
+
+describe('PXコマンドを発行するテスト', function() {
+	var pj = getProject('htdocs1');
+
+	it("path '/' のページ情報を取得する", function(done) {
+		this.timeout(60*1000);
+		pj.px_command(
+			'api.get.page_info',
+			'/' ,
+			{
+				path: '/index.html'
+			},
+			function(page_info){
+				// console.log(page_info);
+				assert.equal( typeof(page_info), typeof({}) );
+				assert.equal( page_info.id, '' );
+				assert.equal( page_info.title, 'HOME' );
+				assert.equal( page_info.path, '/index.html' );
+				done();
+			}
+		);
+	});
+
+});
 
 
 describe('ページ情報を取得するテスト', function() {

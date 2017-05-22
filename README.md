@@ -43,7 +43,7 @@ var px2proj = require('px2agent').createProject('./.px_execute.php');
 
 
 /**
- * Pickles2 にクエリを投げて、結果を受け取る
+ * Pickles 2 にクエリを投げて、結果を受け取る (汎用)
  */
 px2proj.query('/?PX=phpinfo', {
 	"output": "json",
@@ -55,6 +55,18 @@ px2proj.query('/?PX=phpinfo', {
 		console.log(data, code);
 	}
 });
+
+/**
+ * PXコマンドを実行する
+ */
+px2proj.px_command(
+    'publish.run',
+    '/index.html',
+    {path_region: "/region/"},
+    function(result){
+    	console.log(result);
+    }
+);
 
 /**
  * バージョン番号を取得する
@@ -404,6 +416,10 @@ $ npm run documentation
 
 
 ## 更新履歴 - Change log
+
+### px2agent 2.0.6 (2017年??月??日)
+
+- `pj.px_command()` を追加。
 
 ### px2agent 2.0.5 (2017年3月14日)
 
