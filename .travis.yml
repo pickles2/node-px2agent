@@ -14,10 +14,10 @@ node_js:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install python-software-properties -qq
-  - sudo apt-add-repository ppa:ondrej/php7 -y
+  - sudo apt-add-repository ppa:ondrej/php -y
   - sudo apt-get update -qq
-  - sudo apt-get install php7 -qq
-  - sudo apt-get install php7-sqlite -qq
+  - sudo apt-get install php7.2 -qq
+  - sudo apt-get install php7.2-sqlite -qq
   - php -v
   - php -r "readfile('https://getcomposer.org/installer');" | php
 
