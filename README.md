@@ -417,7 +417,7 @@ $ npm run documentation
 
 ## 更新履歴 - Change log
 
-### px2agent v2.0.6 (2019年??月??日)
+### px2agent v2.0.6 (2019年8月12日)
 
 - `pj.px_command()` を追加。
 
