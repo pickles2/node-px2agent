@@ -2,7 +2,10 @@ var assert = require('assert');
 var px2agent = require('../libs/px2agent');
 var path = require('path');
 var fs = require('fs');
-var nodePhpBin = require('node-php-bin').get();
+var nodePhpBin = require('node-php-bin').get({
+	'bin': 'php' ,
+	'ini': null
+});
 var Promise = require("es6-promise").Promise;
 
 function getProject( testDataName ){
