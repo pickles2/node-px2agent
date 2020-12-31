@@ -27,7 +27,7 @@ describe('Pickles 2 API から値を取得するテスト', function() {
 	it("バージョン番号を取得するテスト", function(done) {
 		this.timeout(60*1000);
 		pj.get_version(function(version){
-			var matched = version.match(new RegExp('^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta|rc)(?:\.[0-9]+)?)?(\\+nb)?$'));
+			var matched = version.match(new RegExp('^([0-9]+\\.[0-9]+\\.[0-9]+)(\\-(?:alpha|beta|rc)(?:\.[0-9]+)?)?(\\+nb|\\+dev)?$'));
 			assert.notEqual(matched, null);
 			done();
 		});
@@ -57,10 +57,7 @@ describe('Pickles 2 API から値を取得するテスト', function() {
 					var matched = html.match(new RegExp('phpinfo\(\)'));
 					assert.notEqual(matched, null);
 
-					var versionRegExp = '5\.6\.[78]';
-					if( process.platform != 'darwin' && process.platform != 'win32' ){
-						versionRegExp = '[0-9]+\.[0-9]+\.[0-9]+'
-					}
+					var versionRegExp = '[0-9]+\.[0-9]+\.[0-9]+';
 					var matched = html.match(new RegExp('PHP Version \=\> '+versionRegExp));
 					assert.notEqual(matched, null);
 
@@ -980,10 +977,7 @@ describe('パブリッシュするテスト', function() {
 				var html = fs.readFileSync(__dirname+'/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html');
 				html = html.toString();
 				// console.log(html);
-				var versionRegExp = '5\.6\.[78]';
-				if( process.platform != 'darwin' && process.platform != 'win32' ){
-					versionRegExp = '[0-9]+\.[0-9]+\.[0-9]+'
-				}
+				var versionRegExp = '[0-9]+\.[0-9]+\.[0-9]+';
 				var matched = html.match(new RegExp('PHP Version \=\> '+versionRegExp));
 				assert.notEqual(matched, null);
 

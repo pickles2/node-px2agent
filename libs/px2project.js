@@ -54,6 +54,22 @@ module.exports = function(px2agent, php_self, options){
 			cloptions.push( opt.userAgent );
 		}
 
+		// Request Method
+		if( opt.method ){
+			cloptions.push( '--method' );
+			cloptions.push( opt.method );
+		}
+
+		// Request Body
+		if( opt.body ){
+			cloptions.push( '--body' );
+			cloptions.push( opt.body );
+		}
+		if( opt.bodyFile ){
+			cloptions.push( '--body-file' );
+			cloptions.push( opt.bodyFile );
+		}
+
 		// PHPのパス
 		cloptions.push( '--command-php' );
 		cloptions.push( options.bin );

@@ -1,27 +1,16 @@
 {
-    "name": "tomk79/px2agent",
-    "description": "Pickles 2 と NodeJS の間を仲介するライブラリです。",
-    "keywords": ["pickles2"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Tomoya Koyanagi",
-            "email": "tomk79@gmail.com"
-        }
-    ],
     "minimum-stability": "dev",
-    "prefer-stable": true,
     "repositories": [
     ],
     "require": {
         "php": ">=5.4.0"
     },
     "require-dev": {
-        "pickles2/px-fw-2.x": "dev-develop",
+        "pickles2/px-fw-2.x": "^2.0",
         "pickles2/broccoli-module-fess": "dev-develop",
         "pickles2/broccoli-module-plain-html-elements": "dev-develop",
-        "pickles2/px2-px2dthelper": "dev-develop",
-        "pickles2/px2-sitemapexcel": "dev-develop"
+        "pickles2/px2-px2dthelper": "^2.0",
+        "pickles2/px2-sitemapexcel": "^2.0||^2.1"
     },
     "autoload": {
         "files": [
