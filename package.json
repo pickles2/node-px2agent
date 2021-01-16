@@ -1,6 +1,6 @@
 {
   "name": "px2agent",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Pickles 2 と NodeJS スクリプトを仲介するAPIを提供します。",
   "private": false,
   "main": "libs/px2agent.js",
