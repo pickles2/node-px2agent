@@ -3,25 +3,42 @@
   "version": "2.0.7",
   "description": "Pickles 2 と NodeJS スクリプトを仲介するAPIを提供します。",
   "private": false,
-  "main": "libs/px2agent.js",
+  "main": "dist/px2agent.js",
+  "module": "dist/px2agent.mjs",
+  "types": "dist/px2agent.d.ts",
+  "type": "module",
+  "exports": {
+    "import": "./dist/px2agent.mjs",
+    "require": "./dist/px2agent.js"
+  },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "url": "https://github.com/pickles2/node-px2agent.git"
   },
   "scripts": {
-    "test": "mocha --ui tdd ./tests/",
-    "documentation": "./node_modules/.bin/jsdoc -l -r --readme ./README.md -d ./docs/ libs/"
+    "build": "tsc && node build.js",
+    "test": "npm run build && node --experimental-vm-modules node_modules/.bin/jest",
+    "documentation": "typedoc --out docs src/",
+    "prepublishOnly": "npm run build"
   },
   "author": "Tomoya Koyanagi",
   "license": "MIT",
   "dependencies": {
-    "es6-promise": "^3.0.2",
-    "glob": "^5.0.14",
-    "markdown": "^0.5.0",
-    "mkdirp": "^0.5.1"
+    "child_process": "^1.0.2",
+    "glob": "^10.3.10"
   },
   "devDependencies": {
-    "jsdoc": "^3.3.2",
-    "mocha": "^2.1.0",
-    "node-php-bin": "^0.2.4"
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.24",
+    "jest": "^29.7.0",
+    "node-php-bin": "^0.2.4",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.12.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "ts-jest": "^29.1.2",
+    "typedoc": "^0.25.11",
+    "typescript": "^5.3.3"
   }
 }

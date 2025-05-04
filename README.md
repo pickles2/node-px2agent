@@ -38,343 +38,121 @@ __px2agent__ は、[Pickles 2](https://pickles2.pxt.jp/) と NodeJS スクリプ
 
 ## 使い方 - Usage
 
+### CommonJS (JavaScript)
+
 ```js
-var px2proj = require('px2agent').createProject('./.px_execute.php');
+// CommonJS形式
+const px2agent = require('px2agent');
+const px2proj = px2agent.createProject('./.px_execute.php');
 
-
-/**
- * Pickles 2 にクエリを投げて、結果を受け取る (汎用)
- */
-px2proj.query('/?PX=phpinfo', {
-	"output": "json",
-	"userAgent": "Mozilla/5.0",
-	"success": function(data){
-		console.log(data);
-	},
-	"complete": function(data, code){
-		console.log(data, code);
-	}
+// コールバックスタイル（従来のAPI）
+px2proj.get_version(function(version) {
+  console.log('Pickles 2 バージョン: ', version);
 });
 
-/**
- * PXコマンドを実行する
- */
-px2proj.px_command(
-    'publish.run',
-    '/index.html',
-    {path_region: "/region/"},
-    function(result){
-    	console.log(result);
-    }
-);
+// Promiseスタイル（新しいAPI）
+px2proj.get_version()
+  .then(version => {
+    console.log('Pickles 2 バージョン: ', version);
+  })
+  .catch(err => {
+    console.error('エラー: ', err);
+  });
 
-/**
- * バージョン番号を取得する
- */
-px2proj.get_version(function(value){
-	console.log(value);
-});
+// async/awaitスタイル（新しいAPI）
+async function checkVersion() {
+  try {
+    const version = await px2proj.get_version();
+    console.log('Pickles 2 バージョン: ', version);
+  } catch (err) {
+    console.error('エラー: ', err);
+  }
+}
+checkVersion();
+```
 
+### ES Modules (TypeScript/JavaScript)
 
-/**
- * configデータを取得する
- */
-px2proj.get_config(function(value){
-	console.log(value);
-});
+```ts
+// ESモジュール形式（TypeScript/JavaScript）
+import px2agent from 'px2agent';
+// または
+import { px2agent } from 'px2agent';
 
-/**
- * サイトマップデータを取得する
- */
-px2proj.get_sitemap(function(value){
-	console.log(value);
-});
+// プロジェクトを初期化
+const px2proj = px2agent.createProject('./.px_execute.php');
 
-/**
- * pathまたはidからページ情報を得る
- */
-px2proj.get_page_info('/', function(value){
-	console.log(value);
-});
+// async/await を使った例
+async function main() {
+  try {
+    // バージョンを取得
+    const version = await px2proj.get_version();
+    console.log('Pickles 2 バージョン: ', version);
+    
+    // 設定を取得
+    const config = await px2proj.get_config();
+    console.log('設定: ', config);
+    
+    // サイトマップを取得
+    const sitemap = await px2proj.get_sitemap();
+    console.log('サイトマップ: ', sitemap);
+    
+    // ページ情報を取得
+    const pageInfo = await px2proj.get_page_info('/');
+    console.log('ページ情報: ', pageInfo);
+    
+    // パブリッシュを実行
+    const publishResult = await px2proj.publish({
+      path_region: '/path/to/publish/'
+    });
+    console.log('パブリッシュ結果: ', publishResult);
+  } catch (err) {
+    console.error('エラー: ', err);
+  }
+}
 
-/**
- * 親ページのIDを取得する
- */
-px2proj.get_parent('/sample_pages/', function(value){
-	console.log(value);
-});
+main();
+```
 
-/**
- * 子階層のページの一覧を取得する
- */
-px2proj.get_children('/', function(value){
-	console.log(value);
-});
-/**
- * 子階層のページの一覧を、filterを無効にして取得する
- */
-px2proj.get_children('/', {filter: false}, function(value){
-	console.log(value);
-});
+### TypeScript での型定義の利用
 
-/**
- * 同じ階層のページの一覧を取得する
- */
-px2proj.get_bros('/sample_pages/', function(value){
-	console.log(value);
-});
+```ts
+import px2agent from 'px2agent';
+import { Px2ProjectOptions, PublishOptions } from 'px2agent';
 
-/**
- * 同じ階層のページの一覧を、filterを無効にして取得する
- */
-px2proj.get_bros('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
+// オプションを型付きで定義
+const options: Px2ProjectOptions = {
+  bin: '/path/to/php',
+  ini: '/path/to/php.ini',
+  extension_dir: '/path/to/ext/'
+};
 
-/**
- * 同じ階層の次のページのIDを取得する
- */
-px2proj.get_bros_next('/sample_pages/', function(value){
-	console.log(value);
-});
+// プロジェクトを初期化
+const px2proj = px2agent.createProject('./.px_execute.php', options);
 
-/**
- * 同じ階層の次のページのIDを、filterを無効にして取得する
- */
-px2proj.get_bros_next('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
+// 型付きの公開オプション
+const publishOptions: PublishOptions = {
+  path_region: '/path/region/',
+  paths_region: [
+    '/path/region1/',
+    '/path/region2/'
+  ],
+  paths_ignore: [
+    '/path/region/ignored/1/',
+    '/path/region/ignored/2/'
+  ],
+  keep_cache: true
+};
 
-/**
- * 同じ階層の前のページのIDを取得する
- */
-px2proj.get_bros_prev('/sample_pages/', function(value){
-	console.log(value);
-});
-
-/**
- * 同じ階層の前のページのIDを、filterを無効にして取得する
- */
-px2proj.get_bros_prev('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
-
-/**
- * 次のページのIDを取得する
- */
-px2proj.get_next('/sample_pages/', function(value){
-	console.log(value);
-});
-
-/**
- * 次のページのIDを、filterを無効にして取得する
- */
-px2proj.get_next('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
-
-/**
- * 前のページのIDを取得する
- */
-px2proj.get_prev('/sample_pages/', function(value){
-	console.log(value);
-});
-
-/**
- * 前のページのIDを、filterを無効にして取得する
- */
-px2proj.get_prev('/sample_pages/', {filter: false}, function(value){
-	console.log(value);
-});
-
-/**
- * パンくず配列を取得する
- */
-px2proj.get_breadcrumb_array('/sample_pages/', function(value){
-	console.log(value);
-});
-
-/**
- * ダイナミックパス情報を得る
- */
-px2proj.get_dynamic_path_info('/sample_pages/', function(value){
-	console.log(value);
-});
-
-/**
- * ダイナミックパスに値をバインドする
- */
-px2proj.bind_dynamic_path_param('/dynamicPath/{*}', {'':'abc.html'}, function(value){
-	console.log(value);
-});
-
-/**
- * role を取得する
- */
-px2proj.get_role('/sample_pages/actor1.html', function(role){
-	console.log(role);
-});
-
-/**
- * Actor のページID一覧を取得する
- */
-px2proj.get_actors('/sample_pages/role.html', function(actors){
-	console.log(actors);
-});
-
-/**
- * get home directory path
- */
-px2proj.get_realpath_homedir(function(value){
-	console.log(value);
-})
-
-/**
- * コンテンツルートディレクトリのパス(=install path) を取得する
- */
-px2proj.get_path_controot(function(value){
-	console.log(value);
-});
-
-/**
- * DOCUMENT_ROOT のパスを取得する
- */
-px2proj.get_realpath_docroot(function(value){
-	console.log(value);
-});
-
-/**
- * get content path
- */
-px2proj.get_path_content('/', function(value){
-	console.log(value);
-});
-
-/**
- * ローカルリソースディレクトリのパスを得る
- */
-px2proj.path_files('/', '/images/sample.png', function(value){
-	console.log(value);
-});
-
-/**
- * ローカルリソースディレクトリのサーバー内部パスを得る
- */
-px2proj.realpath_files('/', '/images/sample.png', function(value){
-	console.log(value);
-});
-
-/**
- * ローカルリソースのキャッシュディレクトリのパスを得る
- */
-px2proj.path_files_cache('/', '/images/sample.png', function(value){
-	console.log(value);
-});
-
-/**
- * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
- */
-px2proj.realpath_files_cache('/', '/images/sample.png', function(value){
-	console.log(value);
-});
-
-/**
- * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
- */
-px2proj.realpath_files_private_cache('/', '/images/sample.png', function(value){
-	console.log(value);
-});
-
-/**
- * domain を取得する
- */
-px2proj.get_domain(function(value){
-	console.log(value);
-});
-
-/**
- * directory_index(省略できるファイル名) の一覧を得る
- */
-px2proj.get_directory_index(function(value){
-	console.log(value);
-});
-
-/**
- * 最も優先されるインデックスファイル名を得る
- */
-px2proj.get_directory_index_primary(function(value){
-	console.log(value);
-});
-
-/**
- * ファイルの処理方法を調べる
- */
-px2proj.get_path_proc_type('/sample_pages/', function(value){
-	console.log(value);
-});
-
-/**
- * リンク先のパスを生成する
- */
-px2proj.href('/sample_pages/', function(value){
-	console.log(value);
-});
-
-/**
- * パスがダイナミックパスにマッチするか調べる
- */
-px2proj.is_match_dynamic_path('/sample_pages/', function(value){
-	console.log(value);
-});
-
-/**
- * ページが、パンくず内に存在しているか調べる
- */
-px2proj.is_page_in_breadcrumb('/sample_pages/', '/', function(value){
-	console.log(value);
-});
-
-/**
- * 除外ファイルか調べる
- */
-px2proj.is_ignore_path('/sample_pages/', function(value){
-	console.log(value);
-});
-
-
-/**
- * パブリッシュする
- */
-px2proj.publish({
-	"path_region": "/path/region/",
-	"paths_region": [
-		"/path/region1/",
-		"/path/region2/"
-	],
-	"paths_ignore": [
-		"/path/region/ignored/1/",
-		"/path/region/ignored/2/"
-	],
-	"keep_cache": 1,
-	"success": function(output){
-		// console.log(output);
-	},
-	"complete":function(output){
-		console.log(output);
-	}
-});
-
-/**
- * キャッシュを削除する
- */
-px2proj.clearcache({
-	"success": function(output){
-		// console.log(output);
-	},
-	"complete":function(output){
-		console.log(output);
-	}
-});
+// パブリッシュを実行
+async function publishProject() {
+  try {
+    const result = await px2proj.publish(publishOptions);
+    console.log('パブリッシュ結果: ', result);
+  } catch (err) {
+    console.error('エラー: ', err);
+  }
+}
 ```
 
 ### PHPバイナリのパスを指定する場合 - Specifying path to PHP binary
@@ -401,13 +179,19 @@ $ composer install
 $ npm install
 ```
 
+### ビルド - Build
+
+```bash
+$ npm run build
+```
+
 ### テスト - Test
 
 ```bash
 $ npm test
 ```
 
-### ドキュメント出力 - JSDoc
+### ドキュメント出力 - Documentation
 
 ```bash
 $ npm run documentation
@@ -416,6 +200,13 @@ $ npm run documentation
 
 
 ## 更新履歴 - Change log
+
+### px2agent v3.0.0 (リリース予定)
+
+- TypeScriptへの完全移行
+- コールバックベースAPIからPromise/async-awaitベースAPIへの変更
+- CommonJSモジュールとESモジュール両方のサポート
+- 型定義ファイル(.d.ts)の提供
 
 ### px2agent v2.0.7 (2021年1月16日)
 
