@@ -1,36 +1,6 @@
 # px2agent
 
-__px2agent__ は、[Pickles 2](https://pickles2.pxt.jp/) と NodeJS スクリプトを仲介するAPIを提供します。
-
-<table>
-  <thead>
-	<tr>
-	  <th></th>
-	  <th>Linux</th>
-	  <th>Windows</th>
-	</tr>
-  </thead>
-  <tbody>
-	<tr>
-	  <th>master</th>
-	  <td align="center">
-		<a href="https://travis-ci.org/pickles2/node-px2agent"><img src="https://secure.travis-ci.org/pickles2/node-px2agent.svg?branch=master"></a>
-	  </td>
-	  <td align="center">
-		<a href="https://ci.appveyor.com/project/tomk79/node-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/master?svg=true"></a>
-	  </td>
-	</tr>
-	<tr>
-	  <th>develop</th>
-	  <td align="center">
-		<a href="https://travis-ci.org/pickles2/node-px2agent"><img src="https://secure.travis-ci.org/pickles2/node-px2agent.svg?branch=develop"></a>
-	  </td>
-	  <td align="center">
-		<a href="https://ci.appveyor.com/project/tomk79/node-px2agent"><img src="https://ci.appveyor.com/api/projects/status/jd0dcl2ya2t2nrsa/branch/develop?svg=true"></a>
-	  </td>
-	</tr>
-  </tbody>
-</table>
+__px2agent__ は、[Pickles 2](https://pickles2.com/) と NodeJS スクリプトを仲介するAPIを提供します。
 
 [![NPM](https://nodei.co/npm/px2agent.png)](https://nodei.co/npm/px2agent/)
 
@@ -201,12 +171,11 @@ $ npm run documentation
 
 ## 更新履歴 - Change log
 
-### px2agent v3.0.0 (リリース予定)
+### px2agent v3.0.0 (2025年5月5日)
 
-- TypeScriptへの完全移行
 - コールバックベースAPIからPromise/async-awaitベースAPIへの変更
 - CommonJSモジュールとESモジュール両方のサポート
-- 型定義ファイル(.d.ts)の提供
+- TypeScriptへ移行、型定義ファイル(.d.ts)の提供
 
 ### px2agent v2.0.7 (2021年1月16日)
 
