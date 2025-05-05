@@ -671,6 +671,7 @@ describe('PHPを異常終了させるテスト', () => {
 	const childProcRtnCode = 255;
 
 	it("APIをコールするとPHPが異常終了するテスト", async () => {
+		// query API のテスト
 		try {
 			const data = await pj.query('/?PX=phpinfo', {
 				output: "json",
@@ -681,6 +682,7 @@ describe('PHPを異常終了させるテスト', () => {
 			expect(error.code).toBe(childProcRtnCode);
 		}
 
+		// get_version
 		try {
 			const version = await pj.get_version();
 			expect(true).toBe(false); // 成功した場合は失敗
@@ -689,6 +691,7 @@ describe('PHPを異常終了させるテスト', () => {
 			expect(typeof error.message).toBe('string');
 		}
 
+		// get_config
 		try {
 			const config = await pj.get_config();
 			expect(true).toBe(false); // 成功した場合は失敗
@@ -697,7 +700,336 @@ describe('PHPを異常終了させるテスト', () => {
 			expect(typeof error.message).toBe('string');
 		}
 
-		// 他の API 関数も同じパターンでチェック可能ですが、簡潔にするために省略します
+		// get_sitemap
+		try {
+			const sitemap = await pj.get_sitemap();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_page_info
+		try {
+			const page_info = await pj.get_page_info('/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_parent
+		try {
+			const parent = await pj.get_parent('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_children
+		try {
+			const children = await pj.get_children('/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_children with filter option
+		try {
+			const children = await pj.get_children('/', {filter: false});
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_bros
+		try {
+			const bros = await pj.get_bros('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_bros with filter option
+		try {
+			const bros = await pj.get_bros('/sample_pages/', {filter: false});
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_bros_next
+		try {
+			const bros_next = await pj.get_bros_next('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_bros_next with filter option
+		try {
+			const bros_next = await pj.get_bros_next('/sample_pages/', {filter: false});
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_bros_prev
+		try {
+			const bros_prev = await pj.get_bros_prev('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_bros_prev with filter option
+		try {
+			const bros_prev = await pj.get_bros_prev('/sample_pages/', {filter: false});
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_next
+		try {
+			const next = await pj.get_next('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_next with filter option
+		try {
+			const next = await pj.get_next('/sample_pages/', {filter: false});
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_prev
+		try {
+			const prev = await pj.get_prev('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_prev with filter option
+		try {
+			const prev = await pj.get_prev('/sample_pages/', {filter: false});
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_breadcrumb_array
+		try {
+			const breadcrumb = await pj.get_breadcrumb_array('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_dynamic_path_info
+		try {
+			const dynamic_path_info = await pj.get_dynamic_path_info('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// bind_dynamic_path_param
+		try {
+			const path = await pj.bind_dynamic_path_param('/dynamicPath/{*}', {'':'abc.html'});
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_realpath_homedir
+		try {
+			const homedir = await pj.get_realpath_homedir();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_path_controot
+		try {
+			const controot = await pj.get_path_controot();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_realpath_docroot
+		try {
+			const docroot = await pj.get_realpath_docroot();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_path_content
+		try {
+			const content = await pj.get_path_content('/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// path_files
+		try {
+			const files = await pj.path_files('/', '/images/sample.png');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// realpath_files
+		try {
+			const realpath = await pj.realpath_files('/', '/images/sample.png');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// path_files_cache
+		try {
+			const cache = await pj.path_files_cache('/', '/images/sample.png');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// realpath_files_cache
+		try {
+			const realpath_cache = await pj.realpath_files_cache('/', '/images/sample.png');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// realpath_files_private_cache
+		try {
+			const private_cache = await pj.realpath_files_private_cache('/', '/images/sample.png');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_domain
+		try {
+			const domain = await pj.get_domain();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_directory_index
+		try {
+			const dir_index = await pj.get_directory_index();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_directory_index_primary
+		try {
+			const primary_index = await pj.get_directory_index_primary();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// get_path_proc_type
+		try {
+			const proc_type = await pj.get_path_proc_type('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// href
+		try {
+			const href = await pj.href('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// is_match_dynamic_path
+		try {
+			const is_match = await pj.is_match_dynamic_path('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// is_page_in_breadcrumb
+		try {
+			const in_breadcrumb = await pj.is_page_in_breadcrumb('/sample_pages/', '/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// is_ignore_path
+		try {
+			const is_ignore = await pj.is_ignore_path('/sample_pages/');
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+			expect(typeof error.message).toBe('string');
+		}
+
+		// publish
+		try {
+			await pj.publish();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+		}
+
+		// clearcache
+		try {
+			await pj.clearcache();
+			expect(true).toBe(false); // 成功した場合は失敗
+		} catch (error: any) {
+			expect(error.code).toBe(childProcRtnCode);
+		}
 	});
 });
 
