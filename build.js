@@ -8,7 +8,27 @@ async function build() {
   // 古いビルドを削除
   await rimraf('./dist');
   
-  // TypeScriptビルドでd.tsファイルのみを生成するために、tsconfig.jsonを引き継ぐ
+  // TypeScriptビルドでd.tsファイルを生成
+  // 最初のビルドで型定義ファイルを生成
+  const typeBundle = await rollup({
+    input: './src/px2agent.ts',
+    plugins: [
+      typescript({
+        tsconfigOverride: {
+          compilerOptions: {
+            declaration: true,
+          }
+        }
+      })
+    ],
+    external: ['child_process', 'path', 'fs']
+  });
+
+  await typeBundle.write({
+    file: './dist/px2agent.mjs',
+    format: 'es',
+    sourcemap: true
+  });
 
   // ESM向けビルド
   const esmBundle = await rollup({
