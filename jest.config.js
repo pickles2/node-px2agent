@@ -13,4 +13,8 @@ export default {
   testMatch: [
     '**/tests_ts/**/*.ts'
   ],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/tests_ts/types/'
+  ],
 };

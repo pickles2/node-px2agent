@@ -1,3 +1,4 @@
+/// <reference path="./types/node-php-bin.d.ts" />
 import { describe, it, expect, beforeAll } from '@jest/globals';
 import { px2agent } from '../src/px2agent';
 import path from 'path';

@@ -53,7 +53,7 @@ async function build() {
     exports: 'auto'
   });
 
-  console.log('ビルド完了！');
+  console.log('** Build completed successfully!' + "\n\n");
 }
 
 build().catch(e => {
