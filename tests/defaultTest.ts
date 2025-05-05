@@ -19,7 +19,7 @@ function getProject(testDataName: string): Px2Project {
   };
   
   return px2agent.createProject(
-    path.resolve(__dirname, '../tests/testData/' + testDataName + '/.px_execute.php'),
+    path.resolve(__dirname, './testData/' + testDataName + '/.px_execute.php'),
     options
   );
 }
@@ -395,7 +395,7 @@ describe('ホームディレクトリのパスを取得する', () => {
     const path_home_dir = await pj.get_realpath_homedir();
     
     expect(typeof path_home_dir).toBe('string');
-    expect(fs.realpathSync(path_home_dir)).toBe(fs.realpathSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/')));
+    expect(fs.realpathSync(path_home_dir)).toBe(fs.realpathSync(path.join(__dirname, './testData/htdocs1/px-files/')));
   });
 });
 
@@ -417,7 +417,7 @@ describe('ドキュメントルートディレクトリのパスを取得する'
     const path_docroot = await pj.get_realpath_docroot();
     
     expect(typeof path_docroot).toBe('string');
-    expect(fs.realpathSync(path_docroot)).toBe(fs.realpathSync(path.join(__dirname, '../tests/testData/htdocs1/')));
+    expect(fs.realpathSync(path_docroot)).toBe(fs.realpathSync(path.join(__dirname, './testData/htdocs1/')));
   });
 });
 
@@ -459,17 +459,17 @@ describe('コンテンツのリソースディレクトリの絶対パスを取�
 
   it("path '/' のコンテンツのリソースディレクトリの絶対パスを取得する", async () => {
     const path_content = await pj.realpath_files('/', '/images/test.png');
-    expect(path.resolve(path_content)).toBe(path.resolve(path.join(__dirname, '../tests/testData/htdocs1/index_files/images/test.png')));
+    expect(path.resolve(path_content)).toBe(path.resolve(path.join(__dirname, './testData/htdocs1/index_files/images/test.png')));
   });
 
   it("path '/' のコンテンツのリソースディレクトリの絶対パスを取得する(第二引数をnullで指定)", async () => {
     const path_content = await pj.realpath_files('/', undefined);
-    expect(path.resolve(path_content)).toBe(path.resolve(path.join(__dirname, '../tests/testData/htdocs1/index_files/')));
+    expect(path.resolve(path_content)).toBe(path.resolve(path.join(__dirname, './testData/htdocs1/index_files/')));
   });
 
   it("path '/sample_pages/page1/3.html' のコンテンツのリソースディレクトリの絶対パスを取得する", async () => {
     const path_content = await pj.realpath_files('/sample_pages/page1/3.html', '');
-    expect(path.resolve(path_content)).toBe(path.resolve(path.join(__dirname, '../tests/testData/htdocs1/sample_pages/page1/3_files/')));
+    expect(path.resolve(path_content)).toBe(path.resolve(path.join(__dirname, './testData/htdocs1/sample_pages/page1/3_files/')));
   });
 });
 
@@ -487,7 +487,7 @@ describe('コンテンツの cache directory の絶対パスを調べる', () =>
 
   it("path '/' の cache directory の絶対パス", async () => {
     const realpath = await pj.realpath_files_cache('/', '/sample.png');
-    expect(path.resolve(realpath)).toBe(path.resolve(path.join(__dirname, '../tests/testData/htdocs1/caches/c/index_files/sample.png')));
+    expect(path.resolve(realpath)).toBe(path.resolve(path.join(__dirname, './testData/htdocs1/caches/c/index_files/sample.png')));
   });
 });
 
@@ -496,7 +496,7 @@ describe('コンテンツの private cache directory の絶対パスを調べる
 
   it("path '/' の private cache directory の絶対パス", async () => {
     const realpath = await pj.realpath_files_private_cache('/', '/sample.png');
-    expect(path.resolve(realpath)).toBe(path.resolve(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/caches/c/index_files/sample.png')));
+    expect(path.resolve(realpath)).toBe(path.resolve(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/caches/c/index_files/sample.png')));
   });
 });
 
@@ -625,14 +625,14 @@ describe('パブリッシュするテスト', () => {
   it("パブリッシュする", async () => {
     const output = await pj.publish();
     
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/alert_log.csv'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/applock.txt'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/alert_log.csv'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'))).toBe(true);
 
-    const html = fs.readFileSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html')).toString();
+    const html = fs.readFileSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html')).toString();
     const versionRegExp = '[0-9]+\\.[0-9]+\\.[0-9]+';
     const matched = html.match(new RegExp('PHP Version \\=\\> '+versionRegExp));
     expect(matched).not.toBeNull();
@@ -643,12 +643,12 @@ describe('パブリッシュするテスト', () => {
       path_region: "/common/"
     });
     
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/applock.txt'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'))).toBe(true);
   }, 60000); // タイムアウト60秒を明示的に指定
 
   it("/common/ ディレクトリのみパブリッシュしない", async () => {
@@ -657,12 +657,12 @@ describe('パブリッシュするテスト', () => {
       paths_ignore: ["/common/"]
     });
     
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/applock.txt'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'))).toBe(true);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/applock.txt'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/index.html'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/caches/'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/common/styles/contents.css'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'))).toBe(true);
   }, 60000); // タイムアウト60秒を明示的に指定
 });
 
@@ -722,9 +722,9 @@ describe('キャッシュを削除するテスト', () => {
     
     // ファイルが存在しないことを確認
     // ただし、.gitkeepは残るはず
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/alert_log.csv'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/htdocs/'))).toBe(false);
-    expect(fs.existsSync(path.join(__dirname, '../tests/testData/htdocs1/px-files/_sys/ram/publish/.gitkeep'))).toBe(true);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/publish_log.csv'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/alert_log.csv'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/htdocs/'))).toBe(false);
+    expect(fs.existsSync(path.join(__dirname, './testData/htdocs1/px-files/_sys/ram/publish/.gitkeep'))).toBe(true);
   });
 });

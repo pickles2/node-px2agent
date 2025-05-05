@@ -11,10 +11,10 @@ export default {
     }],
   },
   testMatch: [
-    '**/tests_ts/**/*.ts'
+    '**/tests/**/*.ts'
   ],
   testPathIgnorePatterns: [
     '/node_modules/',
-    '/tests_ts/types/'
+    '/tests/types/'
   ],
 };
