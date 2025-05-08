@@ -1,4 +1,4 @@
-import { Px2ProjectOptions, QueryOptions, SitemapChildrenOptions, PublishOptions } from './types/types';
+import { Px2ProjectOptions, QueryOptions, SitemapChildrenOptions, BlogArticleListOptions, PublishOptions } from './types/types';
 export declare class Px2Project {
     #private;
     private php_self;
@@ -82,13 +82,13 @@ export declare class Px2Project {
      */
     is_ignore_path(path: string): Promise<boolean>;
     /**
+     * サイトマップ定義を取得する
+     */
+    get_sitemap_definition(): Promise<any>;
+    /**
      * サイトマップデータを取得する
      */
     get_sitemap(): Promise<any>;
-    /**
-     * pathまたはidからページ情報を得る
-     */
-    get_page_info(path: string): Promise<any>;
     /**
      * 親ページのIDを取得する
      */
@@ -137,6 +137,42 @@ export declare class Px2Project {
      * Actor のページID一覧を取得する
      */
     get_actors(path: string): Promise<string[]>;
+    /**
+     * ブログ一覧を取得する
+     */
+    get_blog_list(): Promise<any>;
+    /**
+     * ブログ記事の一覧を取得する
+     */
+    get_blog_article_list(blog_id: string, options: BlogArticleListOptions): Promise<any>;
+    /**
+     * ブログマップ定義を取得する
+     */
+    get_blogmap_definition(blog_id: string): Promise<any>;
+    /**
+     * 新規ブログを作成する
+     */
+    create_new_blog(blog_id: string): Promise<any>;
+    /**
+     * ブログを削除する
+     */
+    delete_blog(blog_id: string): Promise<any>;
+    /**
+     * 新規ブログ記事を作成する
+     */
+    create_new_blog_article(blog_id: string, fields: Record<string, string>): Promise<any>;
+    /**
+     * ブログ記事を更新する
+     */
+    update_blog_article(blog_id: string, path: string, fields: Record<string, string>): Promise<any>;
+    /**
+     * ブログ記事を削除する
+     */
+    delete_blog_article(blog_id: string, path: string): Promise<any>;
+    /**
+     * pathまたはidからページ情報を得る
+     */
+    get_page_info(path: string): Promise<any>;
     /**
      * get content path
      */

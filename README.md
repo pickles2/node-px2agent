@@ -119,7 +119,16 @@ var px2proj = require('px2agent').createProject(
 
 ### px2agent v3.1.0 (リリース日未定)
 
-- 内部コードの改善。
+- `px2proj.get_sitemap_definition()` を追加。
+- `px2proj.get_blog_list()` を追加。
+- `px2proj.get_blog_article_list()` を追加。
+- `px2proj.get_blogmap_definition()` を追加。
+- `px2proj.create_new_blog()` を追加。
+- `px2proj.delete_blog()` を追加。
+- `px2proj.create_new_blog_article()` を追加。
+- `px2proj.update_blog_article()` を追加。
+- `px2proj.delete_blog_article()` を追加。
+- その他、内部コードの改善。
 
 ### px2agent v3.0.0 (2025年5月5日)
 

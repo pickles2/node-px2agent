@@ -244,18 +244,16 @@ class Px2Project {
     // ----------------------------------------------------------------------------
     // Sitemap
     /**
+     * サイトマップ定義を取得する
+     */
+    async get_sitemap_definition() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.sitemap_definition', '/', {});
+    }
+    /**
      * サイトマップデータを取得する
      */
     async get_sitemap() {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.sitemap', '/', {});
-    }
-    /**
-     * pathまたはidからページ情報を得る
-     */
-    async get_page_info(path) {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.page_info', '/', {
-            path: path
-        });
     }
     /**
      * 親ページのIDを取得する
@@ -342,8 +340,84 @@ class Px2Project {
     }
     // ----------------------------------------------------------------------------
     // BlogKit
+    /**
+     * ブログ一覧を取得する
+     */
+    async get_blog_list() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.get_blog_list', '/', {});
+    }
+    /**
+     * ブログ記事の一覧を取得する
+     */
+    async get_blog_article_list(blog_id, options) {
+        const stringParams = {};
+        stringParams.blog_id = blog_id;
+        stringParams.dpp = String(options?.dpp || 50);
+        stringParams.p = String(options?.p || 1);
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.get_article_list', '/', stringParams || {});
+    }
+    /**
+     * ブログマップ定義を取得する
+     */
+    async get_blogmap_definition(blog_id) {
+        const stringParams = {};
+        stringParams.blog_id = blog_id;
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.get_blogmap_definition', '/', stringParams || {});
+    }
+    /**
+     * 新規ブログを作成する
+     */
+    async create_new_blog(blog_id) {
+        const stringParams = {};
+        stringParams.blog_id = blog_id;
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.create_new_blog', '/', stringParams || {});
+    }
+    /**
+     * ブログを削除する
+     */
+    async delete_blog(blog_id) {
+        const stringParams = {};
+        stringParams.blog_id = blog_id;
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.delete_blog', '/', stringParams || {});
+    }
+    /**
+     * 新規ブログ記事を作成する
+     */
+    async create_new_blog_article(blog_id, fields) {
+        const stringParams = {};
+        stringParams.blog_id = blog_id;
+        stringParams.fields = JSON.stringify(fields);
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.create_new_article', '/', stringParams || {});
+    }
+    /**
+     * ブログ記事を更新する
+     */
+    async update_blog_article(blog_id, path, fields) {
+        const stringParams = {};
+        stringParams.blog_id = blog_id;
+        stringParams.path = path;
+        stringParams.fields = JSON.stringify(fields);
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.update_article', '/', stringParams || {});
+    }
+    /**
+     * ブログ記事を削除する
+     */
+    async delete_blog_article(blog_id, path) {
+        const stringParams = {};
+        stringParams.blog_id = blog_id;
+        stringParams.path = path;
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.delete_article', '/', stringParams || {});
+    }
     // ----------------------------------------------------------------------------
     // Pages
+    /**
+     * pathまたはidからページ情報を得る
+     */
+    async get_page_info(path) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.page_info', '/', {
+            path: path
+        });
+    }
     // ----------------------------------------------------------------------------
     // Contents
     /**

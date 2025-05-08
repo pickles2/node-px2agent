@@ -2,7 +2,7 @@
  * px2project.ts
  */
 import { spawn } from 'child_process';
-import { Px2ProjectOptions, QueryOptions, SitemapChildrenOptions, PublishOptions } from './types/types';
+import { Px2ProjectOptions, QueryOptions, SitemapChildrenOptions, BlogArticleListOptions, PublishOptions } from './types/types';
 
 export class Px2Project {
 	private php_self: string;
@@ -259,19 +259,17 @@ export class Px2Project {
 	// Sitemap
 
 	/**
+	 * サイトマップ定義を取得する
+	 */
+	async get_sitemap_definition(): Promise<any> {
+		return await this.#apiGet('api.get.sitemap_definition', '/', {});
+	}
+
+	/**
 	 * サイトマップデータを取得する
 	 */
 	async get_sitemap(): Promise<any> {
 		return await this.#apiGet('api.get.sitemap', '/', {});
-	}
-
-	/**
-	 * pathまたはidからページ情報を得る
-	 */
-	async get_page_info(path: string): Promise<any> {
-		return await this.#apiGet('api.get.page_info', '/', {
-			path: path
-		});
 	}
 
 	/**
@@ -373,8 +371,95 @@ export class Px2Project {
 	// ----------------------------------------------------------------------------
 	// BlogKit
 
+	/**
+	 * ブログ一覧を取得する
+	 */
+	async get_blog_list(): Promise<any> {
+		return await this.#apiGet('blogkit.api.get_blog_list', '/', {});
+	}
+
+	/**
+	 * ブログ記事の一覧を取得する
+	 */
+	async get_blog_article_list(blog_id: string, options: BlogArticleListOptions): Promise<any> {
+		const stringParams: Record<string, string> = {};
+		stringParams.blog_id = blog_id;
+		stringParams.dpp = String(options?.dpp || 50);
+		stringParams.p = String(options?.p || 1);
+		return await this.#apiGet('blogkit.api.get_article_list', '/', stringParams || {});
+	}
+
+	/**
+	 * ブログマップ定義を取得する
+	 */
+	async get_blogmap_definition(blog_id: string): Promise<any> {
+		const stringParams: Record<string, string> = {};
+		stringParams.blog_id = blog_id;
+		return await this.#apiGet('blogkit.api.get_blogmap_definition', '/', stringParams || {});
+	}
+
+	/**
+	 * 新規ブログを作成する
+	 */
+	async create_new_blog(blog_id: string): Promise<any> {
+		const stringParams: Record<string, string> = {};
+		stringParams.blog_id = blog_id;
+		return await this.#apiGet('blogkit.api.create_new_blog', '/', stringParams || {});
+	}
+
+	/**
+	 * ブログを削除する
+	 */
+	async delete_blog(blog_id: string): Promise<any> {
+		const stringParams: Record<string, string> = {};
+		stringParams.blog_id = blog_id;
+		return await this.#apiGet('blogkit.api.delete_blog', '/', stringParams || {});
+	}
+
+	/**
+	 * 新規ブログ記事を作成する
+	 */
+	async create_new_blog_article(blog_id: string, fields: Record<string, string>): Promise<any> {
+		const stringParams: Record<string, string> = {};
+		stringParams.blog_id = blog_id;
+		stringParams.fields = JSON.stringify(fields);
+		return await this.#apiGet('blogkit.api.create_new_article', '/', stringParams || {});
+	}
+
+	/**
+	 * ブログ記事を更新する
+	 */
+	async update_blog_article(blog_id: string, path: string, fields: Record<string, string>): Promise<any> {
+		const stringParams: Record<string, string> = {};
+		stringParams.blog_id = blog_id;
+		stringParams.path = path;
+		stringParams.fields = JSON.stringify(fields);
+		return await this.#apiGet('blogkit.api.update_article', '/', stringParams || {});
+	}
+
+	/**
+	 * ブログ記事を削除する
+	 */
+	async delete_blog_article(blog_id: string, path: string): Promise<any> {
+		const stringParams: Record<string, string> = {};
+		stringParams.blog_id = blog_id;
+		stringParams.path = path;
+		return await this.#apiGet('blogkit.api.delete_article', '/', stringParams || {});
+	}
+
+
 	// ----------------------------------------------------------------------------
 	// Pages
+
+	/**
+	 * pathまたはidからページ情報を得る
+	 */
+	async get_page_info(path: string): Promise<any> {
+		return await this.#apiGet('api.get.page_info', '/', {
+			path: path
+		});
+	}
+
 
 	// ----------------------------------------------------------------------------
 	// Contents

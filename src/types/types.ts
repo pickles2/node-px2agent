@@ -31,6 +31,14 @@ export interface SitemapChildrenOptions {
 }
 
 /**
+ * ブログ記事一覧取得オプション
+ */
+export interface BlogArticleListOptions {
+	dpp?: number;
+	p?: number;
+}
+
+/**
  * パブリッシュオプション
  */
 export interface PublishOptions {

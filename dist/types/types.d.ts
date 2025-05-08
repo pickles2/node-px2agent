@@ -28,6 +28,13 @@ export interface SitemapChildrenOptions {
     filter?: boolean | null;
 }
 /**
+ * ブログ記事一覧取得オプション
+ */
+export interface BlogArticleListOptions {
+    dpp?: number;
+    p?: number;
+}
+/**
  * パブリッシュオプション
  */
 export interface PublishOptions {

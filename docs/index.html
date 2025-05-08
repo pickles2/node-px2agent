@@ -11,7 +11,16 @@
 <a id="md:phpバイナリのパスを指定する場合---specifying-path-to-php-binary-optional" class="tsd-anchor"></a><h3><a href="#md:phpバイナリのパスを指定する場合---specifying-path-to-php-binary-optional">PHPバイナリのパスを指定する場合 - Specifying path to PHP binary (optional)</a></h3><pre><code class="language-js"><span class="hl-1">var</span><span class="hl-2"> </span><span class="hl-6">px2proj</span><span class="hl-2"> = </span><span class="hl-4">require</span><span class="hl-2">(</span><span class="hl-5">&#39;px2agent&#39;</span><span class="hl-2">).</span><span class="hl-4">createProject</span><span class="hl-2">(</span><br/><span class="hl-2">  </span><span class="hl-5">&#39;/path/to/your/src_px2/.px_execute.php&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">  {</span><br/><span class="hl-2">    </span><span class="hl-5">&#39;bin&#39;</span><span class="hl-6">:</span><span class="hl-2"> </span><span class="hl-5">&#39;/path/to/php&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-5">&#39;ini&#39;</span><span class="hl-6">:</span><span class="hl-2"> </span><span class="hl-5">&#39;/path/to/php.ini&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">    </span><span class="hl-5">&#39;extension_dir&#39;</span><span class="hl-6">:</span><span class="hl-2"> </span><span class="hl-5">&#39;/path/to/ext/&#39;</span><span class="hl-2">,</span><br/><span class="hl-2">  }</span><br/><span class="hl-2">);</span>
 </code><button>Copy</button></pre>
 <a id="md:更新履歴---change-log" class="tsd-anchor"></a><h2><a href="#md:更新履歴---change-log">更新履歴 - Change log</a></h2><a id="md:px2agent-v310-リリース日未定" class="tsd-anchor"></a><h3><a href="#md:px2agent-v310-リリース日未定">px2agent v3.1.0 (リリース日未定)</a></h3><ul>
-<li>内部コードの改善。</li>
+<li><code>px2proj.get_sitemap_definition()</code> を追加。</li>
+<li><code>px2proj.get_blog_list()</code> を追加。</li>
+<li><code>px2proj.get_blog_article_list()</code> を追加。</li>
+<li><code>px2proj.get_blogmap_definition()</code> を追加。</li>
+<li><code>px2proj.create_new_blog()</code> を追加。</li>
+<li><code>px2proj.delete_blog()</code> を追加。</li>
+<li><code>px2proj.create_new_blog_article()</code> を追加。</li>
+<li><code>px2proj.update_blog_article()</code> を追加。</li>
+<li><code>px2proj.delete_blog_article()</code> を追加。</li>
+<li>その他、内部コードの改善。</li>
 </ul>
 <a id="md:px2agent-v300-2025年5月5日" class="tsd-anchor"></a><h3><a href="#md:px2agent-v300-2025年5月5日">px2agent v3.0.0 (2025年5月5日)</a></h3><ul>
 <li>コールバックベースAPIからPromise/async-awaitベースAPIへの変更</li>
