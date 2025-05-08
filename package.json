@@ -20,8 +20,7 @@
   "scripts": {
     "build": "tsc && node build.js && npm run documentation",
     "test": "npm run build && node --experimental-vm-modules node_modules/.bin/jest",
-    "documentation": "typedoc --entryPointStrategy expand --out docs src/",
-    "prepublishOnly": "npm run build"
+    "documentation": "typedoc --entryPointStrategy expand --out docs src/"
   },
   "author": "Tomoya Koyanagi",
   "license": "MIT",

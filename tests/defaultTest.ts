@@ -1,11 +1,11 @@
 /// <reference path="./types/node-php-bin.d.ts" />
 import { describe, it, expect, beforeAll } from '@jest/globals';
 import { px2agent } from '../src/px2agent';
+import { Px2Project } from '../src/px2project';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import nodePhpBin from 'node-php-bin';
-import { Px2Project } from '../src/px2project';
 
 // ESモジュールでの__dirnameの代替
 const __filename = fileURLToPath(import.meta.url);

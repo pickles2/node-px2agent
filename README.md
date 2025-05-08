@@ -8,83 +8,59 @@ __px2agent__ は、[Pickles 2](https://pickles2.com/) と NodeJS スクリプト
 
 ## 使い方 - Usage
 
-### CommonJS (JavaScript)
+### CommonJS
 
 ```js
 // CommonJS形式
 const px2agent = require('px2agent');
-const px2proj = px2agent.createProject('./.px_execute.php');
-
-// コールバックスタイル（従来のAPI）
-px2proj.get_version(function(version) {
-  console.log('Pickles 2 バージョン: ', version);
-});
-
-// Promiseスタイル（新しいAPI）
-px2proj.get_version()
-  .then(version => {
-    console.log('Pickles 2 バージョン: ', version);
-  })
-  .catch(err => {
-    console.error('エラー: ', err);
-  });
-
-// async/awaitスタイル（新しいAPI）
-async function checkVersion() {
-  try {
-    const version = await px2proj.get_version();
-    console.log('Pickles 2 バージョン: ', version);
-  } catch (err) {
-    console.error('エラー: ', err);
-  }
-}
-checkVersion();
+const px2proj = px2agent.createProject('/path/to/your/src_px2/.px_execute.php');
 ```
 
-### ES Modules (TypeScript/JavaScript)
+### ES Modules
 
-```ts
-// ESモジュール形式（TypeScript/JavaScript）
+```js
 import px2agent from 'px2agent';
-// または
-import { px2agent } from 'px2agent';
+const px2proj = px2agent.createProject('/path/to/your/src_px2/.px_execute.php');
+```
 
-// プロジェクトを初期化
-const px2proj = px2agent.createProject('./.px_execute.php');
+### APIs
+
+```js
+import px2agent from 'px2agent';
+const px2proj = px2agent.createProject('/path/to/your/src_px2/.px_execute.php');
 
 // async/await を使った例
 async function main() {
   try {
     // バージョンを取得
     const version = await px2proj.get_version();
-    console.log('Pickles 2 バージョン: ', version);
-    
+
     // 設定を取得
     const config = await px2proj.get_config();
-    console.log('設定: ', config);
-    
+
     // サイトマップを取得
     const sitemap = await px2proj.get_sitemap();
-    console.log('サイトマップ: ', sitemap);
-    
+
     // ページ情報を取得
     const pageInfo = await px2proj.get_page_info('/');
-    console.log('ページ情報: ', pageInfo);
-    
+
     // パブリッシュを実行
     const publishResult = await px2proj.publish({
-      path_region: '/path/to/publish/'
+      path_region: '/'
     });
-    console.log('パブリッシュ結果: ', publishResult);
+
+    // キャッシュを消去
+    const clearcacheResult = await px2proj.clearcache();
+
   } catch (err) {
-    console.error('エラー: ', err);
+    console.error('Error: ', err);
   }
 }
 
 main();
 ```
 
-### TypeScript での型定義の利用
+### TypeScript
 
 ```ts
 import px2agent from 'px2agent';
@@ -125,48 +101,18 @@ async function publishProject() {
 }
 ```
 
-### PHPバイナリのパスを指定する場合 - Specifying path to PHP binary
+### PHPバイナリのパスを指定する場合 - Specifying path to PHP binary (optional)
 
 ```js
 var px2proj = require('px2agent').createProject(
-  './px_execute.php',
+  '/path/to/your/src_px2/.px_execute.php',
   {
-	'bin': '/path/to/php',
-	'ini': '/path/to/php.ini',
-	'extension_dir': '/path/to/ext/'
+    'bin': '/path/to/php',
+    'ini': '/path/to/php.ini',
+    'extension_dir': '/path/to/ext/',
   }
 );
 ```
-
-
-## 開発者向け情報 - for developers
-
-### 開発環境セットアップ - Setting up development environment
-
-```bash
-$ cd {$project_root}
-$ composer install
-$ npm install
-```
-
-### ビルド - Build
-
-```bash
-$ npm run build
-```
-
-### テスト - Test
-
-```bash
-$ npm test
-```
-
-### ドキュメント出力 - Documentation
-
-```bash
-$ npm run documentation
-```
-
 
 
 ## 更新履歴 - Change log
