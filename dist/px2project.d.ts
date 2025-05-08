@@ -24,6 +24,64 @@ export declare class Px2Project {
      */
     get_config(): Promise<any>;
     /**
+     * domain を取得する
+     */
+    get_domain(): Promise<string>;
+    /**
+     * get home directory path (deprecated)
+     *
+     * `get_path_homedir()` は 非推奨のメソッドです。
+     * 代わりに、 `get_realpath_homedir()` を使用してください。
+     */
+    get_path_homedir(): Promise<string>;
+    /**
+     * get home directory path
+     */
+    get_realpath_homedir(): Promise<string>;
+    /**
+     * コンテンツルートディレクトリのパス(=install path) を取得する
+     */
+    get_path_controot(): Promise<string>;
+    /**
+     * DOCUMENT_ROOT のパスを取得する (deprecated)
+     *
+     * `get_path_docroot()` は 非推奨のメソッドです。
+     * 代わりに、 `get_realpath_docroot()` を使用してください。
+     */
+    get_path_docroot(): Promise<string>;
+    /**
+     * DOCUMENT_ROOT のパスを取得する
+     */
+    get_realpath_docroot(): Promise<string>;
+    /**
+     * directory_index(省略できるファイル名) の一覧を得る
+     */
+    get_directory_index(): Promise<string[]>;
+    /**
+     * 最も優先されるインデックスファイル名を得る
+     */
+    get_directory_index_primary(): Promise<string>;
+    /**
+     * ファイルの処理方法を調べる
+     */
+    get_path_proc_type(path: string): Promise<string>;
+    /**
+     * リンク先のパスを生成する
+     */
+    href(path_linkto: string): Promise<string>;
+    /**
+     * パスがダイナミックパスにマッチするか調べる
+     */
+    is_match_dynamic_path(path: string): Promise<boolean>;
+    /**
+     * ページが、パンくず内に存在しているか調べる
+     */
+    is_page_in_breadcrumb(path: string, path_in: string): Promise<boolean>;
+    /**
+     * 除外ファイルか調べる
+     */
+    is_ignore_path(path: string): Promise<boolean>;
+    /**
      * サイトマップデータを取得する
      */
     get_sitemap(): Promise<any>;
@@ -80,32 +138,6 @@ export declare class Px2Project {
      */
     get_actors(path: string): Promise<string[]>;
     /**
-     * get home directory path (deprecated)
-     *
-     * `get_path_homedir()` は 非推奨のメソッドです。
-     * 代わりに、 `get_realpath_homedir()` を使用してください。
-     */
-    get_path_homedir(): Promise<string>;
-    /**
-     * get home directory path
-     */
-    get_realpath_homedir(): Promise<string>;
-    /**
-     * コンテンツルートディレクトリのパス(=install path) を取得する
-     */
-    get_path_controot(): Promise<string>;
-    /**
-     * DOCUMENT_ROOT のパスを取得する (deprecated)
-     *
-     * `get_path_docroot()` は 非推奨のメソッドです。
-     * 代わりに、 `get_realpath_docroot()` を使用してください。
-     */
-    get_path_docroot(): Promise<string>;
-    /**
-     * DOCUMENT_ROOT のパスを取得する
-     */
-    get_realpath_docroot(): Promise<string>;
-    /**
      * get content path
      */
     get_path_content(path: string): Promise<string>;
@@ -129,38 +161,6 @@ export declare class Px2Project {
      * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
      */
     realpath_files_private_cache(path: string, path_resource?: string): Promise<string>;
-    /**
-     * domain を取得する
-     */
-    get_domain(): Promise<string>;
-    /**
-     * directory_index(省略できるファイル名) の一覧を得る
-     */
-    get_directory_index(): Promise<string[]>;
-    /**
-     * 最も優先されるインデックスファイル名を得る
-     */
-    get_directory_index_primary(): Promise<string>;
-    /**
-     * ファイルの処理方法を調べる
-     */
-    get_path_proc_type(path: string): Promise<string>;
-    /**
-     * リンク先のパスを生成する
-     */
-    href(path_linkto: string): Promise<string>;
-    /**
-     * パスがダイナミックパスにマッチするか調べる
-     */
-    is_match_dynamic_path(path: string): Promise<boolean>;
-    /**
-     * ページが、パンくず内に存在しているか調べる
-     */
-    is_page_in_breadcrumb(path: string, path_in: string): Promise<boolean>;
-    /**
-     * 除外ファイルか調べる
-     */
-    is_ignore_path(path: string): Promise<boolean>;
     /**
      * パブリッシュする
      */

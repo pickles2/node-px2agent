@@ -133,6 +133,8 @@ class Px2Project {
             });
         });
     }
+    // ----------------------------------------------------------------------------
+    // System API
     /**
      * PXコマンドを実行する
      */
@@ -151,6 +153,100 @@ class Px2Project {
     async get_config() {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.config', '/', {});
     }
+    /**
+     * domain を取得する
+     */
+    async get_domain() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.domain', '/', {});
+    }
+    /**
+     * get home directory path (deprecated)
+     *
+     * `get_path_homedir()` は 非推奨のメソッドです。
+     * 代わりに、 `get_realpath_homedir()` を使用してください。
+     */
+    async get_path_homedir() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_homedir', '/', {});
+    }
+    /**
+     * get home directory path
+     */
+    async get_realpath_homedir() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_homedir', '/', {});
+    }
+    /**
+     * コンテンツルートディレクトリのパス(=install path) を取得する
+     */
+    async get_path_controot() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_controot', '/', {});
+    }
+    /**
+     * DOCUMENT_ROOT のパスを取得する (deprecated)
+     *
+     * `get_path_docroot()` は 非推奨のメソッドです。
+     * 代わりに、 `get_realpath_docroot()` を使用してください。
+     */
+    async get_path_docroot() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_docroot', '/', {});
+    }
+    /**
+     * DOCUMENT_ROOT のパスを取得する
+     */
+    async get_realpath_docroot() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_docroot', '/', {});
+    }
+    /**
+     * directory_index(省略できるファイル名) の一覧を得る
+     */
+    async get_directory_index() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.directory_index', '/', {});
+    }
+    /**
+     * 最も優先されるインデックスファイル名を得る
+     */
+    async get_directory_index_primary() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.directory_index_primary', '/', {});
+    }
+    /**
+     * ファイルの処理方法を調べる
+     */
+    async get_path_proc_type(path) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_proc_type', path, {});
+    }
+    /**
+     * リンク先のパスを生成する
+     */
+    async href(path_linkto) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.href', '/', {
+            linkto: path_linkto
+        });
+    }
+    /**
+     * パスがダイナミックパスにマッチするか調べる
+     */
+    async is_match_dynamic_path(path) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.match_dynamic_path', '/', {
+            path: path
+        });
+    }
+    /**
+     * ページが、パンくず内に存在しているか調べる
+     */
+    async is_page_in_breadcrumb(path, path_in) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.page_in_breadcrumb', path, {
+            path: path_in
+        });
+    }
+    /**
+     * 除外ファイルか調べる
+     */
+    async is_ignore_path(path) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.ignore_path', '/', {
+            path: path
+        });
+    }
+    // ----------------------------------------------------------------------------
+    // Sitemap
     /**
      * サイトマップデータを取得する
      */
@@ -248,42 +344,12 @@ class Px2Project {
     async get_actors(path) {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.actors', path, {});
     }
-    /**
-     * get home directory path (deprecated)
-     *
-     * `get_path_homedir()` は 非推奨のメソッドです。
-     * 代わりに、 `get_realpath_homedir()` を使用してください。
-     */
-    async get_path_homedir() {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_homedir', '/', {});
-    }
-    /**
-     * get home directory path
-     */
-    async get_realpath_homedir() {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_homedir', '/', {});
-    }
-    /**
-     * コンテンツルートディレクトリのパス(=install path) を取得する
-     */
-    async get_path_controot() {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_controot', '/', {});
-    }
-    /**
-     * DOCUMENT_ROOT のパスを取得する (deprecated)
-     *
-     * `get_path_docroot()` は 非推奨のメソッドです。
-     * 代わりに、 `get_realpath_docroot()` を使用してください。
-     */
-    async get_path_docroot() {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_docroot', '/', {});
-    }
-    /**
-     * DOCUMENT_ROOT のパスを取得する
-     */
-    async get_realpath_docroot() {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_docroot', '/', {});
-    }
+    // ----------------------------------------------------------------------------
+    // BlogKit
+    // ----------------------------------------------------------------------------
+    // Pages
+    // ----------------------------------------------------------------------------
+    // Contents
     /**
      * get content path
      */
@@ -330,62 +396,12 @@ class Px2Project {
             path_resource: path_resource
         });
     }
-    /**
-     * domain を取得する
-     */
-    async get_domain() {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.domain', '/', {});
-    }
-    /**
-     * directory_index(省略できるファイル名) の一覧を得る
-     */
-    async get_directory_index() {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.directory_index', '/', {});
-    }
-    /**
-     * 最も優先されるインデックスファイル名を得る
-     */
-    async get_directory_index_primary() {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.directory_index_primary', '/', {});
-    }
-    /**
-     * ファイルの処理方法を調べる
-     */
-    async get_path_proc_type(path) {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_proc_type', path, {});
-    }
-    /**
-     * リンク先のパスを生成する
-     */
-    async href(path_linkto) {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.href', '/', {
-            linkto: path_linkto
-        });
-    }
-    /**
-     * パスがダイナミックパスにマッチするか調べる
-     */
-    async is_match_dynamic_path(path) {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.match_dynamic_path', '/', {
-            path: path
-        });
-    }
-    /**
-     * ページが、パンくず内に存在しているか調べる
-     */
-    async is_page_in_breadcrumb(path, path_in) {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.page_in_breadcrumb', path, {
-            path: path_in
-        });
-    }
-    /**
-     * 除外ファイルか調べる
-     */
-    async is_ignore_path(path) {
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.ignore_path', '/', {
-            path: path
-        });
-    }
+    // ----------------------------------------------------------------------------
+    // Themes
+    // ----------------------------------------------------------------------------
+    // Modules
+    // ----------------------------------------------------------------------------
+    // Tools
     /**
      * パブリッシュする
      */
@@ -429,8 +445,9 @@ class Px2Project {
     }
 }
 _Px2Project_instances = new WeakSet(), _Px2Project_apiGet = 
+// ----------------------------------------------------------------------------
 /**
- * PX=api.*を投げる
+ * PX=* を投げる
  */
 async function _Px2Project_apiGet(cmd, path = '/', param = {}) {
     const aryParam = Object.entries(param).map(([key, value]) => {

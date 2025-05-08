@@ -126,28 +126,8 @@ export class Px2Project {
 		});
 	}
 
-	/**
-	 * PX=api.*を投げる
-	 */
-	async #apiGet(cmd: string, path: string = '/', param: Record<string, string> = {}): Promise<any> {
-		const aryParam = Object.entries(param).map(([key, value]) => {
-			return encodeURIComponent(key) + '=' + encodeURIComponent(value);
-		});
-		
-		const paramStr = aryParam.length ? '&' + aryParam.join('&') : '';
-		
-		try {
-			const data = await this.query(path + '?PX=' + cmd + paramStr);
-			
-			try {
-				return JSON.parse(data);
-			} catch (e) {
-				throw new Error('JSON Parse ERROR: "' + data + '";');
-			}
-		} catch (error) {
-			throw error;
-		}
-	}
+	// ----------------------------------------------------------------------------
+	// System API
 
 	/**
 	 * PXコマンドを実行する
@@ -169,6 +149,114 @@ export class Px2Project {
 	async get_config(): Promise<any> {
 		return await this.#apiGet('api.get.config', '/', {});
 	}
+
+	/**
+	 * domain を取得する
+	 */
+	async get_domain(): Promise<string> {
+		return await this.#apiGet('api.get.domain', '/', {});
+	}
+
+	/**
+	 * get home directory path (deprecated)
+	 *
+	 * `get_path_homedir()` は 非推奨のメソッドです。
+	 * 代わりに、 `get_realpath_homedir()` を使用してください。
+	 */
+	async get_path_homedir(): Promise<string> {
+		return await this.#apiGet('api.get.path_homedir', '/', {});
+	}
+
+	/**
+	 * get home directory path
+	 */
+	async get_realpath_homedir(): Promise<string> {
+		return await this.#apiGet('api.get.path_homedir', '/', {});
+	}
+
+	/**
+	 * コンテンツルートディレクトリのパス(=install path) を取得する
+	 */
+	async get_path_controot(): Promise<string> {
+		return await this.#apiGet('api.get.path_controot', '/', {});
+	}
+
+	/**
+	 * DOCUMENT_ROOT のパスを取得する (deprecated)
+	 *
+	 * `get_path_docroot()` は 非推奨のメソッドです。
+	 * 代わりに、 `get_realpath_docroot()` を使用してください。
+	 */
+	async get_path_docroot(): Promise<string> {
+		return await this.#apiGet('api.get.path_docroot', '/', {});
+	}
+
+	/**
+	 * DOCUMENT_ROOT のパスを取得する
+	 */
+	async get_realpath_docroot(): Promise<string> {
+		return await this.#apiGet('api.get.path_docroot', '/', {});
+	}
+
+	/**
+	 * directory_index(省略できるファイル名) の一覧を得る
+	 */
+	async get_directory_index(): Promise<string[]> {
+		return await this.#apiGet('api.get.directory_index', '/', {});
+	}
+
+	/**
+	 * 最も優先されるインデックスファイル名を得る
+	 */
+	async get_directory_index_primary(): Promise<string> {
+		return await this.#apiGet('api.get.directory_index_primary', '/', {});
+	}
+
+	/**
+	 * ファイルの処理方法を調べる
+	 */
+	async get_path_proc_type(path: string): Promise<string> {
+		return await this.#apiGet('api.get.path_proc_type', path, {});
+	}
+
+	/**
+	 * リンク先のパスを生成する
+	 */
+	async href(path_linkto: string): Promise<string> {
+		return await this.#apiGet('api.get.href', '/', {
+			linkto: path_linkto
+		});
+	}
+
+	/**
+	 * パスがダイナミックパスにマッチするか調べる
+	 */
+	async is_match_dynamic_path(path: string): Promise<boolean> {
+		return await this.#apiGet('api.is.match_dynamic_path', '/', {
+			path: path
+		});
+	}
+
+	/**
+	 * ページが、パンくず内に存在しているか調べる
+	 */
+	async is_page_in_breadcrumb(path: string, path_in: string): Promise<boolean> {
+		return await this.#apiGet('api.is.page_in_breadcrumb', path, {
+			path: path_in
+		});
+	}
+
+	/**
+	 * 除外ファイルか調べる
+	 */
+	async is_ignore_path(path: string): Promise<boolean> {
+		return await this.#apiGet('api.is.ignore_path', '/', {
+			path: path
+		});
+	}
+
+	// ----------------------------------------------------------------------------
+	// Sitemap
 
 	/**
 	 * サイトマップデータを取得する
@@ -281,46 +369,15 @@ export class Px2Project {
 		return await this.#apiGet('api.get.actors', path, {});
 	}
 
-	/**
-	 * get home directory path (deprecated)
-	 *
-	 * `get_path_homedir()` は 非推奨のメソッドです。
-	 * 代わりに、 `get_realpath_homedir()` を使用してください。
-	 */
-	async get_path_homedir(): Promise<string> {
-		return await this.#apiGet('api.get.path_homedir', '/', {});
-	}
 
-	/**
-	 * get home directory path
-	 */
-	async get_realpath_homedir(): Promise<string> {
-		return await this.#apiGet('api.get.path_homedir', '/', {});
-	}
+	// ----------------------------------------------------------------------------
+	// BlogKit
 
-	/**
-	 * コンテンツルートディレクトリのパス(=install path) を取得する
-	 */
-	async get_path_controot(): Promise<string> {
-		return await this.#apiGet('api.get.path_controot', '/', {});
-	}
+	// ----------------------------------------------------------------------------
+	// Pages
 
-	/**
-	 * DOCUMENT_ROOT のパスを取得する (deprecated)
-	 *
-	 * `get_path_docroot()` は 非推奨のメソッドです。
-	 * 代わりに、 `get_realpath_docroot()` を使用してください。
-	 */
-	async get_path_docroot(): Promise<string> {
-		return await this.#apiGet('api.get.path_docroot', '/', {});
-	}
-
-	/**
-	 * DOCUMENT_ROOT のパスを取得する
-	 */
-	async get_realpath_docroot(): Promise<string> {
-		return await this.#apiGet('api.get.path_docroot', '/', {});
-	}
+	// ----------------------------------------------------------------------------
+	// Contents
 
 	/**
 	 * get content path
@@ -374,69 +431,15 @@ export class Px2Project {
 		});
 	}
 
-	/**
-	 * domain を取得する
-	 */
-	async get_domain(): Promise<string> {
-		return await this.#apiGet('api.get.domain', '/', {});
-	}
 
-	/**
-	 * directory_index(省略できるファイル名) の一覧を得る
-	 */
-	async get_directory_index(): Promise<string[]> {
-		return await this.#apiGet('api.get.directory_index', '/', {});
-	}
+	// ----------------------------------------------------------------------------
+	// Themes
 
-	/**
-	 * 最も優先されるインデックスファイル名を得る
-	 */
-	async get_directory_index_primary(): Promise<string> {
-		return await this.#apiGet('api.get.directory_index_primary', '/', {});
-	}
+	// ----------------------------------------------------------------------------
+	// Modules
 
-	/**
-	 * ファイルの処理方法を調べる
-	 */
-	async get_path_proc_type(path: string): Promise<string> {
-		return await this.#apiGet('api.get.path_proc_type', path, {});
-	}
-
-	/**
-	 * リンク先のパスを生成する
-	 */
-	async href(path_linkto: string): Promise<string> {
-		return await this.#apiGet('api.get.href', '/', {
-			linkto: path_linkto
-		});
-	}
-
-	/**
-	 * パスがダイナミックパスにマッチするか調べる
-	 */
-	async is_match_dynamic_path(path: string): Promise<boolean> {
-		return await this.#apiGet('api.is.match_dynamic_path', '/', {
-			path: path
-		});
-	}
-
-	/**
-	 * ページが、パンくず内に存在しているか調べる
-	 */
-	async is_page_in_breadcrumb(path: string, path_in: string): Promise<boolean> {
-		return await this.#apiGet('api.is.page_in_breadcrumb', path, {
-			path: path_in
-		});
-	}
-
-	/**
-	 * 除外ファイルか調べる
-	 */
-	async is_ignore_path(path: string): Promise<boolean> {
-		return await this.#apiGet('api.is.ignore_path', '/', {
-			path: path
-		});
-	}
+	// ----------------------------------------------------------------------------
+	// Tools
 
 	/**
 	 * パブリッシュする
@@ -489,6 +492,31 @@ export class Px2Project {
 			'/?PX=clearcache',
 			opt
 		);
+	}
+
+	// ----------------------------------------------------------------------------
+
+	/**
+	 * PX=* を投げる
+	 */
+	async #apiGet(cmd: string, path: string = '/', param: Record<string, string> = {}): Promise<any> {
+		const aryParam = Object.entries(param).map(([key, value]) => {
+			return encodeURIComponent(key) + '=' + encodeURIComponent(value);
+		});
+		
+		const paramStr = aryParam.length ? '&' + aryParam.join('&') : '';
+		
+		try {
+			const data = await this.query(path + '?PX=' + cmd + paramStr);
+			
+			try {
+				return JSON.parse(data);
+			} catch (e) {
+				throw new Error('JSON Parse ERROR: "' + data + '";');
+			}
+		} catch (error) {
+			throw error;
+		}
 	}
 
 	/**
