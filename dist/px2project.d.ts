@@ -1,5 +1,6 @@
 import { Px2ProjectOptions, QueryOptions, SitemapChildrenOptions, PublishOptions } from './types/types';
 export declare class Px2Project {
+    #private;
     private php_self;
     private options;
     /**
@@ -10,10 +11,6 @@ export declare class Px2Project {
      * Pickles 2 にクエリを投げて、結果を受け取る (汎用)
      */
     query(path: string, opt?: QueryOptions): Promise<string>;
-    /**
-     * PX=api.*を投げる
-     */
-    private apiGet;
     /**
      * PXコマンドを実行する
      */
@@ -172,9 +169,4 @@ export declare class Px2Project {
      * キャッシュを削除する
      */
     clearcache(opt?: QueryOptions): Promise<string>;
-    /**
-     * get_children() へ渡されるオプションを調整する
-     * この形式のオプションは、get_bros(), get_bros_next(), get_bros_prev(), get_next(), get_prev() でも共通です。
-     */
-    private sitemap_children_params;
 }

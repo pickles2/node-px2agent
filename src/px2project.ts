@@ -129,7 +129,7 @@ export class Px2Project {
 	/**
 	 * PX=api.*を投げる
 	 */
-	private async apiGet(cmd: string, path: string = '/', param: Record<string, string> = {}): Promise<any> {
+	async #apiGet(cmd: string, path: string = '/', param: Record<string, string> = {}): Promise<any> {
 		const aryParam = Object.entries(param).map(([key, value]) => {
 			return encodeURIComponent(key) + '=' + encodeURIComponent(value);
 		});
@@ -153,35 +153,35 @@ export class Px2Project {
 	 * PXコマンドを実行する
 	 */
 	async px_command(cmd: string, path: string = '/', param: Record<string, string> = {}): Promise<any> {
-		return await this.apiGet(cmd, path, param);
+		return await this.#apiGet(cmd, path, param);
 	}
 
 	/**
 	 * バージョン番号を取得する
 	 */
 	async get_version(): Promise<string> {
-		return await this.apiGet('api.get.version', '/', {});
+		return await this.#apiGet('api.get.version', '/', {});
 	}
 
 	/**
 	 * configデータを取得する
 	 */
 	async get_config(): Promise<any> {
-		return await this.apiGet('api.get.config', '/', {});
+		return await this.#apiGet('api.get.config', '/', {});
 	}
 
 	/**
 	 * サイトマップデータを取得する
 	 */
 	async get_sitemap(): Promise<any> {
-		return await this.apiGet('api.get.sitemap', '/', {});
+		return await this.#apiGet('api.get.sitemap', '/', {});
 	}
 
 	/**
 	 * pathまたはidからページ情報を得る
 	 */
 	async get_page_info(path: string): Promise<any> {
-		return await this.apiGet('api.get.page_info', '/', {
+		return await this.#apiGet('api.get.page_info', '/', {
 			path: path
 		});
 	}
@@ -190,69 +190,69 @@ export class Px2Project {
 	 * 親ページのIDを取得する
 	 */
 	async get_parent(path: string): Promise<string | false> {
-		return await this.apiGet('api.get.parent', path, {});
+		return await this.#apiGet('api.get.parent', path, {});
 	}
 
 	/**
 	 * 子階層のページの一覧を取得する
 	 */
 	async get_children(path: string, options?: SitemapChildrenOptions): Promise<string[]> {
-		const params = this.sitemap_children_params(options || {});
-		return await this.apiGet('api.get.children', path, params);
+		const params = this.#sitemap_children_params(options || {});
+		return await this.#apiGet('api.get.children', path, params);
 	}
 
 	/**
 	 * 兄弟ページの一覧を取得する
 	 */
 	async get_bros(path: string, options?: SitemapChildrenOptions): Promise<string[]> {
-		const params = this.sitemap_children_params(options || {});
-		return await this.apiGet('api.get.bros', path, params);
+		const params = this.#sitemap_children_params(options || {});
+		return await this.#apiGet('api.get.bros', path, params);
 	}
 
 	/**
 	 * 次の兄弟ページを取得する
 	 */
 	async get_bros_next(path: string, options?: SitemapChildrenOptions): Promise<string | false> {
-		const params = this.sitemap_children_params(options || {});
-		return await this.apiGet('api.get.bros_next', path, params);
+		const params = this.#sitemap_children_params(options || {});
+		return await this.#apiGet('api.get.bros_next', path, params);
 	}
 
 	/**
 	 * 前の兄弟ページを取得する
 	 */
 	async get_bros_prev(path: string, options?: SitemapChildrenOptions): Promise<string | false> {
-		const params = this.sitemap_children_params(options || {});
-		return await this.apiGet('api.get.bros_prev', path, params);
+		const params = this.#sitemap_children_params(options || {});
+		return await this.#apiGet('api.get.bros_prev', path, params);
 	}
 
 	/**
 	 * 次のページを取得する
 	 */
 	async get_next(path: string, options?: SitemapChildrenOptions): Promise<string | false> {
-		const params = this.sitemap_children_params(options || {});
-		return await this.apiGet('api.get.next', path, params);
+		const params = this.#sitemap_children_params(options || {});
+		return await this.#apiGet('api.get.next', path, params);
 	}
 
 	/**
 	 * 前のページを取得する
 	 */
 	async get_prev(path: string, options?: SitemapChildrenOptions): Promise<string | false> {
-		const params = this.sitemap_children_params(options || {});
-		return await this.apiGet('api.get.prev', path, params);
+		const params = this.#sitemap_children_params(options || {});
+		return await this.#apiGet('api.get.prev', path, params);
 	}
 
 	/**
 	 * パンくず配列を取得する
 	 */
 	async get_breadcrumb_array(path: string): Promise<string[]> {
-		return await this.apiGet('api.get.breadcrumb_array', path, {});
+		return await this.#apiGet('api.get.breadcrumb_array', path, {});
 	}
 
 	/**
 	 * ダイナミックパス情報を得る
 	 */
 	async get_dynamic_path_info(path: string): Promise<any> {
-		return await this.apiGet('api.get.dynamic_path_info', '/', {
+		return await this.#apiGet('api.get.dynamic_path_info', '/', {
 			path: path
 		});
 	}
@@ -261,7 +261,7 @@ export class Px2Project {
 	 * ダイナミックパスに値をバインドする
 	 */
 	async bind_dynamic_path_param(path: string, param: Record<string, string>): Promise<string> {
-		return await this.apiGet('api.get.bind_dynamic_path_param', '/', {
+		return await this.#apiGet('api.get.bind_dynamic_path_param', '/', {
 			path: path,
 			param: JSON.stringify(param)
 		});
@@ -271,14 +271,14 @@ export class Px2Project {
 	 * role を取得する
 	 */
 	async get_role(path: string): Promise<string> {
-		return await this.apiGet('api.get.role', path, {});
+		return await this.#apiGet('api.get.role', path, {});
 	}
 
 	/**
 	 * Actor のページID一覧を取得する
 	 */
 	async get_actors(path: string): Promise<string[]> {
-		return await this.apiGet('api.get.actors', path, {});
+		return await this.#apiGet('api.get.actors', path, {});
 	}
 
 	/**
@@ -288,21 +288,21 @@ export class Px2Project {
 	 * 代わりに、 `get_realpath_homedir()` を使用してください。
 	 */
 	async get_path_homedir(): Promise<string> {
-		return await this.apiGet('api.get.path_homedir', '/', {});
+		return await this.#apiGet('api.get.path_homedir', '/', {});
 	}
 
 	/**
 	 * get home directory path
 	 */
 	async get_realpath_homedir(): Promise<string> {
-		return await this.apiGet('api.get.path_homedir', '/', {});
+		return await this.#apiGet('api.get.path_homedir', '/', {});
 	}
 
 	/**
 	 * コンテンツルートディレクトリのパス(=install path) を取得する
 	 */
 	async get_path_controot(): Promise<string> {
-		return await this.apiGet('api.get.path_controot', '/', {});
+		return await this.#apiGet('api.get.path_controot', '/', {});
 	}
 
 	/**
@@ -312,28 +312,28 @@ export class Px2Project {
 	 * 代わりに、 `get_realpath_docroot()` を使用してください。
 	 */
 	async get_path_docroot(): Promise<string> {
-		return await this.apiGet('api.get.path_docroot', '/', {});
+		return await this.#apiGet('api.get.path_docroot', '/', {});
 	}
 
 	/**
 	 * DOCUMENT_ROOT のパスを取得する
 	 */
 	async get_realpath_docroot(): Promise<string> {
-		return await this.apiGet('api.get.path_docroot', '/', {});
+		return await this.#apiGet('api.get.path_docroot', '/', {});
 	}
 
 	/**
 	 * get content path
 	 */
 	async get_path_content(path: string): Promise<string> {
-		return await this.apiGet('api.get.path_content', path, {});
+		return await this.#apiGet('api.get.path_content', path, {});
 	}
 
 	/**
 	 * ローカルリソースディレクトリのパスを得る
 	 */
 	async path_files(path: string, path_resource: string = ''): Promise<string> {
-		return await this.apiGet('api.get.path_files', path, {
+		return await this.#apiGet('api.get.path_files', path, {
 			path_resource: path_resource
 		});
 	}
@@ -342,7 +342,7 @@ export class Px2Project {
 	 * ローカルリソースディレクトリのサーバー内部パスを得る
 	 */
 	async realpath_files(path: string, path_resource: string = ''): Promise<string> {
-		return await this.apiGet('api.get.realpath_files', path, {
+		return await this.#apiGet('api.get.realpath_files', path, {
 			path_resource: path_resource
 		});
 	}
@@ -351,7 +351,7 @@ export class Px2Project {
 	 * ローカルリソースのキャッシュディレクトリのパスを得る
 	 */
 	async path_files_cache(path: string, path_resource: string = ''): Promise<string> {
-		return await this.apiGet('api.get.path_files_cache', path, {
+		return await this.#apiGet('api.get.path_files_cache', path, {
 			path_resource: path_resource
 		});
 	}
@@ -360,7 +360,7 @@ export class Px2Project {
 	 * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
 	 */
 	async realpath_files_cache(path: string, path_resource: string = ''): Promise<string> {
-		return await this.apiGet('api.get.realpath_files_cache', path, {
+		return await this.#apiGet('api.get.realpath_files_cache', path, {
 			path_resource: path_resource
 		});
 	}
@@ -369,7 +369,7 @@ export class Px2Project {
 	 * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
 	 */
 	async realpath_files_private_cache(path: string, path_resource: string = ''): Promise<string> {
-		return await this.apiGet('api.get.realpath_files_private_cache', path, {
+		return await this.#apiGet('api.get.realpath_files_private_cache', path, {
 			path_resource: path_resource
 		});
 	}
@@ -378,35 +378,35 @@ export class Px2Project {
 	 * domain を取得する
 	 */
 	async get_domain(): Promise<string> {
-		return await this.apiGet('api.get.domain', '/', {});
+		return await this.#apiGet('api.get.domain', '/', {});
 	}
 
 	/**
 	 * directory_index(省略できるファイル名) の一覧を得る
 	 */
 	async get_directory_index(): Promise<string[]> {
-		return await this.apiGet('api.get.directory_index', '/', {});
+		return await this.#apiGet('api.get.directory_index', '/', {});
 	}
 
 	/**
 	 * 最も優先されるインデックスファイル名を得る
 	 */
 	async get_directory_index_primary(): Promise<string> {
-		return await this.apiGet('api.get.directory_index_primary', '/', {});
+		return await this.#apiGet('api.get.directory_index_primary', '/', {});
 	}
 
 	/**
 	 * ファイルの処理方法を調べる
 	 */
 	async get_path_proc_type(path: string): Promise<string> {
-		return await this.apiGet('api.get.path_proc_type', path, {});
+		return await this.#apiGet('api.get.path_proc_type', path, {});
 	}
 
 	/**
 	 * リンク先のパスを生成する
 	 */
 	async href(path_linkto: string): Promise<string> {
-		return await this.apiGet('api.get.href', '/', {
+		return await this.#apiGet('api.get.href', '/', {
 			linkto: path_linkto
 		});
 	}
@@ -415,7 +415,7 @@ export class Px2Project {
 	 * パスがダイナミックパスにマッチするか調べる
 	 */
 	async is_match_dynamic_path(path: string): Promise<boolean> {
-		return await this.apiGet('api.is.match_dynamic_path', '/', {
+		return await this.#apiGet('api.is.match_dynamic_path', '/', {
 			path: path
 		});
 	}
@@ -424,7 +424,7 @@ export class Px2Project {
 	 * ページが、パンくず内に存在しているか調べる
 	 */
 	async is_page_in_breadcrumb(path: string, path_in: string): Promise<boolean> {
-		return await this.apiGet('api.is.page_in_breadcrumb', path, {
+		return await this.#apiGet('api.is.page_in_breadcrumb', path, {
 			path: path_in
 		});
 	}
@@ -433,7 +433,7 @@ export class Px2Project {
 	 * 除外ファイルか調べる
 	 */
 	async is_ignore_path(path: string): Promise<boolean> {
-		return await this.apiGet('api.is.ignore_path', '/', {
+		return await this.#apiGet('api.is.ignore_path', '/', {
 			path: path
 		});
 	}
@@ -495,7 +495,7 @@ export class Px2Project {
 	 * get_children() へ渡されるオプションを調整する
 	 * この形式のオプションは、get_bros(), get_bros_next(), get_bros_prev(), get_next(), get_prev() でも共通です。
 	 */
-	private sitemap_children_params(options: SitemapChildrenOptions): Record<string, string> {
+	#sitemap_children_params(options: SitemapChildrenOptions): Record<string, string> {
 		function boolize(val: any): string | null {
 			if (val === null || val === undefined) {
 				return null;

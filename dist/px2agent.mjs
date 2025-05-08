@@ -1,13 +1,40 @@
 import { spawn } from 'child_process';
 
-/**
- * px2project.ts
- */
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise, SuppressedError, Symbol, Iterator */
+
+
+function __classPrivateFieldGet(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+}
+
+typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
+
+var _Px2Project_instances, _Px2Project_apiGet, _Px2Project_sitemap_children_params;
 class Px2Project {
     /**
      * Px2Projectクラスのコンストラクタ
      */
     constructor(php_self, options = {}) {
+        _Px2Project_instances.add(this);
         this.php_self = php_self;
         this.options = options || {};
         this.options.bin = this.options.bin || 'php';
@@ -103,55 +130,34 @@ class Px2Project {
         });
     }
     /**
-     * PX=api.*を投げる
-     */
-    async apiGet(cmd, path = '/', param = {}) {
-        const aryParam = Object.entries(param).map(([key, value]) => {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(value);
-        });
-        const paramStr = aryParam.length ? '&' + aryParam.join('&') : '';
-        try {
-            const data = await this.query(path + '?PX=' + cmd + paramStr);
-            try {
-                return JSON.parse(data);
-            }
-            catch (e) {
-                throw new Error('JSON Parse ERROR: "' + data + '";');
-            }
-        }
-        catch (error) {
-            throw error;
-        }
-    }
-    /**
      * PXコマンドを実行する
      */
     async px_command(cmd, path = '/', param = {}) {
-        return await this.apiGet(cmd, path, param);
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, cmd, path, param);
     }
     /**
      * バージョン番号を取得する
      */
     async get_version() {
-        return await this.apiGet('api.get.version', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.version', '/', {});
     }
     /**
      * configデータを取得する
      */
     async get_config() {
-        return await this.apiGet('api.get.config', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.config', '/', {});
     }
     /**
      * サイトマップデータを取得する
      */
     async get_sitemap() {
-        return await this.apiGet('api.get.sitemap', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.sitemap', '/', {});
     }
     /**
      * pathまたはidからページ情報を得る
      */
     async get_page_info(path) {
-        return await this.apiGet('api.get.page_info', '/', {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.page_info', '/', {
             path: path
         });
     }
@@ -159,61 +165,61 @@ class Px2Project {
      * 親ページのIDを取得する
      */
     async get_parent(path) {
-        return await this.apiGet('api.get.parent', path, {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.parent', path, {});
     }
     /**
      * 子階層のページの一覧を取得する
      */
     async get_children(path, options) {
-        const params = this.sitemap_children_params(options || {});
-        return await this.apiGet('api.get.children', path, params);
+        const params = __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_sitemap_children_params).call(this, options || {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.children', path, params);
     }
     /**
      * 兄弟ページの一覧を取得する
      */
     async get_bros(path, options) {
-        const params = this.sitemap_children_params(options || {});
-        return await this.apiGet('api.get.bros', path, params);
+        const params = __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_sitemap_children_params).call(this, options || {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.bros', path, params);
     }
     /**
      * 次の兄弟ページを取得する
      */
     async get_bros_next(path, options) {
-        const params = this.sitemap_children_params(options || {});
-        return await this.apiGet('api.get.bros_next', path, params);
+        const params = __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_sitemap_children_params).call(this, options || {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.bros_next', path, params);
     }
     /**
      * 前の兄弟ページを取得する
      */
     async get_bros_prev(path, options) {
-        const params = this.sitemap_children_params(options || {});
-        return await this.apiGet('api.get.bros_prev', path, params);
+        const params = __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_sitemap_children_params).call(this, options || {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.bros_prev', path, params);
     }
     /**
      * 次のページを取得する
      */
     async get_next(path, options) {
-        const params = this.sitemap_children_params(options || {});
-        return await this.apiGet('api.get.next', path, params);
+        const params = __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_sitemap_children_params).call(this, options || {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.next', path, params);
     }
     /**
      * 前のページを取得する
      */
     async get_prev(path, options) {
-        const params = this.sitemap_children_params(options || {});
-        return await this.apiGet('api.get.prev', path, params);
+        const params = __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_sitemap_children_params).call(this, options || {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.prev', path, params);
     }
     /**
      * パンくず配列を取得する
      */
     async get_breadcrumb_array(path) {
-        return await this.apiGet('api.get.breadcrumb_array', path, {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.breadcrumb_array', path, {});
     }
     /**
      * ダイナミックパス情報を得る
      */
     async get_dynamic_path_info(path) {
-        return await this.apiGet('api.get.dynamic_path_info', '/', {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.dynamic_path_info', '/', {
             path: path
         });
     }
@@ -221,7 +227,7 @@ class Px2Project {
      * ダイナミックパスに値をバインドする
      */
     async bind_dynamic_path_param(path, param) {
-        return await this.apiGet('api.get.bind_dynamic_path_param', '/', {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.bind_dynamic_path_param', '/', {
             path: path,
             param: JSON.stringify(param)
         });
@@ -230,13 +236,13 @@ class Px2Project {
      * role を取得する
      */
     async get_role(path) {
-        return await this.apiGet('api.get.role', path, {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.role', path, {});
     }
     /**
      * Actor のページID一覧を取得する
      */
     async get_actors(path) {
-        return await this.apiGet('api.get.actors', path, {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.actors', path, {});
     }
     /**
      * get home directory path (deprecated)
@@ -245,19 +251,19 @@ class Px2Project {
      * 代わりに、 `get_realpath_homedir()` を使用してください。
      */
     async get_path_homedir() {
-        return await this.apiGet('api.get.path_homedir', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_homedir', '/', {});
     }
     /**
      * get home directory path
      */
     async get_realpath_homedir() {
-        return await this.apiGet('api.get.path_homedir', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_homedir', '/', {});
     }
     /**
      * コンテンツルートディレクトリのパス(=install path) を取得する
      */
     async get_path_controot() {
-        return await this.apiGet('api.get.path_controot', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_controot', '/', {});
     }
     /**
      * DOCUMENT_ROOT のパスを取得する (deprecated)
@@ -266,25 +272,25 @@ class Px2Project {
      * 代わりに、 `get_realpath_docroot()` を使用してください。
      */
     async get_path_docroot() {
-        return await this.apiGet('api.get.path_docroot', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_docroot', '/', {});
     }
     /**
      * DOCUMENT_ROOT のパスを取得する
      */
     async get_realpath_docroot() {
-        return await this.apiGet('api.get.path_docroot', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_docroot', '/', {});
     }
     /**
      * get content path
      */
     async get_path_content(path) {
-        return await this.apiGet('api.get.path_content', path, {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_content', path, {});
     }
     /**
      * ローカルリソースディレクトリのパスを得る
      */
     async path_files(path, path_resource = '') {
-        return await this.apiGet('api.get.path_files', path, {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_files', path, {
             path_resource: path_resource
         });
     }
@@ -292,7 +298,7 @@ class Px2Project {
      * ローカルリソースディレクトリのサーバー内部パスを得る
      */
     async realpath_files(path, path_resource = '') {
-        return await this.apiGet('api.get.realpath_files', path, {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.realpath_files', path, {
             path_resource: path_resource
         });
     }
@@ -300,7 +306,7 @@ class Px2Project {
      * ローカルリソースのキャッシュディレクトリのパスを得る
      */
     async path_files_cache(path, path_resource = '') {
-        return await this.apiGet('api.get.path_files_cache', path, {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_files_cache', path, {
             path_resource: path_resource
         });
     }
@@ -308,7 +314,7 @@ class Px2Project {
      * ローカルリソースのキャッシュディレクトリのサーバー内部パスを得る
      */
     async realpath_files_cache(path, path_resource = '') {
-        return await this.apiGet('api.get.realpath_files_cache', path, {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.realpath_files_cache', path, {
             path_resource: path_resource
         });
     }
@@ -316,7 +322,7 @@ class Px2Project {
      * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
      */
     async realpath_files_private_cache(path, path_resource = '') {
-        return await this.apiGet('api.get.realpath_files_private_cache', path, {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.realpath_files_private_cache', path, {
             path_resource: path_resource
         });
     }
@@ -324,31 +330,31 @@ class Px2Project {
      * domain を取得する
      */
     async get_domain() {
-        return await this.apiGet('api.get.domain', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.domain', '/', {});
     }
     /**
      * directory_index(省略できるファイル名) の一覧を得る
      */
     async get_directory_index() {
-        return await this.apiGet('api.get.directory_index', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.directory_index', '/', {});
     }
     /**
      * 最も優先されるインデックスファイル名を得る
      */
     async get_directory_index_primary() {
-        return await this.apiGet('api.get.directory_index_primary', '/', {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.directory_index_primary', '/', {});
     }
     /**
      * ファイルの処理方法を調べる
      */
     async get_path_proc_type(path) {
-        return await this.apiGet('api.get.path_proc_type', path, {});
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_proc_type', path, {});
     }
     /**
      * リンク先のパスを生成する
      */
     async href(path_linkto) {
-        return await this.apiGet('api.get.href', '/', {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.href', '/', {
             linkto: path_linkto
         });
     }
@@ -356,7 +362,7 @@ class Px2Project {
      * パスがダイナミックパスにマッチするか調べる
      */
     async is_match_dynamic_path(path) {
-        return await this.apiGet('api.is.match_dynamic_path', '/', {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.match_dynamic_path', '/', {
             path: path
         });
     }
@@ -364,7 +370,7 @@ class Px2Project {
      * ページが、パンくず内に存在しているか調べる
      */
     async is_page_in_breadcrumb(path, path_in) {
-        return await this.apiGet('api.is.page_in_breadcrumb', path, {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.page_in_breadcrumb', path, {
             path: path_in
         });
     }
@@ -372,7 +378,7 @@ class Px2Project {
      * 除外ファイルか調べる
      */
     async is_ignore_path(path) {
-        return await this.apiGet('api.is.ignore_path', '/', {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.ignore_path', '/', {
             path: path
         });
     }
@@ -417,38 +423,55 @@ class Px2Project {
     clearcache(opt = {}) {
         return this.query('/?PX=clearcache', opt);
     }
-    /**
-     * get_children() へ渡されるオプションを調整する
-     * この形式のオプションは、get_bros(), get_bros_next(), get_bros_prev(), get_next(), get_prev() でも共通です。
-     */
-    sitemap_children_params(options) {
-        function boolize(val) {
-            if (val === null || val === undefined) {
-                return null;
-            }
-            else if (typeof (val) === 'string') {
-                switch (val) {
-                    case 'true':
-                    case '1':
-                        return 'true';
-                    case 'false':
-                    case '0':
-                        return 'false';
-                }
-            }
-            else {
-                return val ? 'true' : 'false';
-            }
+}
+_Px2Project_instances = new WeakSet(), _Px2Project_apiGet = 
+/**
+ * PX=api.*を投げる
+ */
+async function _Px2Project_apiGet(cmd, path = '/', param = {}) {
+    const aryParam = Object.entries(param).map(([key, value]) => {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(value);
+    });
+    const paramStr = aryParam.length ? '&' + aryParam.join('&') : '';
+    try {
+        const data = await this.query(path + '?PX=' + cmd + paramStr);
+        try {
+            return JSON.parse(data);
+        }
+        catch (e) {
+            throw new Error('JSON Parse ERROR: "' + data + '";');
+        }
+    }
+    catch (error) {
+        throw error;
+    }
+}, _Px2Project_sitemap_children_params = function _Px2Project_sitemap_children_params(options) {
+    function boolize(val) {
+        if (val === null || val === undefined) {
             return null;
         }
-        const rtn = {};
-        const filter = boolize(options.filter);
-        if (filter !== null) {
-            rtn['filter'] = filter;
+        else if (typeof (val) === 'string') {
+            switch (val) {
+                case 'true':
+                case '1':
+                    return 'true';
+                case 'false':
+                case '0':
+                    return 'false';
+            }
         }
-        return rtn;
+        else {
+            return val ? 'true' : 'false';
+        }
+        return null;
     }
-}
+    const rtn = {};
+    const filter = boolize(options.filter);
+    if (filter !== null) {
+        rtn['filter'] = filter;
+    }
+    return rtn;
+};
 
 /**
  * px2agent.ts

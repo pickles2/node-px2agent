@@ -171,6 +171,10 @@ $ npm run documentation
 
 ## 更新履歴 - Change log
 
+### px2agent v3.1.0 (リリース日未定)
+
+- 内部コードの改善。
+
 ### px2agent v3.0.0 (2025年5月5日)
 
 - コールバックベースAPIからPromise/async-awaitベースAPIへの変更
