@@ -192,6 +192,12 @@ class Px2Project {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.path_docroot', '/', {});
     }
     /**
+     * テーマコレクションディレクトリの絶対パスを取得する
+     */
+    async get_realpath_theme_collection_dir() {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.get.realpath_theme_collection_dir', '/', {});
+    }
+    /**
      * directory_index(省略できるファイル名) の一覧を得る
      */
     async get_directory_index() {
@@ -239,6 +245,14 @@ class Px2Project {
     async is_ignore_path(path) {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.is.ignore_path', '/', {
             path: path
+        });
+    }
+    /**
+     * コンフィグ項目を変更する
+     */
+    async update_config(json) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.config.update', '/', {
+            json: JSON.stringify(json),
         });
     }
     // ----------------------------------------------------------------------------
@@ -338,6 +352,31 @@ class Px2Project {
     async get_actors(path) {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.actors', path, {});
     }
+    /**
+     * サイトマップ中のページを検索する
+     */
+    async search_sitemap(keyword, limit) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.search_sitemap', '/', {
+            keyword: keyword,
+            limit: limit,
+        });
+    }
+    /**
+     * 新規サイトマップファイルを作成する
+     */
+    async create_sitemap(filename) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.sitemap.create', '/', {
+            filename: filename,
+        });
+    }
+    /**
+     * サイトマップファイルを削除する
+     */
+    async delete_sitemap(filename) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.sitemap.delete', '/', {
+            filename: filename,
+        });
+    }
     // ----------------------------------------------------------------------------
     // BlogKit
     /**
@@ -376,8 +415,8 @@ class Px2Project {
     async get_blog_article_list(blog_id, options) {
         const stringParams = {};
         stringParams.blog_id = blog_id;
-        stringParams.dpp = String(options?.dpp || 50);
-        stringParams.p = String(options?.p || 1);
+        stringParams.dpp = options?.dpp || 50;
+        stringParams.p = options?.p || 1;
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.get_article_list', '/', stringParams || {});
     }
     /**
@@ -416,6 +455,55 @@ class Px2Project {
     async get_page_info(path) {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.page_info', '/', {
             path: path
+        });
+    }
+    /**
+     * pathまたはidからページ情報(無加工)を得る
+     */
+    async get_page_info_raw(filefullname, row) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.page.get_page_info_raw', '/', {
+            filefullname: filefullname,
+            row: row,
+        });
+    }
+    /**
+     * ページ情報(無加工)を追加する
+     */
+    async add_page_info_raw(filefullname, row, page_info) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.page.add_page_info_raw', '/', {
+            filefullname: filefullname,
+            row: row,
+            page_info: page_info,
+        });
+    }
+    /**
+     * ページ情報を移動する
+     */
+    async move_page_info_raw(from_filefullname, from_row, to_filefullname, to_row) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.page.move_page_info_raw', '/', {
+            from_filefullname: from_filefullname,
+            from_row: from_row,
+            to_filefullname: to_filefullname,
+            to_row: to_row,
+        });
+    }
+    /**
+     * ページ情報を更新する
+     */
+    async update_page_info_raw(filefullname, row, page_info) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.page.update_page_info_raw', '/', {
+            filefullname: filefullname,
+            row: row,
+            page_info: page_info,
+        });
+    }
+    /**
+     * ページ情報を更新する
+     */
+    async delete_page_info_raw(filefullname, row) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.page.delete_page_info_raw', '/', {
+            filefullname: filefullname,
+            row: row,
         });
     }
     // ----------------------------------------------------------------------------
@@ -464,6 +552,54 @@ class Px2Project {
     async realpath_files_private_cache(path, path_resource = '') {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'api.get.realpath_files_private_cache', path, {
             path_resource: path_resource
+        });
+    }
+    /**
+     * コンテンツの編集モードを調べる
+     */
+    async check_editor_mode(path) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.check_editor_mode', path, {});
+    }
+    /**
+     * コンテンツを移動する
+     */
+    async move_content(from, to) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.content.move', '/', {
+            from: from,
+            to: to,
+        });
+    }
+    /**
+     * コンテンツを削除する
+     */
+    async delete_content(path) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.content.delete', path, {});
+    }
+    /**
+     * コンテンツを削除する
+     */
+    async init_content(path, options) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.init_content', path, {
+            editor_mode: options.editor_mode,
+            force: options.force ? '1' : '',
+        });
+    }
+    /**
+     * コンテンツを複製する
+     */
+    async copy_content(from, to, options) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.copy_content', '/', {
+            from: from,
+            to: to,
+            force: options.force ? '1' : '',
+        });
+    }
+    /**
+     * コンテンツ編集モードを変更する
+     */
+    async change_content_editor_mode(path, editor_mode) {
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'px2dthelper.change_content_editor_mode', path, {
+            editor_mode: editor_mode,
         });
     }
     // ----------------------------------------------------------------------------

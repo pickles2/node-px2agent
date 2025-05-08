@@ -128,6 +128,22 @@ var px2proj = require('px2agent').createProject(
 - `px2proj.create_new_blog_article()` を追加。
 - `px2proj.update_blog_article()` を追加。
 - `px2proj.delete_blog_article()` を追加。
+- `px2proj.get_realpath_theme_collection_dir()` を追加。
+- `px2proj.check_editor_mode()` を追加。
+- `px2proj.search_sitemap()` を追加。
+- `px2proj.create_sitemap()` を追加。
+- `px2proj.delete_sitemap()` を追加。
+- `px2proj.get_page_info_raw()` を追加。
+- `px2proj.add_page_info_raw()` を追加。
+- `px2proj.move_page_info_raw()` を追加。
+- `px2proj.update_page_info_raw()` を追加。
+- `px2proj.delete_page_info_raw()` を追加。
+- `px2proj.move_content()` を追加。
+- `px2proj.delete_content()` を追加。
+- `px2proj.init_content()` を追加。
+- `px2proj.copy_content()` を追加。
+- `px2proj.change_content_editor_mode()` を追加。
+- `px2proj.update_config()` を追加。
 - その他、内部コードの改善。
 
 ### px2agent v3.0.0 (2025年5月5日)

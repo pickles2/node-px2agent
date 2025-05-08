@@ -132,7 +132,7 @@ export class Px2Project {
 	/**
 	 * PXコマンドを実行する
 	 */
-	async px_command(cmd: string, path: string = '/', param: Record<string, string> = {}): Promise<any> {
+	async px_command(cmd: string, path: string = '/', param: Record<string, string | number> = {}): Promise<any> {
 		return await this.#apiGet(cmd, path, param);
 	}
 
@@ -199,6 +199,13 @@ export class Px2Project {
 	}
 
 	/**
+	 * テーマコレクションディレクトリの絶対パスを取得する
+	 */
+	async get_realpath_theme_collection_dir(): Promise<string> {
+		return await this.#apiGet('px2dthelper.get.realpath_theme_collection_dir', '/', {});
+	}
+
+	/**
 	 * directory_index(省略できるファイル名) の一覧を得る
 	 */
 	async get_directory_index(): Promise<string[]> {
@@ -254,6 +261,16 @@ export class Px2Project {
 			path: path
 		});
 	}
+
+	/**
+	 * コンフィグ項目を変更する
+	 */
+	async update_config(json: Record<string, string | number>): Promise<string> {
+		return await this.#apiGet('px2dthelper.config.update', '/', {
+			json: JSON.stringify(json),
+		});
+	}
+
 
 	// ----------------------------------------------------------------------------
 	// Sitemap
@@ -346,7 +363,7 @@ export class Px2Project {
 	/**
 	 * ダイナミックパスに値をバインドする
 	 */
-	async bind_dynamic_path_param(path: string, param: Record<string, string>): Promise<string> {
+	async bind_dynamic_path_param(path: string, param: Record<string, string | number>): Promise<string> {
 		return await this.#apiGet('api.get.bind_dynamic_path_param', '/', {
 			path: path,
 			param: JSON.stringify(param)
@@ -367,6 +384,34 @@ export class Px2Project {
 		return await this.#apiGet('api.get.actors', path, {});
 	}
 
+	/**
+	 * サイトマップ中のページを検索する
+	 */
+	async search_sitemap(keyword: string, limit: number): Promise<string> {
+		return await this.#apiGet('px2dthelper.search_sitemap', '/', {
+			keyword: keyword,
+			limit: limit,
+		});
+	}
+
+	/**
+	 * 新規サイトマップファイルを作成する
+	 */
+	async create_sitemap(filename: string): Promise<string> {
+		return await this.#apiGet('px2dthelper.sitemap.create', '/', {
+			filename: filename,
+		});
+	}
+
+	/**
+	 * サイトマップファイルを削除する
+	 */
+	async delete_sitemap(filename: string): Promise<string> {
+		return await this.#apiGet('px2dthelper.sitemap.delete', '/', {
+			filename: filename,
+		});
+	}
+
 
 	// ----------------------------------------------------------------------------
 	// BlogKit
@@ -382,7 +427,7 @@ export class Px2Project {
 	 * ブログマップ定義を取得する
 	 */
 	async get_blogmap_definition(blog_id: string): Promise<any> {
-		const stringParams: Record<string, string> = {};
+		const stringParams: Record<string, string | number> = {};
 		stringParams.blog_id = blog_id;
 		return await this.#apiGet('blogkit.api.get_blogmap_definition', '/', stringParams || {});
 	}
@@ -391,7 +436,7 @@ export class Px2Project {
 	 * 新規ブログを作成する
 	 */
 	async create_new_blog(blog_id: string): Promise<any> {
-		const stringParams: Record<string, string> = {};
+		const stringParams: Record<string, string | number> = {};
 		stringParams.blog_id = blog_id;
 		return await this.#apiGet('blogkit.api.create_new_blog', '/', stringParams || {});
 	}
@@ -400,7 +445,7 @@ export class Px2Project {
 	 * ブログを削除する
 	 */
 	async delete_blog(blog_id: string): Promise<any> {
-		const stringParams: Record<string, string> = {};
+		const stringParams: Record<string, string | number> = {};
 		stringParams.blog_id = blog_id;
 		return await this.#apiGet('blogkit.api.delete_blog', '/', stringParams || {});
 	}
@@ -409,18 +454,18 @@ export class Px2Project {
 	 * ブログ記事の一覧を取得する
 	 */
 	async get_blog_article_list(blog_id: string, options: BlogArticleListOptions): Promise<any> {
-		const stringParams: Record<string, string> = {};
+		const stringParams: Record<string, string | number> = {};
 		stringParams.blog_id = blog_id;
-		stringParams.dpp = String(options?.dpp || 50);
-		stringParams.p = String(options?.p || 1);
+		stringParams.dpp = options?.dpp || 50;
+		stringParams.p = options?.p || 1;
 		return await this.#apiGet('blogkit.api.get_article_list', '/', stringParams || {});
 	}
 
 	/**
 	 * 新規ブログ記事を作成する
 	 */
-	async create_new_blog_article(blog_id: string, fields: Record<string, string>): Promise<any> {
-		const stringParams: Record<string, string> = {};
+	async create_new_blog_article(blog_id: string, fields: Record<string, string | number>): Promise<any> {
+		const stringParams: Record<string, string | number> = {};
 		stringParams.blog_id = blog_id;
 		stringParams.fields = JSON.stringify(fields);
 		return await this.#apiGet('blogkit.api.create_new_article', '/', stringParams || {});
@@ -429,8 +474,8 @@ export class Px2Project {
 	/**
 	 * ブログ記事を更新する
 	 */
-	async update_blog_article(blog_id: string, path: string, fields: Record<string, string>): Promise<any> {
-		const stringParams: Record<string, string> = {};
+	async update_blog_article(blog_id: string, path: string, fields: Record<string, string | number>): Promise<any> {
+		const stringParams: Record<string, string | number> = {};
 		stringParams.blog_id = blog_id;
 		stringParams.path = path;
 		stringParams.fields = JSON.stringify(fields);
@@ -441,7 +486,7 @@ export class Px2Project {
 	 * ブログ記事を削除する
 	 */
 	async delete_blog_article(blog_id: string, path: string): Promise<any> {
-		const stringParams: Record<string, string> = {};
+		const stringParams: Record<string, string | number> = {};
 		stringParams.blog_id = blog_id;
 		stringParams.path = path;
 		return await this.#apiGet('blogkit.api.delete_article', '/', stringParams || {});
@@ -457,6 +502,60 @@ export class Px2Project {
 	async get_page_info(path: string): Promise<any> {
 		return await this.#apiGet('api.get.page_info', '/', {
 			path: path
+		});
+	}
+
+	/**
+	 * pathまたはidからページ情報(無加工)を得る
+	 */
+	async get_page_info_raw(filefullname: string, row: number): Promise<string> {
+		return await this.#apiGet('px2dthelper.page.get_page_info_raw', '/', {
+			filefullname: filefullname,
+			row: row,
+		});
+	}
+
+	/**
+	 * ページ情報(無加工)を追加する
+	 */
+	async add_page_info_raw(filefullname: string, row: number, page_info: any): Promise<string> {
+		return await this.#apiGet('px2dthelper.page.add_page_info_raw', '/', {
+			filefullname: filefullname,
+			row: row,
+			page_info: page_info,
+		});
+	}
+
+	/**
+	 * ページ情報を移動する
+	 */
+	async move_page_info_raw(from_filefullname: string, from_row: number, to_filefullname: string, to_row: number): Promise<string> {
+		return await this.#apiGet('px2dthelper.page.move_page_info_raw', '/', {
+			from_filefullname: from_filefullname,
+			from_row: from_row,
+			to_filefullname: to_filefullname,
+			to_row: to_row,
+		});
+	}
+
+	/**
+	 * ページ情報を更新する
+	 */
+	async update_page_info_raw(filefullname: string, row: number, page_info: any): Promise<string> {
+		return await this.#apiGet('px2dthelper.page.update_page_info_raw', '/', {
+			filefullname: filefullname,
+			row: row,
+			page_info: page_info,
+		});
+	}
+
+	/**
+	 * ページ情報を更新する
+	 */
+	async delete_page_info_raw(filefullname: string, row: number): Promise<string> {
+		return await this.#apiGet('px2dthelper.page.delete_page_info_raw', '/', {
+			filefullname: filefullname,
+			row: row,
 		});
 	}
 
@@ -513,6 +612,60 @@ export class Px2Project {
 	async realpath_files_private_cache(path: string, path_resource: string = ''): Promise<string> {
 		return await this.#apiGet('api.get.realpath_files_private_cache', path, {
 			path_resource: path_resource
+		});
+	}
+
+	/**
+	 * コンテンツの編集モードを調べる
+	 */
+	async check_editor_mode(path: string): Promise<string> {
+		return await this.#apiGet('px2dthelper.check_editor_mode', path, {});
+	}
+
+	/**
+	 * コンテンツを移動する
+	 */
+	async move_content(from: string, to: string): Promise<string> {
+		return await this.#apiGet('px2dthelper.content.move', '/', {
+			from: from,
+			to: to,
+		});
+	}
+
+	/**
+	 * コンテンツを削除する
+	 */
+	async delete_content(path: string): Promise<string> {
+		return await this.#apiGet('px2dthelper.content.delete', path, {});
+	}
+
+	/**
+	 * コンテンツを削除する
+	 */
+	async init_content(path: string, options: Record<string, string | number>): Promise<string> {
+		return await this.#apiGet('px2dthelper.init_content', path, {
+			editor_mode: options.editor_mode,
+			force: options.force ? '1' : '',
+		});
+	}
+
+	/**
+	 * コンテンツを複製する
+	 */
+	async copy_content(from: string, to: string, options: Record<string, string | number>): Promise<string> {
+		return await this.#apiGet('px2dthelper.copy_content', '/', {
+			from: from,
+			to: to,
+			force: options.force ? '1' : '',
+		});
+	}
+
+	/**
+	 * コンテンツ編集モードを変更する
+	 */
+	async change_content_editor_mode(path: string, editor_mode: string): Promise<string> {
+		return await this.#apiGet('px2dthelper.change_content_editor_mode', path, {
+			editor_mode: editor_mode,
 		});
 	}
 
@@ -584,7 +737,7 @@ export class Px2Project {
 	/**
 	 * PX=* を投げる
 	 */
-	async #apiGet(cmd: string, path: string = '/', param: Record<string, string> = {}): Promise<any> {
+	async #apiGet(cmd: string, path: string = '/', param: Record<string, string | number> = {}): Promise<any> {
 		const aryParam = Object.entries(param).map(([key, value]) => {
 			return encodeURIComponent(key) + '=' + encodeURIComponent(value);
 		});
@@ -608,7 +761,7 @@ export class Px2Project {
 	 * get_children() へ渡されるオプションを調整する
 	 * この形式のオプションは、get_bros(), get_bros_next(), get_bros_prev(), get_next(), get_prev() でも共通です。
 	 */
-	#sitemap_children_params(options: SitemapChildrenOptions): Record<string, string> {
+	#sitemap_children_params(options: SitemapChildrenOptions): Record<string, string | number> {
 		function boolize(val: any): string | null {
 			if (val === null || val === undefined) {
 				return null;
@@ -627,7 +780,7 @@ export class Px2Project {
 			return null;
 		}
 		
-		const rtn: Record<string, string> = {};
+		const rtn: Record<string, string | number> = {};
 		const filter = boolize(options.filter);
 		
 		if (filter !== null) {

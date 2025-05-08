@@ -14,7 +14,7 @@ export declare class Px2Project {
     /**
      * PXコマンドを実行する
      */
-    px_command(cmd: string, path?: string, param?: Record<string, string>): Promise<any>;
+    px_command(cmd: string, path?: string, param?: Record<string, string | number>): Promise<any>;
     /**
      * バージョン番号を取得する
      */
@@ -54,6 +54,10 @@ export declare class Px2Project {
      */
     get_realpath_docroot(): Promise<string>;
     /**
+     * テーマコレクションディレクトリの絶対パスを取得する
+     */
+    get_realpath_theme_collection_dir(): Promise<string>;
+    /**
      * directory_index(省略できるファイル名) の一覧を得る
      */
     get_directory_index(): Promise<string[]>;
@@ -81,6 +85,10 @@ export declare class Px2Project {
      * 除外ファイルか調べる
      */
     is_ignore_path(path: string): Promise<boolean>;
+    /**
+     * コンフィグ項目を変更する
+     */
+    update_config(json: Record<string, string | number>): Promise<string>;
     /**
      * サイトマップ定義を取得する
      */
@@ -128,7 +136,7 @@ export declare class Px2Project {
     /**
      * ダイナミックパスに値をバインドする
      */
-    bind_dynamic_path_param(path: string, param: Record<string, string>): Promise<string>;
+    bind_dynamic_path_param(path: string, param: Record<string, string | number>): Promise<string>;
     /**
      * role を取得する
      */
@@ -137,6 +145,18 @@ export declare class Px2Project {
      * Actor のページID一覧を取得する
      */
     get_actors(path: string): Promise<string[]>;
+    /**
+     * サイトマップ中のページを検索する
+     */
+    search_sitemap(keyword: string, limit: number): Promise<string>;
+    /**
+     * 新規サイトマップファイルを作成する
+     */
+    create_sitemap(filename: string): Promise<string>;
+    /**
+     * サイトマップファイルを削除する
+     */
+    delete_sitemap(filename: string): Promise<string>;
     /**
      * ブログ一覧を取得する
      */
@@ -160,11 +180,11 @@ export declare class Px2Project {
     /**
      * 新規ブログ記事を作成する
      */
-    create_new_blog_article(blog_id: string, fields: Record<string, string>): Promise<any>;
+    create_new_blog_article(blog_id: string, fields: Record<string, string | number>): Promise<any>;
     /**
      * ブログ記事を更新する
      */
-    update_blog_article(blog_id: string, path: string, fields: Record<string, string>): Promise<any>;
+    update_blog_article(blog_id: string, path: string, fields: Record<string, string | number>): Promise<any>;
     /**
      * ブログ記事を削除する
      */
@@ -173,6 +193,26 @@ export declare class Px2Project {
      * pathまたはidからページ情報を得る
      */
     get_page_info(path: string): Promise<any>;
+    /**
+     * pathまたはidからページ情報(無加工)を得る
+     */
+    get_page_info_raw(filefullname: string, row: number): Promise<string>;
+    /**
+     * ページ情報(無加工)を追加する
+     */
+    add_page_info_raw(filefullname: string, row: number, page_info: any): Promise<string>;
+    /**
+     * ページ情報を移動する
+     */
+    move_page_info_raw(from_filefullname: string, from_row: number, to_filefullname: string, to_row: number): Promise<string>;
+    /**
+     * ページ情報を更新する
+     */
+    update_page_info_raw(filefullname: string, row: number, page_info: any): Promise<string>;
+    /**
+     * ページ情報を更新する
+     */
+    delete_page_info_raw(filefullname: string, row: number): Promise<string>;
     /**
      * get content path
      */
@@ -197,6 +237,30 @@ export declare class Px2Project {
      * コンテンツ別の非公開キャッシュディレクトリのサーバー内部パスを得る
      */
     realpath_files_private_cache(path: string, path_resource?: string): Promise<string>;
+    /**
+     * コンテンツの編集モードを調べる
+     */
+    check_editor_mode(path: string): Promise<string>;
+    /**
+     * コンテンツを移動する
+     */
+    move_content(from: string, to: string): Promise<string>;
+    /**
+     * コンテンツを削除する
+     */
+    delete_content(path: string): Promise<string>;
+    /**
+     * コンテンツを削除する
+     */
+    init_content(path: string, options: Record<string, string | number>): Promise<string>;
+    /**
+     * コンテンツを複製する
+     */
+    copy_content(from: string, to: string, options: Record<string, string | number>): Promise<string>;
+    /**
+     * コンテンツ編集モードを変更する
+     */
+    change_content_editor_mode(path: string, editor_mode: string): Promise<string>;
     /**
      * パブリッシュする
      */
