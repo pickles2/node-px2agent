@@ -618,6 +618,42 @@ describe('ignore_pathかどうか調べる', () => {
 	});
 });
 
+describe('BlogKit API のテスト', () => {
+	const pj = getProject('htdocs1');
+
+	it("ブログマップ定義を取得する", async () => {
+		const result = await pj.get_blogmap_definition('sample');
+		expect(typeof result).toBe('object');
+		expect(result.result).toBe(true);
+		expect(typeof result.blogmap_definition).toBe('object');
+		expect(result.blogmap_definition[0].label).toBe('title');
+		expect(result.blogmap_definition[0].type).toBe('text');
+		expect(result.blogmap_definition[0].key).toBe('title');
+	});
+
+	it("ブログ testblog を作成する", async () => {
+		const result = await pj.create_new_blog('testblog');
+		expect(typeof result).toBe('object');
+		expect(result.result).toBe(true);
+	});
+
+	it("ブログ一覧を取得する", async () => {
+		const result = await pj.get_blog_list();
+		expect(typeof result).toBe('object');
+		expect(result.result).toBe(true);
+		expect(typeof result.blog_list).toBe('object');
+		expect(result.blog_list.length).toBe(2);
+		expect(result.blog_list[0].blog_id).toBe('sample');
+		expect(result.blog_list[1].blog_id).toBe('testblog');
+	});
+
+	it("ブログ testblog を削除する", async () => {
+		const result = await pj.delete_blog('testblog');
+		expect(typeof result).toBe('object');
+		expect(result.result).toBe(true);
+	});
+});
+
 describe('パブリッシュするテスト', () => {
 	const pj = getProject('htdocs1');
 

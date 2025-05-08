@@ -351,16 +351,6 @@ class Px2Project {
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.get_blog_list', '/', {});
     }
     /**
-     * ブログ記事の一覧を取得する
-     */
-    async get_blog_article_list(blog_id, options) {
-        const stringParams = {};
-        stringParams.blog_id = blog_id;
-        stringParams.dpp = String(options?.dpp || 50);
-        stringParams.p = String(options?.p || 1);
-        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.get_article_list', '/', stringParams || {});
-    }
-    /**
      * ブログマップ定義を取得する
      */
     async get_blogmap_definition(blog_id) {
@@ -383,6 +373,16 @@ class Px2Project {
         const stringParams = {};
         stringParams.blog_id = blog_id;
         return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.delete_blog', '/', stringParams || {});
+    }
+    /**
+     * ブログ記事の一覧を取得する
+     */
+    async get_blog_article_list(blog_id, options) {
+        const stringParams = {};
+        stringParams.blog_id = blog_id;
+        stringParams.dpp = String(options?.dpp || 50);
+        stringParams.p = String(options?.p || 1);
+        return await __classPrivateFieldGet(this, _Px2Project_instances, "m", _Px2Project_apiGet).call(this, 'blogkit.api.get_article_list', '/', stringParams || {});
     }
     /**
      * 新規ブログ記事を作成する

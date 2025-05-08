@@ -142,10 +142,6 @@ export declare class Px2Project {
      */
     get_blog_list(): Promise<any>;
     /**
-     * ブログ記事の一覧を取得する
-     */
-    get_blog_article_list(blog_id: string, options: BlogArticleListOptions): Promise<any>;
-    /**
      * ブログマップ定義を取得する
      */
     get_blogmap_definition(blog_id: string): Promise<any>;
@@ -157,6 +153,10 @@ export declare class Px2Project {
      * ブログを削除する
      */
     delete_blog(blog_id: string): Promise<any>;
+    /**
+     * ブログ記事の一覧を取得する
+     */
+    get_blog_article_list(blog_id: string, options: BlogArticleListOptions): Promise<any>;
     /**
      * 新規ブログ記事を作成する
      */

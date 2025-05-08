@@ -379,17 +379,6 @@ export class Px2Project {
 	}
 
 	/**
-	 * ブログ記事の一覧を取得する
-	 */
-	async get_blog_article_list(blog_id: string, options: BlogArticleListOptions): Promise<any> {
-		const stringParams: Record<string, string> = {};
-		stringParams.blog_id = blog_id;
-		stringParams.dpp = String(options?.dpp || 50);
-		stringParams.p = String(options?.p || 1);
-		return await this.#apiGet('blogkit.api.get_article_list', '/', stringParams || {});
-	}
-
-	/**
 	 * ブログマップ定義を取得する
 	 */
 	async get_blogmap_definition(blog_id: string): Promise<any> {
@@ -414,6 +403,17 @@ export class Px2Project {
 		const stringParams: Record<string, string> = {};
 		stringParams.blog_id = blog_id;
 		return await this.#apiGet('blogkit.api.delete_blog', '/', stringParams || {});
+	}
+
+	/**
+	 * ブログ記事の一覧を取得する
+	 */
+	async get_blog_article_list(blog_id: string, options: BlogArticleListOptions): Promise<any> {
+		const stringParams: Record<string, string> = {};
+		stringParams.blog_id = blog_id;
+		stringParams.dpp = String(options?.dpp || 50);
+		stringParams.p = String(options?.p || 1);
+		return await this.#apiGet('blogkit.api.get_article_list', '/', stringParams || {});
 	}
 
 	/**
